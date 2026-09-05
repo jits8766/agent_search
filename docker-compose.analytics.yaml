@@ -1,0 +1,16 @@
+# Optional overlay: wait for ClickHouse healthy before starting the API.
+# Use with the analytics profile:
+#
+#   docker compose -f docker-compose.yaml -f docker-compose.analytics.yaml \
+#     --profile analytics up -d
+#
+# Without this overlay, `--profile analytics` still starts ClickHouse, but the
+# API may come up first and degrade until CH passes readiness.
+
+services:
+  agent-search:
+    depends_on:
+      qdrant:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy

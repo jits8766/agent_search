@@ -1,0 +1,76 @@
+# agent_search local development stack.
+#
+# Prefer scripts/compose-up.sh — it reads clickhouse.enabled from base.yaml:
+#   true  → Qdrant + ClickHouse + API
+#   false → Qdrant + API only
+#
+# Manual (bypasses the lever):
+#   docker compose up -d                              # Qdrant + API
+#   docker compose --profile analytics up -d          # + ClickHouse (no wait)
+#   docker compose -f docker-compose.yaml \
+#     -f docker-compose.analytics.yaml --profile analytics up -d
+#   docker compose down
+#   docker compose down -v
+#
+# Volumes: qdrant_data, clickhouse_data (persist across stop/start/rebuild).
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.13.2
+    ports:
+      - "6333:6333"   # REST API
+      - "6334:6334"   # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+    mem_limit: 6g
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:6333/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  clickhouse:
+    profiles: ["analytics"]
+    image: clickhouse/clickhouse-server:24.8-alpine
+    ports:
+      - "8123:8123"   # HTTP
+      - "9000:9000"   # native protocol
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./clickhouse-config:/etc/clickhouse-server/config.d:ro
+    environment:
+      - CLICKHOUSE_DB=analytics
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    mem_limit: 8g
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:8123/ping || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  agent-search:
+    build:
+      context: .
+      dockerfile: packages/semantic-search/Dockerfile
+    ports:
+      - "8085:8085"
+    # Pretrained models are baked into the image (CI syncs them from S3 before the
+    # build; for a local build, place them at ./pretrained first). No host mount.
+    environment:
+      - QDRANT_HOST=qdrant
+      # Present for analytics profile / external CH. Unused when analytics is off
+      # or CH unreachable — readiness probe + request paths degrade without abort.
+      - CLICKHOUSE_HOST=clickhouse
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+  clickhouse_data:

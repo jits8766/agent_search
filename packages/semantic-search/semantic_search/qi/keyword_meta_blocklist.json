@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "description": "Structural keyword tokens that must never become keyword_contains / keyword_contains_exclude values. Shared by regex + LLM reconcile."
+  },
+  "blocklist": [
+    "digit", "digits", "number", "numbers", "numeral", "numerals",
+    "letter", "letters", "character", "characters", "char", "chars",
+    "word", "words", "keyword", "keywords",
+    "minimum", "maximum", "min", "max",
+    "length", "lengths", "pattern",
+    "name", "domain", "sld",
+    "hyphen", "hyphens", "hypen", "hypens", "hyphn", "dash", "dashes", "-",
+    "is", "no", "or", "not", "now", "and", "the", "a", "an", "for", "with",
+    "under", "below", "above", "over", "either", "just", "skip", "exclude",
+    "added", "explore", "accepted", "auction", "auctions"
+  ]
+}

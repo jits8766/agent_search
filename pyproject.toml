@@ -1,0 +1,46 @@
+[project]
+name = "auc-semantic-search"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+# CPU-only torch — PyPI torch on Linux pulls nvidia-*/triton (~GB). Pin the
+# pytorch.org CPU index so uv.lock never resolves CUDA/cuDNN/NCCL/Triton.
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+# CVE-2026-59890 needs setuptools>=83.0.0. torch 2.13.0+cpu allows setuptools>=77
+# (2.12.x+cpu required setuptools<82 and fought this floor).
+# Pillow 12.2.0 (pulled by fastembed) has PYSEC-2026-2253..2257 / 3451..3453;
+# floor to >=12.3.0 until fastembed bumps its transitive pin.
+[tool.uv]
+# Wait 7 days before resolving newly published package versions (supply-chain cooldown).
+exclude-newer = "7 days"
+# cryptography 50.0.0 (2026-07-31) needed for Dependabot / Bleichenbacher PKCS#7 fix;
+# exempt until global 7-day cooldown admits it (then drop this override).
+exclude-newer-package = { cryptography = false }
+override-dependencies = [
+    "setuptools>=83.0.0",
+    "pillow>=12.3.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "pytest-timeout>=2.3",
+    "torch==2.13.0",
+    "transformers==5.5.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "--import-mode=importlib"

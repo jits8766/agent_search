@@ -1,0 +1,323 @@
+{
+  "arms": [
+    "LLMJ",
+    "QIE_Only_LLM",
+    "Full_Search_LLM"
+  ],
+  "notes": "Term-set exact match (casefold); probabilities on *_keywords_detail only. Threshold already applied in L0 extractor.",
+  "pairs": [
+    {
+      "pair": "LLMJ=QIE_Only_LLM",
+      "arm_a": "LLMJ",
+      "arm_a_label": "offline LLM extract + API-grounded",
+      "arm_b": "QIE_Only_LLM",
+      "arm_b_label": "qie_only LLM (live)",
+      "exact": 937,
+      "n": 1001,
+      "exact_pct": "93.6%",
+      "diff": 64,
+      "diff_pct": "6.4%",
+      "jaccard_mean": 0.9425
+    },
+    {
+      "pair": "LLMJ=Full_Search_LLM",
+      "arm_a": "LLMJ",
+      "arm_a_label": "offline LLM extract + API-grounded",
+      "arm_b": "Full_Search_LLM",
+      "arm_b_label": "full-search LLM (live)",
+      "exact": 948,
+      "n": 1001,
+      "exact_pct": "94.7%",
+      "diff": 53,
+      "diff_pct": "5.3%",
+      "jaccard_mean": 0.9558
+    },
+    {
+      "pair": "QIE_Only_LLM=Full_Search_LLM",
+      "arm_a": "QIE_Only_LLM",
+      "arm_a_label": "qie_only LLM (live)",
+      "arm_b": "Full_Search_LLM",
+      "arm_b_label": "full-search LLM (live)",
+      "exact": 965,
+      "n": 1001,
+      "exact_pct": "96.4%",
+      "diff": 36,
+      "diff_pct": "3.6%",
+      "jaccard_mean": 0.9671
+    }
+  ],
+  "three_arm_exact": 927,
+  "three_arm_n": 1001,
+  "three_arm_exact_pct": 92.6,
+  "three_arm_diff": 74,
+  "miss_extra_vs_llmj": {
+    "QIE_Only_LLM": {
+      "missing": [
+        {
+          "key": "seo",
+          "count": 4
+        },
+        {
+          "key": "ai",
+          "count": 3
+        },
+        {
+          "key": "fintech",
+          "count": 3
+        },
+        {
+          "key": "startup",
+          "count": 2
+        },
+        {
+          "key": "devtools",
+          "count": 2
+        },
+        {
+          "key": "climate",
+          "count": 1
+        },
+        {
+          "key": "tech",
+          "count": 1
+        },
+        {
+          "key": "legal tech",
+          "count": 1
+        },
+        {
+          "key": "keyword",
+          "count": 1
+        },
+        {
+          "key": "portfolio",
+          "count": 1
+        },
+        {
+          "key": "marketing",
+          "count": 1
+        },
+        {
+          "key": "product",
+          "count": 1
+        },
+        {
+          "key": "buyers",
+          "count": 1
+        },
+        {
+          "key": "healthcare",
+          "count": 1
+        },
+        {
+          "key": "gaming",
+          "count": 1
+        },
+        {
+          "key": "tool",
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "key": "brand",
+          "count": 4
+        },
+        {
+          "key": "startup",
+          "count": 3
+        },
+        {
+          "key": "legal",
+          "count": 2
+        },
+        {
+          "key": "tech",
+          "count": 2
+        },
+        {
+          "key": "ai",
+          "count": 2
+        },
+        {
+          "key": "seo",
+          "count": 2
+        },
+        {
+          "key": "notion",
+          "count": 2
+        },
+        {
+          "key": "business",
+          "count": 2
+        },
+        {
+          "key": "professional",
+          "count": 2
+        },
+        {
+          "key": "use",
+          "count": 2
+        },
+        {
+          "key": "starting",
+          "count": 2
+        },
+        {
+          "key": "worth",
+          "count": 2
+        },
+        {
+          "key": "spending",
+          "count": 2
+        },
+        {
+          "key": "fintech",
+          "count": 1
+        },
+        {
+          "key": "climate tech",
+          "count": 1
+        }
+      ]
+    },
+    "Full_Search_LLM": {
+      "missing": [
+        {
+          "key": "seo",
+          "count": 5
+        },
+        {
+          "key": "ai",
+          "count": 4
+        },
+        {
+          "key": "tech",
+          "count": 2
+        },
+        {
+          "key": "fintech",
+          "count": 2
+        },
+        {
+          "key": "startup",
+          "count": 2
+        },
+        {
+          "key": "climate",
+          "count": 1
+        },
+        {
+          "key": "legal tech",
+          "count": 1
+        },
+        {
+          "key": "company",
+          "count": 1
+        },
+        {
+          "key": "keyword",
+          "count": 1
+        },
+        {
+          "key": "devtools",
+          "count": 1
+        },
+        {
+          "key": "healthcare",
+          "count": 1
+        },
+        {
+          "key": "portfolio",
+          "count": 1
+        },
+        {
+          "key": "marketing",
+          "count": 1
+        },
+        {
+          "key": "product",
+          "count": 1
+        },
+        {
+          "key": "wort",
+          "count": 1
+        },
+        {
+          "key": "buyers",
+          "count": 1
+        },
+        {
+          "key": "finance",
+          "count": 1
+        },
+        {
+          "key": "gaming",
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "key": "startup",
+          "count": 3
+        },
+        {
+          "key": "legal",
+          "count": 2
+        },
+        {
+          "key": "tech",
+          "count": 2
+        },
+        {
+          "key": "seo",
+          "count": 2
+        },
+        {
+          "key": "notion",
+          "count": 2
+        },
+        {
+          "key": "fintech",
+          "count": 1
+        },
+        {
+          "key": "climate tech",
+          "count": 1
+        },
+        {
+          "key": "devtools",
+          "count": 1
+        },
+        {
+          "key": "openai",
+          "count": 1
+        },
+        {
+          "key": "lyft",
+          "count": 1
+        },
+        {
+          "key": "uber",
+          "count": 1
+        },
+        {
+          "key": "demo",
+          "count": 1
+        },
+        {
+          "key": "day",
+          "count": 1
+        },
+        {
+          "key": "yc",
+          "count": 1
+        },
+        {
+          "key": "brands",
+          "count": 1
+        }
+      ]
+    }
+  }
+}

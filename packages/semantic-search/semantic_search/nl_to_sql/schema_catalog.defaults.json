@@ -1,0 +1,496 @@
+{
+  "tables": {
+    "auction_audit_cln": [
+      {
+        "name": "auction_id",
+        "data_type": "BIGINT",
+        "description": "Auction primary key",
+        "sample_values": [
+          1001,
+          1002,
+          1003
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "auction"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "domain_name",
+        "data_type": "VARCHAR",
+        "description": "Second-level domain name without the TLD extension (e.g. 'travel', 'cars'). No column named 'domain_length', 'name_length', or 'char_count' — use LENGTH(domain_name) for character count analytics: SELECT LENGTH(domain_name) AS domain_length, AVG(current_price) FROM table GROUP BY domain_length ORDER BY domain_length. For 'one word vs two word' use CASE WHEN POSITION('-' IN domain_name) > 0 OR LENGTH(domain_name) > 10 THEN 'multi' ELSE 'single' END. For 'keyword frequency' use domain_name LIKE '%keyword%' or COUNT(*) WHERE domain_name LIKE '%ai%'. No column named 'word_count' — derive from domain_name.",
+        "sample_values": [
+          "example",
+          "travel",
+          "cars",
+          "ai",
+          "shop"
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "domain",
+          "name",
+          "sld",
+          "length",
+          "short",
+          "long",
+          "character",
+          "word",
+          "keyword",
+          "one",
+          "two",
+          "syllable",
+          "letter"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain extension without leading dot (e.g. 'com', 'net', 'io'). Low-cardinality — use for GROUP BY and WHERE filters. For 'top tld by listing volume' use GROUP BY tld ORDER BY COUNT(*) DESC. For 'average bid by tld' use AVG(current_price) GROUP BY tld.",
+        "sample_values": [
+          "com",
+          "net",
+          "org",
+          "io",
+          "co"
+        ],
+        "distribution": {
+          "com": 0.72,
+          "net": 0.08,
+          "org": 0.05,
+          "io": 0.04,
+          "co": 0.02
+        },
+        "foreign_key_keywords": [
+          "tld",
+          "extension",
+          "com",
+          "net",
+          "org",
+          "io",
+          "sell",
+          "through",
+          "comparison",
+          "performance"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "auction_type_id",
+        "data_type": "INTEGER",
+        "description": "Auction type identifier. 16=GoDaddy AutoExtend (bid auction, starts $25), 20=GoDaddy BuyNow/Closeout (fixed price $50-$5), 38=Partner AutoExtend (bid auction), 39=Partner Closeout (fixed price $11-$5). For 'auction vs buynow listing count' use GROUP BY auction_type_id ORDER BY COUNT(*) DESC. For 'average bid by auction type' use AVG(current_price) GROUP BY auction_type_id.",
+        "sample_values": [
+          16,
+          20,
+          38,
+          39
+        ],
+        "distribution": {
+          "16": 0.42,
+          "20": 0.35,
+          "38": 0.15,
+          "39": 0.08
+        },
+        "foreign_key_keywords": [
+          "auction_type",
+          "type",
+          "category",
+          "buynow",
+          "closeout",
+          "expiry",
+          "partner"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "current_price",
+        "data_type": "DOUBLE",
+        "description": "Current high bid price in USD for active auction listings. Use AVG(current_price) for average bid price across listings. Use SUM(current_price) for total bid volume. No column named 'revenue', 'total_revenue', or 'avg_resale_value' — use SUM/AVG(current_price) instead. IMPORTANT: current dataset is active listings only — do NOT filter WHERE sold_flag=1 (returns zero rows).",
+        "sample_values": [
+          10.0,
+          25.5,
+          100.0,
+          500.0,
+          2000.0
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "price",
+          "bid",
+          "amount",
+          "sale",
+          "revenue",
+          "winning",
+          "cost",
+          "value",
+          "spend",
+          "sold",
+          "profit",
+          "margin",
+          "yield",
+          "return"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "bid_count",
+        "data_type": "BIGINT",
+        "description": "Total number of bids placed on the auction — proxy for buyer demand and competitiveness. Use AVG(bid_count) for 'average bids per auction'. Use bid_count=0 for 'auctions with no bids'. Use GROUP BY tld or auction_type_id for bid analytics by segment. NOTE: there is no column named 'total_bids' — use SUM(bid_count) for total bids or AVG(bid_count) for average bids.",
+        "sample_values": [
+          0,
+          1,
+          3,
+          10,
+          25
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "bid",
+          "count",
+          "bids",
+          "competitive",
+          "demand",
+          "bidder",
+          "bidding"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "govalue_score",
+        "data_type": "DOUBLE",
+        "description": "GoDaddy ML-predicted domain market value score in the range [0, 1]. Higher score = higher predicted value. CRITICAL: govalue_score is a dimensionless ML score (0 to 1), NOT a dollar amount. Do NOT subtract from or compare numerically against current_price (which is in USD). Dimensional mismatch will produce meaningless results. Valid uses: AVG(govalue_score), CASE WHEN buckets (e.g. govalue_score > 0.7 = 'high_value'), corr(govalue_score, bid_count), GROUP BY category. For 'govalue gap vs price' questions refuse with unit-mismatch explanation.",
+        "sample_values": [
+          0.1,
+          0.35,
+          0.6,
+          0.8,
+          0.95
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "score",
+          "value",
+          "quality",
+          "govalue"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "ends_at",
+        "data_type": "TIMESTAMP",
+        "description": "Auction close timestamp in UTC — when the auction is scheduled to end or has ended. Current dataset includes active and upcoming auctions, ends_at range 2024-08 to 2027-06. Use for time-range queries: WHERE ends_at >= now() - INTERVAL N DAY for recently closed listings; WHERE ends_at > now() for currently live auctions. Note: data window covers active/upcoming auctions, not historical sold transactions.",
+        "sample_values": [],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "end",
+          "close",
+          "expiry",
+          "sold",
+          "closed",
+          "ended",
+          "last",
+          "week",
+          "recent",
+          "past",
+          "completed",
+          "when",
+          "date",
+          "time"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "listed_at",
+        "data_type": "TIMESTAMP",
+        "description": "Timestamp when the auction listing was first recorded (UTC). Use ClickHouse native date functions — NOT DATE_TRUNC. For monthly trends: toStartOfMonth(listed_at). For weekly trends: toMonday(listed_at). For daily grouping: toDate(listed_at). Example: SELECT toStartOfMonth(listed_at) AS month, COUNT(*) AS listing_count FROM table GROUP BY month ORDER BY month DESC LIMIT 24. For last-N-days filter: WHERE listed_at >= now() - INTERVAL 90 DAY.",
+        "sample_values": [],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "listed",
+          "created",
+          "new",
+          "added",
+          "start",
+          "trend",
+          "per week",
+          "per month",
+          "last 90 days",
+          "growth",
+          "month over month",
+          "listing trend"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "sold_at",
+        "data_type": "TIMESTAMP",
+        "description": "Timestamp (UTC) when domain sold. IMPORTANT: Current dataset is active auction listings only — sold_at is NULL for all rows. Transaction/sales history data is not available in this table. For temporal queries, use ends_at instead. Do NOT query WHERE sold_at IS NOT NULL or GROUP BY toStartOfMonth(sold_at) — returns zero rows.",
+        "sample_values": [],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "sold",
+          "sale",
+          "purchased",
+          "trend",
+          "seasonal",
+          "month",
+          "week",
+          "time",
+          "period",
+          "history",
+          "over",
+          "last",
+          "days",
+          "recent",
+          "growth"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "sold_flag",
+        "data_type": "INTEGER",
+        "description": "Completion flag: 1=sold, 0=active/unsold. IMPORTANT: Current dataset is active auction listings only — ALL rows have sold_flag=0. Do NOT filter WHERE sold_flag=1 (returns zero rows). Do NOT use AVG(sold_flag) for sell-through rate (always 0). For competitive auction queries use bid_count > 0. For listing volume use COUNT(*) without sold_flag filter.",
+        "sample_values": [
+          0
+        ],
+        "distribution": {
+          "0": 1.0
+        },
+        "foreign_key_keywords": [
+          "sold",
+          "flag",
+          "status",
+          "success",
+          "conversion",
+          "completed",
+          "closed",
+          "rate",
+          "sell",
+          "through",
+          "win"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "category_name",
+        "data_type": "VARCHAR",
+        "description": "Domain category label stored as lowercase string. IMPORTANT: values are lowercase — use lowercase in WHERE/HAVING filters: WHERE category_name='fintech' not 'Fintech'. Use GROUP BY category_name for category analytics: SELECT category_name, COUNT(*) AS listing_count, AVG(current_price) AS avg_bid FROM table GROUP BY category_name ORDER BY listing_count DESC. For 'hottest category by listing volume' use COUNT(*) GROUP BY category_name. For 'highest bid categories' use AVG(current_price) GROUP BY category_name ORDER BY AVG(current_price) DESC.",
+        "sample_values": [
+          "ai",
+          "fintech",
+          "healthcare",
+          "tech",
+          "ecommerce",
+          "real-estate",
+          "legal"
+        ],
+        "distribution": {
+          "ai": 0.18,
+          "fintech": 0.15,
+          "healthcare": 0.12,
+          "ecommerce": 0.1
+        },
+        "foreign_key_keywords": [
+          "category",
+          "sector",
+          "vertical",
+          "domain",
+          "type",
+          "revenue",
+          "breakdown",
+          "segment",
+          "ai",
+          "fintech",
+          "healthcare",
+          "crypto",
+          "ecommerce"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "registrar_name",
+        "data_type": "VARCHAR",
+        "description": "Registrar managing the domain. Use GROUP BY registrar_name for registrar analytics. For 'registrar drop volume' use COUNT(*) WHERE expiry_status IN ('pending_delete','expired') GROUP BY registrar_name.",
+        "sample_values": [
+          "GoDaddy",
+          "Network Solutions",
+          "Tucows",
+          "Domain.com"
+        ],
+        "distribution": {
+          "GoDaddy": 0.72,
+          "Network Solutions": 0.1,
+          "Tucows": 0.08
+        },
+        "foreign_key_keywords": [
+          "registrar",
+          "registry",
+          "vendor",
+          "provider",
+          "drop",
+          "volume"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "expiry_status",
+        "data_type": "VARCHAR",
+        "description": "Domain lifecycle state. Values: 'active' (live auction), 'pending_delete' (expired, backorder target), 'grace_period' (recoverable), 'expired'. For backorder volume use COUNT(*) WHERE expiry_status='pending_delete'. For 'backorder competitive rate' use AVG(CASE WHEN bid_count>0 THEN 1 ELSE 0 END) WHERE expiry_status='pending_delete'. For drop volume by registrar use COUNT(*) WHERE expiry_status IN ('pending_delete','expired') GROUP BY registrar_name.",
+        "sample_values": [
+          "active",
+          "pending_delete",
+          "grace_period",
+          "expired"
+        ],
+        "distribution": {
+          "active": 0.85,
+          "pending_delete": 0.05,
+          "grace_period": 0.05,
+          "expired": 0.05
+        },
+        "foreign_key_keywords": [
+          "status",
+          "expiry",
+          "expire",
+          "expired",
+          "lifecycle",
+          "backorder",
+          "pending",
+          "delete",
+          "grace",
+          "drop",
+          "volume",
+          "count"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "buyer_segment",
+        "data_type": "VARCHAR",
+        "description": "Buyer segment classification. IMPORTANT: Not populated in current dataset — all values are empty string ''. Do NOT filter by buyer_segment or GROUP BY buyer_segment (returns no meaningful data). Use auction_type_id as proxy for buyer type (16/38=bid buyers, 20/39=buynow buyers). Use bid_count for buyer demand signal.",
+        "sample_values": [
+          ""
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "buyer",
+          "segment",
+          "level",
+          "tier",
+          "beginner",
+          "professional",
+          "advanced",
+          "investor",
+          "first",
+          "time",
+          "new",
+          "buyer",
+          "count",
+          "growth",
+          "preference",
+          "spend"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "domain_authority",
+        "data_type": "FLOAT",
+        "description": "Moz domain authority score 0-100. IMPORTANT: domain_authority column is not populated (all zeros). Use govalue_score (range 0-1) as the quality/authority proxy instead — it has real variance. For 'DA tier vs price' queries generate: SELECT CASE WHEN govalue_score < 0.4 THEN 'low_authority' WHEN govalue_score < 0.7 THEN 'mid_authority' ELSE 'high_authority' END AS authority_tier, COUNT(*) AS listings, AVG(current_price) AS avg_bid FROM table GROUP BY authority_tier ORDER BY avg_bid DESC. For 'average DA/authority' queries: SELECT AVG(govalue_score) AS avg_quality_score FROM table. For DA-vs-price correlation: SELECT corr(govalue_score, current_price) AS quality_price_corr FROM table. Always use govalue_score, never domain_authority. No 'da_tier' column.",
+        "sample_values": [
+          0.1,
+          0.35,
+          0.6,
+          0.8
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "authority",
+          "da",
+          "seo",
+          "score",
+          "domain",
+          "high",
+          "quality",
+          "moz",
+          "drop",
+          "volume"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "monthly_traffic",
+        "data_type": "INTEGER",
+        "description": "Estimated monthly organic visitors. IMPORTANT: monthly_traffic is 0 for ALL rows — no traffic data populated. Do NOT filter WHERE monthly_traffic > 0 (returns zero rows). Do NOT use corr(monthly_traffic, current_price) — returns NULL (no variance). For traffic-correlation queries use govalue_score as proxy: SELECT corr(govalue_score, current_price) AS traffic_proxy_correlation FROM table. For 'zero traffic domains' queries: WHERE monthly_traffic = 0 (matches all rows, so omit filter and use COUNT(*) or add price filter). For traffic tier queries use govalue_score: SELECT CASE WHEN govalue_score < 0.4 THEN 'low_traffic' WHEN govalue_score < 0.7 THEN 'mid_traffic' ELSE 'high_traffic' END AS traffic_tier, COUNT(*), AVG(current_price) FROM table GROUP BY traffic_tier ORDER BY avg_bid DESC.",
+        "sample_values": [
+          0,
+          100,
+          500,
+          2000,
+          10000
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "traffic",
+          "visitors",
+          "monthly",
+          "organic",
+          "volume",
+          "affect",
+          "impact",
+          "influence",
+          "help",
+          "correlation"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "domain_age_days",
+        "data_type": "INTEGER",
+        "description": "Days since domain was originally registered. Divide by 365 for years. Use for age-based analytics and correlation with sale price.",
+        "sample_values": [
+          365,
+          730,
+          1460,
+          3650
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "age",
+          "old",
+          "aged",
+          "years",
+          "registered",
+          "hold",
+          "appreciation",
+          "long"
+        ],
+        "is_pii": false
+      },
+      {
+        "name": "backlink_count",
+        "data_type": "INTEGER",
+        "description": "Total backlinks pointing to the domain. IMPORTANT: backlink_count column is not populated (all zeros). Use govalue_score as proxy for SEO/link quality — it has real variance [0,1]. For 'backlinks vs price' tier queries: SELECT CASE WHEN govalue_score < 0.4 THEN 'low_backlinks' WHEN govalue_score < 0.7 THEN 'mid_backlinks' ELSE 'high_backlinks' END AS backlink_tier, COUNT(*) AS listings, AVG(current_price) AS avg_bid FROM table GROUP BY backlink_tier ORDER BY avg_bid DESC. For backlink-correlation queries: SELECT corr(govalue_score, current_price) AS backlink_proxy_correlation FROM table. Always use govalue_score, never backlink_count.",
+        "sample_values": [
+          0,
+          10,
+          50,
+          200
+        ],
+        "distribution": {},
+        "foreign_key_keywords": [
+          "backlink",
+          "link",
+          "linkback",
+          "seo",
+          "resale",
+          "value",
+          "correlation",
+          "influence"
+        ],
+        "is_pii": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "description": "Char-constraint cue rules (entity_reconcile). Linguistic templates → slot+bool. First match per slot wins; inject only when slot absent. Extend aliases — avoid query-literal patterns."
+  },
+  "rules": [
+    {"slot": "has_hyphen", "pattern": "\\b(?:no|without|exclude|not)\\s+hyphens?\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bno\\s+hypen(?:s)?\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bno\\s+hyphn(?:s)?\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bhypen(?:s)?\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\b(?:with|has|contains?|include[sd]?)\\s+(?:a\\s+)?hyphens?\\b", "value": true},
+    {"slot": "has_hyphen", "pattern": "\\bhyphen[\\s-]?free\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\beasy\\s+to\\s+spell\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\b(?:pronounceable|typeable|easy\\s+to\\s+(?:say|pronounce|type))\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\b(?:short\\s+and\\s+clean|clean\\s+and\\s+short|clean\\s+and\\s+brandable|brandable\\s+and\\s+clean)\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bletters?\\s+only\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bshort\\b.{0,32}\\b(?:brandable|brandible|letters?\\s+only|typeable|easy\\s+to\\s+type|no\\s+(?:numbers?|digits?))\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\b(?:brandable|brandible|letters?\\s+only|typeable|easy\\s+to\\s+type|no\\s+(?:numbers?|digits?))\\b.{0,32}\\bshort\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bclean(?:er)?\\s+(?:\\w+\\s+){0,4}(?:brand(?:ables?)?|domains?|names?|letters?|slds?|start|com|minimal)\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\bclean\\s+(?:backlinks?|links?|profiles?|history)\\b", "value": false},
+    {"slot": "has_hyphen", "pattern": "\\b(?:want|keep|make|prefer|need)\\s+(?:it|them|names?|domains?)\\s+clean\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b(?:no|without|exclude|not)\\s+(?:numbers?|digits?|numerals?)\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\bno\\s+numbrs?\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b(?:with|has|contains?|include[sd]?)\\s+(?:numbers?|digits?|numerals?)\\b", "value": true},
+    {"slot": "has_number", "pattern": "\\b(?:can\\s+actually\\s+type|easy\\s+to\\s+(?:say|type|spell|pronounce)|(?:typeable|pronounceable)|people\\s+can\\s+(?:actually\\s+)?type)\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\bleters?\\s+only\\b|\\bletters?\\s+only\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b(?:letters?|alpha(?:bet(?:ic)?)?)\\s+only\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b(?:pure|strict(?:ly)?)\\s+(?:letters?|alpha(?:bet(?:ic)?)?)\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\bletter[- ](?:only|based)\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b(?:names?|domains?|slds?)\\s+(?:that\\s+are\\s+)?(?:letters?|alpha)\\s+only\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b\\d+\\s*[-]?\\s*letters?\\s+(?:names?|domains?|slds?)?\\s+only\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\bshort\\b.{0,32}\\b(?:no\\s+(?:numbers?|digits?|numbrs?)|letters?\\s+only|typeable|easy\\s+to\\s+type|brandable|brandible)\\b", "value": false},
+    {"slot": "has_number", "pattern": "\\b(?:no\\s+(?:numbers?|digits?|numbrs?)|letters?\\s+only|typeable|easy\\s+to\\s+type|brandable|brandible)\\b.{0,32}\\bshort\\b", "value": false},
+    {"slot": "excludeLetters", "pattern": "\\b(?:no\\s+letters|digits?\\s+only|numbers?\\s+only|numeric\\s+only|pure\\s+(?:digits?|numeric)|numeric\\s+domains?)\\b", "value": true},
+    {"slot": "is_idn", "pattern": "\\b(?:idn|unicode|international(?:ized)?)\\b", "value": true},
+    {"slot": "is_idn", "pattern": "\\b(?:ascii|latin|english)[\\s-]only\\b|\\bno\\s+idn\\b", "value": false}
+  ]
+}

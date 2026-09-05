@@ -1,0 +1,773 @@
+{
+  "tables": {
+    "analytics_auctions_by_tld": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity. Use for daily trend analysis and GROUP BY date filters.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date", "day", "event", "when"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain (com, net, io, org, co). Use for domain type analysis and drill-down.",
+        "sample_values": ["com", "net", "io", "org", "co"],
+        "distribution": {"com": 0.72, "net": 0.08, "org": 0.05, "io": 0.04, "co": 0.02},
+        "foreign_key_keywords": ["tld", "extension", "domain", "type"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Total number of auction listings by TLD and date. Pre-aggregated finalized value.",
+        "sample_values": [1000, 5000, 10000],
+        "distribution": {},
+        "foreign_key_keywords": ["count", "listings", "volume", "total", "how many"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average selling price across listings. Pre-aggregated finalized value for direct use.",
+        "sample_values": [150.50, 500.00, 2500.75],
+        "distribution": {},
+        "foreign_key_keywords": ["average", "avg", "price", "cost", "bid"],
+        "is_pii": false
+      },
+      {
+        "name": "min_price",
+        "data_type": "FLOAT64",
+        "description": "Minimum price observed in auction listings by TLD and date.",
+        "sample_values": [25.00, 50.00, 100.00],
+        "distribution": {},
+        "foreign_key_keywords": ["minimum", "min", "lowest", "floor"],
+        "is_pii": false
+      },
+      {
+        "name": "max_price",
+        "data_type": "FLOAT64",
+        "description": "Maximum price in auction listings by TLD and date.",
+        "sample_values": [10000.00, 50000.00, 100000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["maximum", "max", "highest", "ceiling"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price across listings by TLD and date. Percentile 50.",
+        "sample_values": [200.00, 750.00, 3000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median", "middle", "50th percentile"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of all prices across listings by TLD and date.",
+        "sample_values": [1000000.00, 5000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total", "sum", "aggregate"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_traffic",
+        "data_type": "FLOAT64",
+        "description": "Average domain traffic (pageviews/visitors). Pre-aggregated metric by TLD.",
+        "sample_values": [100, 500, 5000],
+        "distribution": {},
+        "foreign_key_keywords": ["traffic", "visitors", "pageviews", "avg"],
+        "is_pii": false
+      },
+      {
+        "name": "median_traffic",
+        "data_type": "FLOAT64",
+        "description": "Median domain traffic across listings by TLD and date.",
+        "sample_values": [50, 200, 2000],
+        "distribution": {},
+        "foreign_key_keywords": ["traffic", "median", "middle"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_domain_authority",
+        "data_type": "FLOAT64",
+        "description": "Average domain authority score (SEO metric 0-100). Pre-aggregated by TLD.",
+        "sample_values": [20.5, 45.0, 72.5],
+        "distribution": {},
+        "foreign_key_keywords": ["authority", "da", "seo", "quality"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_backlinks",
+        "data_type": "FLOAT64",
+        "description": "Average number of backlinks per domain by TLD and date.",
+        "sample_values": [50, 200, 1000],
+        "distribution": {},
+        "foreign_key_keywords": ["backlinks", "links", "inbound", "avg"],
+        "is_pii": false
+      },
+      {
+        "name": "median_backlinks",
+        "data_type": "FLOAT64",
+        "description": "Median backlinks across domains by TLD and date.",
+        "sample_values": [25, 100, 500],
+        "distribution": {},
+        "foreign_key_keywords": ["backlinks", "median", "middle"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total number of bids placed across listings by TLD and date.",
+        "sample_values": [5000, 25000, 100000],
+        "distribution": {},
+        "foreign_key_keywords": ["bids", "total", "activity", "engagement"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_bids",
+        "data_type": "FLOAT64",
+        "description": "Average bids per listing by TLD and date. Competition indicator.",
+        "sample_values": [5.0, 12.5, 50.0],
+        "distribution": {},
+        "foreign_key_keywords": ["bids", "average", "competition", "interest"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_govalue",
+        "data_type": "FLOAT64",
+        "description": "Average GoDaddy valuation score by TLD. Proprietary domain value metric.",
+        "sample_values": [100.0, 500.0, 2500.0],
+        "distribution": {},
+        "foreign_key_keywords": ["value", "valuation", "godaddy", "score"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_domain_age_days",
+        "data_type": "FLOAT64",
+        "description": "Average domain age in days by TLD and date. Older domains often have more authority.",
+        "sample_values": [365, 1825, 5475],
+        "distribution": {},
+        "foreign_key_keywords": ["age", "old", "registered", "days"],
+        "is_pii": false
+      }
+    ],
+    "analytics_auctions_by_type": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date", "day"],
+        "is_pii": false
+      },
+      {
+        "name": "auction_type_name",
+        "data_type": "VARCHAR",
+        "description": "Auction type (GoDaddy AutoExtend, GoDaddy BuyNow, Partner AutoExtend, Partner Closeout).",
+        "sample_values": ["GoDaddy AutoExtend", "GoDaddy BuyNow", "Partner AutoExtend", "Partner Closeout"],
+        "distribution": {"GoDaddy AutoExtend": 0.42, "GoDaddy BuyNow": 0.35, "Partner AutoExtend": 0.15, "Partner Closeout": 0.08},
+        "foreign_key_keywords": ["type", "auction", "category"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Number of listings by auction type and date.",
+        "sample_values": [1000, 5000, 10000],
+        "distribution": {},
+        "foreign_key_keywords": ["count", "listings", "volume"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price by auction type.",
+        "sample_values": [150.50, 500.00, 2500.75],
+        "distribution": {},
+        "foreign_key_keywords": ["average", "price", "cost"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price by auction type and date.",
+        "sample_values": [200.00, 750.00, 3000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median", "price"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of prices by auction type and date.",
+        "sample_values": [1000000.00, 5000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total", "sum"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_traffic",
+        "data_type": "FLOAT64",
+        "description": "Average domain traffic by auction type.",
+        "sample_values": [100, 500, 5000],
+        "distribution": {},
+        "foreign_key_keywords": ["traffic", "visitors"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_domain_authority",
+        "data_type": "FLOAT64",
+        "description": "Average domain authority by auction type.",
+        "sample_values": [20.5, 45.0, 72.5],
+        "distribution": {},
+        "foreign_key_keywords": ["authority", "seo"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total bids by auction type and date.",
+        "sample_values": [5000, 25000, 100000],
+        "distribution": {},
+        "foreign_key_keywords": ["bids", "total"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_bids",
+        "data_type": "FLOAT64",
+        "description": "Average bids per listing by auction type.",
+        "sample_values": [5.0, 12.5, 50.0],
+        "distribution": {},
+        "foreign_key_keywords": ["bids", "average"],
+        "is_pii": false
+      }
+    ],
+    "analytics_auctions_by_category": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date", "day"],
+        "is_pii": false
+      },
+      {
+        "name": "category_name",
+        "data_type": "VARCHAR",
+        "description": "Product category (Technology, Business, Travel, Real Estate, etc).",
+        "sample_values": ["Technology", "Business", "Travel", "Real Estate"],
+        "distribution": {},
+        "foreign_key_keywords": ["category", "type"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Number of listings by category and date.",
+        "sample_values": [1000, 5000, 10000],
+        "distribution": {},
+        "foreign_key_keywords": ["count", "listings"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price by category.",
+        "sample_values": [150.50, 500.00, 2500.75],
+        "distribution": {},
+        "foreign_key_keywords": ["average", "price"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price by category and date.",
+        "sample_values": [200.00, 750.00, 3000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median", "price"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of prices by category and date.",
+        "sample_values": [1000000.00, 5000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total", "sum"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_traffic",
+        "data_type": "FLOAT64",
+        "description": "Average traffic by category.",
+        "sample_values": [100, 500, 5000],
+        "distribution": {},
+        "foreign_key_keywords": ["traffic"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total bids by category and date.",
+        "sample_values": [5000, 25000, 100000],
+        "distribution": {},
+        "foreign_key_keywords": ["bids"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_bids",
+        "data_type": "FLOAT64",
+        "description": "Average bids per listing by category.",
+        "sample_values": [5.0, 12.5, 50.0],
+        "distribution": {},
+        "foreign_key_keywords": ["bids", "average"],
+        "is_pii": false
+      }
+    ],
+    "analytics_auctions_by_tld_type": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain.",
+        "sample_values": ["com", "net", "io"],
+        "distribution": {},
+        "foreign_key_keywords": ["tld"],
+        "is_pii": false
+      },
+      {
+        "name": "auction_type_name",
+        "data_type": "VARCHAR",
+        "description": "Auction type.",
+        "sample_values": ["GoDaddy AutoExtend", "GoDaddy BuyNow"],
+        "distribution": {},
+        "foreign_key_keywords": ["type"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Listings by TLD and auction type.",
+        "sample_values": [500, 2500, 5000],
+        "distribution": {},
+        "foreign_key_keywords": ["count"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price.",
+        "sample_values": [150.50, 500.00],
+        "distribution": {},
+        "foreign_key_keywords": ["price"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price.",
+        "sample_values": [200.00, 750.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of prices.",
+        "sample_values": [500000.00, 2000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total bids.",
+        "sample_values": [2500, 12500],
+        "distribution": {},
+        "foreign_key_keywords": ["bids"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_bids",
+        "data_type": "FLOAT64",
+        "description": "Average bids per listing.",
+        "sample_values": [5.0, 12.5],
+        "distribution": {},
+        "foreign_key_keywords": ["bids"],
+        "is_pii": false
+      }
+    ],
+    "analytics_auctions_by_tld_category": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain.",
+        "sample_values": ["com", "net", "io"],
+        "distribution": {},
+        "foreign_key_keywords": ["tld"],
+        "is_pii": false
+      },
+      {
+        "name": "category_name",
+        "data_type": "VARCHAR",
+        "description": "Product category.",
+        "sample_values": ["Technology", "Business"],
+        "distribution": {},
+        "foreign_key_keywords": ["category"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Listings by TLD and category.",
+        "sample_values": [500, 2500],
+        "distribution": {},
+        "foreign_key_keywords": ["count"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price.",
+        "sample_values": [150.50, 500.00],
+        "distribution": {},
+        "foreign_key_keywords": ["price"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price.",
+        "sample_values": [200.00, 750.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of prices.",
+        "sample_values": [500000.00, 2000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total bids.",
+        "sample_values": [2500, 12500],
+        "distribution": {},
+        "foreign_key_keywords": ["bids"],
+        "is_pii": false
+      }
+    ],
+    "analytics_sold_by_tld": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain.",
+        "sample_values": ["com", "net", "io"],
+        "distribution": {},
+        "foreign_key_keywords": ["tld"],
+        "is_pii": false
+      },
+      {
+        "name": "sold_count",
+        "data_type": "UINT64",
+        "description": "Number of sold domains by TLD and date.",
+        "sample_values": [100, 500, 1000],
+        "distribution": {},
+        "foreign_key_keywords": ["sold", "count"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price of sold domains.",
+        "sample_values": [150.50, 500.00, 2500.75],
+        "distribution": {},
+        "foreign_key_keywords": ["price"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price of sold domains.",
+        "sample_values": [200.00, 750.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of sale prices.",
+        "sample_values": [500000.00, 2000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total"],
+        "is_pii": false
+      }
+    ],
+    "analytics_sold_by_type": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date"],
+        "is_pii": false
+      },
+      {
+        "name": "auction_type_name",
+        "data_type": "VARCHAR",
+        "description": "Auction type.",
+        "sample_values": ["GoDaddy AutoExtend", "GoDaddy BuyNow"],
+        "distribution": {},
+        "foreign_key_keywords": ["type"],
+        "is_pii": false
+      },
+      {
+        "name": "sold_count",
+        "data_type": "UINT64",
+        "description": "Number of sold domains by type.",
+        "sample_values": [100, 500],
+        "distribution": {},
+        "foreign_key_keywords": ["sold"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price.",
+        "sample_values": [150.50, 500.00],
+        "distribution": {},
+        "foreign_key_keywords": ["price"],
+        "is_pii": false
+      },
+      {
+        "name": "median_price",
+        "data_type": "FLOAT64",
+        "description": "Median price.",
+        "sample_values": [200.00, 750.00],
+        "distribution": {},
+        "foreign_key_keywords": ["median"],
+        "is_pii": false
+      },
+      {
+        "name": "total_price",
+        "data_type": "FLOAT64",
+        "description": "Sum of prices.",
+        "sample_values": [500000.00, 2000000.00],
+        "distribution": {},
+        "foreign_key_keywords": ["total"],
+        "is_pii": false
+      }
+    ],
+    "analytics_new_listings_by_tld": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16", "2025-01-17"],
+        "distribution": {},
+        "foreign_key_keywords": ["date"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain.",
+        "sample_values": ["com", "net", "io"],
+        "distribution": {},
+        "foreign_key_keywords": ["tld"],
+        "is_pii": false
+      },
+      {
+        "name": "new_listing_count",
+        "data_type": "UINT64",
+        "description": "Count of newly listed domains by TLD and date. Growth metric.",
+        "sample_values": [100, 500, 1000],
+        "distribution": {},
+        "foreign_key_keywords": ["new", "listings", "count", "growth"],
+        "is_pii": false
+      }
+    ],
+    "analytics_auctions_by_tld_hour": [
+      {
+        "name": "event_hour",
+        "data_type": "DATETIME",
+        "description": "Hour of auction activity. For intra-day trend analysis.",
+        "sample_values": ["2025-01-15 09:00:00", "2025-01-15 10:00:00"],
+        "distribution": {},
+        "foreign_key_keywords": ["hour", "time"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain.",
+        "sample_values": ["com", "net"],
+        "distribution": {},
+        "foreign_key_keywords": ["tld"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Hourly listing count by TLD.",
+        "sample_values": [100, 500],
+        "distribution": {},
+        "foreign_key_keywords": ["count"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price.",
+        "sample_values": [150.50, 500.00],
+        "distribution": {},
+        "foreign_key_keywords": ["price"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total bids.",
+        "sample_values": [500, 2500],
+        "distribution": {},
+        "foreign_key_keywords": ["bids"],
+        "is_pii": false
+      }
+    ],
+    "analytics_auctions_by_type_hour": [
+      {
+        "name": "event_hour",
+        "data_type": "DATETIME",
+        "description": "Hour of auction activity.",
+        "sample_values": ["2025-01-15 09:00:00", "2025-01-15 10:00:00"],
+        "distribution": {},
+        "foreign_key_keywords": ["hour"],
+        "is_pii": false
+      },
+      {
+        "name": "auction_type_name",
+        "data_type": "VARCHAR",
+        "description": "Auction type.",
+        "sample_values": ["GoDaddy AutoExtend"],
+        "distribution": {},
+        "foreign_key_keywords": ["type"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Hourly listing count by type.",
+        "sample_values": [100, 500],
+        "distribution": {},
+        "foreign_key_keywords": ["count"],
+        "is_pii": false
+      },
+      {
+        "name": "avg_price",
+        "data_type": "FLOAT64",
+        "description": "Average price.",
+        "sample_values": [150.50],
+        "distribution": {},
+        "foreign_key_keywords": ["price"],
+        "is_pii": false
+      },
+      {
+        "name": "total_bids",
+        "data_type": "UINT64",
+        "description": "Total bids.",
+        "sample_values": [500],
+        "distribution": {},
+        "foreign_key_keywords": ["bids"],
+        "is_pii": false
+      }
+    ],
+    "analytics_sell_through_by_tld": [
+      {
+        "name": "event_day",
+        "data_type": "DATE",
+        "description": "Date of auction activity.",
+        "sample_values": ["2025-01-15", "2025-01-16"],
+        "distribution": {},
+        "foreign_key_keywords": ["date"],
+        "is_pii": false
+      },
+      {
+        "name": "tld",
+        "data_type": "VARCHAR",
+        "description": "Top-level domain.",
+        "sample_values": ["com", "net"],
+        "distribution": {},
+        "foreign_key_keywords": ["tld"],
+        "is_pii": false
+      },
+      {
+        "name": "listing_count",
+        "data_type": "UINT64",
+        "description": "Total listings by TLD and date.",
+        "sample_values": [1000, 5000],
+        "distribution": {},
+        "foreign_key_keywords": ["count"],
+        "is_pii": false
+      },
+      {
+        "name": "sold_count",
+        "data_type": "UINT64",
+        "description": "Total sold by TLD and date.",
+        "sample_values": [500, 2500],
+        "distribution": {},
+        "foreign_key_keywords": ["sold"],
+        "is_pii": false
+      },
+      {
+        "name": "sell_through_rate",
+        "data_type": "FLOAT64",
+        "description": "Conversion rate: (sold_count / listing_count) * 100. 0-100 percentage.",
+        "sample_values": [25.5, 50.0, 75.5],
+        "distribution": {},
+        "foreign_key_keywords": ["rate", "conversion", "sell", "through", "percentage"],
+        "is_pii": false
+      }
+    ]
+  }
+}

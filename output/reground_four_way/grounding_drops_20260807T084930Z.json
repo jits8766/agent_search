@@ -1,0 +1,714 @@
+{
+  "grounding": {
+    "LLMJ": {
+      "total": 121,
+      "by_token": [
+        {
+          "key": "filterPriceCurrency:usd",
+          "count": 14
+        },
+        {
+          "key": "tldIncludeList:ai",
+          "count": 12
+        },
+        {
+          "key": "word_count_max:1",
+          "count": 7
+        },
+        {
+          "key": "word_count_min:1",
+          "count": 7
+        },
+        {
+          "key": "keyword_match_mode:contains",
+          "count": 7
+        },
+        {
+          "key": "keyword_match_mode:prefix",
+          "count": 4
+        },
+        {
+          "key": "tldIncludeList:ai|io",
+          "count": 3
+        },
+        {
+          "key": "word_count_max:2",
+          "count": 3
+        },
+        {
+          "key": "word_count_min:2",
+          "count": 3
+        },
+        {
+          "key": "topic_include:b2b_saas",
+          "count": 2
+        },
+        {
+          "key": "topic_include:startup",
+          "count": 2
+        },
+        {
+          "key": "topic_include:ai",
+          "count": 2
+        },
+        {
+          "key": "maxSldLen:5",
+          "count": 2
+        },
+        {
+          "key": "endTimeBefore:-7d",
+          "count": 2
+        },
+        {
+          "key": "lifecycle_state:active",
+          "count": 2
+        },
+        {
+          "key": "keyword_match_mode:suffix",
+          "count": 2
+        },
+        {
+          "key": "keyword_match_mode:exact",
+          "count": 2
+        },
+        {
+          "key": "keyword_contains_exclude:crypto",
+          "count": 1
+        },
+        {
+          "key": "tldExcludeList:ai",
+          "count": 1
+        },
+        {
+          "key": "similar_to:product hunt|yc demo day",
+          "count": 1
+        },
+        {
+          "key": "maxPrice:499",
+          "count": 1
+        },
+        {
+          "key": "typeIncludeList:25",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:keyword",
+          "count": 1
+        },
+        {
+          "key": "minPrice:1",
+          "count": 1
+        },
+        {
+          "key": "topic_include:fintech",
+          "count": 1
+        }
+      ],
+      "by_param": [
+        {
+          "key": "tldIncludeList",
+          "count": 20
+        },
+        {
+          "key": "keyword_match_mode",
+          "count": 15
+        },
+        {
+          "key": "filterPriceCurrency",
+          "count": 14
+        },
+        {
+          "key": "word_count_max",
+          "count": 10
+        },
+        {
+          "key": "word_count_min",
+          "count": 10
+        },
+        {
+          "key": "topic_include",
+          "count": 9
+        },
+        {
+          "key": "keyword_contains",
+          "count": 7
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 4
+        },
+        {
+          "key": "keyword_starts_with",
+          "count": 4
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 3
+        }
+      ]
+    },
+    "QIE_Only_LLM": {
+      "total": 22,
+      "by_token": [
+        {
+          "key": "tldIncludeList:ai",
+          "count": 12
+        },
+        {
+          "key": "tldExcludeList:ai",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:law",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app|io",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app|dev",
+          "count": 1
+        },
+        {
+          "key": "typeExcludeList:25|39",
+          "count": 1
+        },
+        {
+          "key": "typeIncludeList:standard",
+          "count": 1
+        },
+        {
+          "key": "topic_exclude:crypto",
+          "count": 1
+        },
+        {
+          "key": "topic_include:crypto",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:ai|io",
+          "count": 1
+        }
+      ],
+      "by_param": [
+        {
+          "key": "tldIncludeList",
+          "count": 17
+        },
+        {
+          "key": "tldExcludeList",
+          "count": 1
+        },
+        {
+          "key": "typeExcludeList",
+          "count": 1
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 1
+        },
+        {
+          "key": "topic_exclude",
+          "count": 1
+        },
+        {
+          "key": "topic_include",
+          "count": 1
+        }
+      ]
+    },
+    "Full_Search_LLM": {
+      "total": 9,
+      "by_token": [
+        {
+          "key": "tldIncludeList:ai",
+          "count": 5
+        },
+        {
+          "key": "typeIncludeList:25",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app|dev",
+          "count": 1
+        },
+        {
+          "key": "maxSldLen:10",
+          "count": 1
+        },
+        {
+          "key": "minSldLen:4",
+          "count": 1
+        }
+      ],
+      "by_param": [
+        {
+          "key": "tldIncludeList",
+          "count": 6
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 1
+        },
+        {
+          "key": "maxSldLen",
+          "count": 1
+        },
+        {
+          "key": "minSldLen",
+          "count": 1
+        }
+      ]
+    },
+    "Regex": {
+      "total": 76,
+      "by_token": [
+        {
+          "key": "tldIncludeList:ai",
+          "count": 20
+        },
+        {
+          "key": "keyword_match_mode:contains",
+          "count": 8
+        },
+        {
+          "key": "keyword_match_mode:prefix",
+          "count": 4
+        },
+        {
+          "key": "keyword_contains:cloud",
+          "count": 3
+        },
+        {
+          "key": "tldIncludeList:ai|io",
+          "count": 3
+        },
+        {
+          "key": "keyword_contains_exclude:crypto",
+          "count": 2
+        },
+        {
+          "key": "keyword_match_mode:suffix",
+          "count": 2
+        },
+        {
+          "key": "keyword_match_mode:exact",
+          "count": 2
+        },
+        {
+          "key": "tldExcludeList:ai",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:blog",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:cathy",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:shop",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:law",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:travel",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app|io",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList:app|dev",
+          "count": 1
+        },
+        {
+          "key": "typeIncludeList:listed",
+          "count": 1
+        },
+        {
+          "key": "typeExcludeList:25|39",
+          "count": 1
+        },
+        {
+          "key": "typeIncludeList:standard",
+          "count": 1
+        },
+        {
+          "key": "startTimeBefore:-14d",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:hub",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:tech",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:labs",
+          "count": 1
+        },
+        {
+          "key": "keyword_contains:health",
+          "count": 1
+        }
+      ],
+      "by_param": [
+        {
+          "key": "tldIncludeList",
+          "count": 27
+        },
+        {
+          "key": "keyword_match_mode",
+          "count": 16
+        },
+        {
+          "key": "keyword_contains",
+          "count": 13
+        },
+        {
+          "key": "keyword_contains_exclude",
+          "count": 4
+        },
+        {
+          "key": "keyword_starts_with",
+          "count": 4
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 2
+        },
+        {
+          "key": "keyword_ends_with",
+          "count": 2
+        },
+        {
+          "key": "keyword_phrase",
+          "count": 2
+        },
+        {
+          "key": "tldExcludeList",
+          "count": 1
+        },
+        {
+          "key": "typeExcludeList",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "pipeline": {
+    "Full_Search_LLM": {
+      "total": 130,
+      "by_token": [
+        {
+          "key": "minMajesticTrustFlowScore:21",
+          "count": 6
+        },
+        {
+          "key": "isExtended:true",
+          "count": 5
+        },
+        {
+          "key": "filterPriceCurrency:usd",
+          "count": 4
+        },
+        {
+          "key": "has_web_traffic_signal:true",
+          "count": 4
+        },
+        {
+          "key": "isBidAccepted:true",
+          "count": 4
+        },
+        {
+          "key": "minSemrushAScore:1",
+          "count": 3
+        },
+        {
+          "key": "minMajesticBackLinks:1",
+          "count": 3
+        },
+        {
+          "key": "filterPriceCurrency:eur",
+          "count": 3
+        },
+        {
+          "key": "minAge:10",
+          "count": 3
+        },
+        {
+          "key": "minTraffic:1000",
+          "count": 2
+        },
+        {
+          "key": "minMajesticRefDomains:1",
+          "count": 2
+        },
+        {
+          "key": "typeIncludeList:25",
+          "count": 2
+        },
+        {
+          "key": "minPrice:500",
+          "count": 2
+        },
+        {
+          "key": "startTimeAfter:-1d",
+          "count": 2
+        },
+        {
+          "key": "typeIncludeList:39",
+          "count": 2
+        },
+        {
+          "key": "maxSldLen:5",
+          "count": 2
+        },
+        {
+          "key": "minUniqueSearches:2001",
+          "count": 2
+        },
+        {
+          "key": "minMajesticCitationFlowScore:16",
+          "count": 2
+        },
+        {
+          "key": "minSemrushLinksTotal:1001",
+          "count": 2
+        },
+        {
+          "key": "minSemrushAScore:30",
+          "count": 2
+        },
+        {
+          "key": "minUniqueSearches:2000",
+          "count": 2
+        },
+        {
+          "key": "minEstibotDomainCount:101",
+          "count": 2
+        },
+        {
+          "key": "minEstibotDomainCount:1",
+          "count": 2
+        },
+        {
+          "key": "minEstibotDomainCountDev:1",
+          "count": 2
+        },
+        {
+          "key": "minEstibotExtCount:31",
+          "count": 2
+        }
+      ],
+      "by_param": [
+        {
+          "key": "filterPriceCurrency",
+          "count": 10
+        },
+        {
+          "key": "minMajesticTrustFlowScore",
+          "count": 10
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 9
+        },
+        {
+          "key": "minUniqueSearches",
+          "count": 6
+        },
+        {
+          "key": "minEstibotDomainCount",
+          "count": 6
+        },
+        {
+          "key": "minTraffic",
+          "count": 5
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 5
+        },
+        {
+          "key": "isExtended",
+          "count": 5
+        },
+        {
+          "key": "minMajesticCitationFlowScore",
+          "count": 5
+        },
+        {
+          "key": "minEstibotDomainCountDev",
+          "count": 5
+        }
+      ]
+    }
+  },
+  "soft_downgrade": {
+    "Full_Search_LLM": {
+      "total": 241,
+      "by_token": [
+        {
+          "key": "topic_include:startup",
+          "count": 20
+        },
+        {
+          "key": "topic_include:fintech",
+          "count": 18
+        },
+        {
+          "key": "lifecycle_state:expired",
+          "count": 11
+        },
+        {
+          "key": "topic_include:ai",
+          "count": 10
+        },
+        {
+          "key": "topic_include:saas",
+          "count": 10
+        },
+        {
+          "key": "lifecycle_state:pending_delete",
+          "count": 10
+        },
+        {
+          "key": "keyword_match_mode:contains",
+          "count": 9
+        },
+        {
+          "key": "topic_include:ai|fintech",
+          "count": 7
+        },
+        {
+          "key": "topic_include:healthcare",
+          "count": 6
+        },
+        {
+          "key": "topic_include:cloud",
+          "count": 6
+        },
+        {
+          "key": "topic_include:seo",
+          "count": 6
+        },
+        {
+          "key": "lifecycle_disjunction:true",
+          "count": 6
+        },
+        {
+          "key": "topic_include:devtools",
+          "count": 5
+        },
+        {
+          "key": "topic_include:b2b_saas",
+          "count": 5
+        },
+        {
+          "key": "topic_include:tech",
+          "count": 5
+        },
+        {
+          "key": "lifecycle_state:active",
+          "count": 4
+        },
+        {
+          "key": "topic_include:crypto",
+          "count": 4
+        },
+        {
+          "key": "similar_to:stripe",
+          "count": 4
+        },
+        {
+          "key": "keyword_match_mode:exact",
+          "count": 4
+        },
+        {
+          "key": "keyword_match_mode:prefix",
+          "count": 4
+        },
+        {
+          "key": "topic_include:cybersecurity",
+          "count": 3
+        },
+        {
+          "key": "lifecycle_state:expired|pending_delete",
+          "count": 3
+        },
+        {
+          "key": "topic_include:health",
+          "count": 3
+        },
+        {
+          "key": "topic_include:climate_tech",
+          "count": 2
+        },
+        {
+          "key": "topic_include:edtech",
+          "count": 2
+        }
+      ],
+      "by_param": [
+        {
+          "key": "topic_include",
+          "count": 135
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 32
+        },
+        {
+          "key": "similar_to",
+          "count": 21
+        },
+        {
+          "key": "keyword_match_mode",
+          "count": 19
+        },
+        {
+          "key": "keyword_contains",
+          "count": 9
+        },
+        {
+          "key": "lifecycle_disjunction",
+          "count": 6
+        },
+        {
+          "key": "keyword_starts_with",
+          "count": 4
+        },
+        {
+          "key": "topic_exclude",
+          "count": 3
+        },
+        {
+          "key": "minSemrushLinksTotal",
+          "count": 3
+        },
+        {
+          "key": "keyword_ends_with",
+          "count": 2
+        }
+      ]
+    }
+  }
+}

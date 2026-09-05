@@ -1,0 +1,1146 @@
+{
+  "arms": {
+    "QIE_Only_LLM": {
+      "missing_vs_llmj": [
+        {
+          "key": "topic_include",
+          "count": 6
+        },
+        {
+          "key": "tldIncludeList",
+          "count": 5
+        },
+        {
+          "key": "minMajesticRefDomains",
+          "count": 4
+        },
+        {
+          "key": "minEstibotDomainCountDev",
+          "count": 4
+        },
+        {
+          "key": "minValuationPrice",
+          "count": 3
+        },
+        {
+          "key": "minBids",
+          "count": 3
+        },
+        {
+          "key": "endTimeBefore",
+          "count": 2
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 2
+        },
+        {
+          "key": "startTimeAfter",
+          "count": 2
+        },
+        {
+          "key": "minPrice",
+          "count": 2
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 2
+        },
+        {
+          "key": "similar_to",
+          "count": 1
+        },
+        {
+          "key": "minTraffic",
+          "count": 1
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 1
+        },
+        {
+          "key": "minSemrushLinksTotal",
+          "count": 1
+        },
+        {
+          "key": "maxPrice",
+          "count": 1
+        },
+        {
+          "key": "traffic_is_unknown",
+          "count": 1
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 1
+        },
+        {
+          "key": "maxBids",
+          "count": 1
+        },
+        {
+          "key": "startTimeBefore",
+          "count": 1
+        },
+        {
+          "key": "minAge",
+          "count": 1
+        }
+      ],
+      "extra_vs_llmj": [
+        {
+          "key": "topic_include",
+          "count": 6
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 4
+        },
+        {
+          "key": "tldIncludeList",
+          "count": 4
+        },
+        {
+          "key": "maxPrice",
+          "count": 4
+        },
+        {
+          "key": "has_web_traffic_signal",
+          "count": 3
+        },
+        {
+          "key": "minPrice",
+          "count": 3
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 1
+        },
+        {
+          "key": "minMajesticRefDomains",
+          "count": 1
+        },
+        {
+          "key": "lifecycle_disjunction",
+          "count": 1
+        },
+        {
+          "key": "minBids",
+          "count": 1
+        },
+        {
+          "key": "maxTraffic",
+          "count": 1
+        },
+        {
+          "key": "minSemrushDomainsNum",
+          "count": 1
+        },
+        {
+          "key": "minSemrushCostPerClick",
+          "count": 1
+        },
+        {
+          "key": "minValuationPrice",
+          "count": 1
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 1
+        }
+      ],
+      "examples_miss": {
+        "topic_include": [
+          "travel startup name with real visitors",
+          "logistics saas domain good authority cheap",
+          "show me ai domains but also maybe healthtech or fintech ones too if they look go"
+        ],
+        "similar_to": [
+          "names with notion kinda vibe"
+        ],
+        "endTimeBefore": [
+          "seo value domains expiring now",
+          "domains ending next 24 hrs"
+        ],
+        "minTraffic": [
+          "blog domains with steady traffic under 2k"
+        ],
+        "typeIncludeList": [
+          "dropping .com with backlinks cheap"
+        ],
+        "tldIncludeList": [
+          "no hyphen .com domains under 300",
+          "want a .com thats short no numbers cheap",
+          "dev .io domains short"
+        ],
+        "minSemrushLinksTotal": [
+          "expird .com with backlinks"
+        ],
+        "lifecycle_state": [
+          "shop .store domains available",
+          "newly dropped under 1 year"
+        ],
+        "startTimeAfter": [
+          "listings from this morning",
+          "whats new since yesterday"
+        ],
+        "maxPrice": [
+          "starting b2b saas should i spend 2k on good domain or is that too much for early"
+        ],
+        "minPrice": [
+          "wort spending 1k on a domain",
+          "nothing over 1k"
+        ],
+        "traffic_is_unknown": [
+          "zero traffic domains with current bid above 1000"
+        ],
+        "minValuationPrice": [
+          "domains where govalue score is high but current price is low",
+          "govalue premium by category and which one has the best value gaps",
+          "domains where govalue is high but current price is low"
+        ],
+        "minBids": [
+          "single bid auctions ending soon",
+          "starting bid at least 1k",
+          "lots of bidding 20 plus"
+        ],
+        "minMajesticBackLinks": [
+          "does traffic help bid price and also is da or backlinks bigger factor than raw t",
+          "barely any backlinks want it clean"
+        ],
+        "minSemrushAScore": [
+          "does traffic help bid price and also is da or backlinks bigger factor than raw t"
+        ],
+        "maxBids": [
+          "one bid or less"
+        ],
+        "startTimeBefore": [
+          "registered before 2010"
+        ],
+        "minAge": [
+          "vintage domain 20 years old"
+        ],
+        "minMajesticRefDomains": [
+          "200 referring domains short com under 2k good for seo",
+          "ref domains 50 plus",
+          "semrush links 500 ref domains 50 under 2k"
+        ],
+        "minEstibotDomainCountDev": [
+          "dev ext count above 30",
+          "dev ext count high under 1500 developer audience",
+          "dev extension count high"
+        ]
+      },
+      "examples_extra": {
+        "topic_include": [
+          "travel startup name with real visitors",
+          "logistics saas domain good authority cheap",
+          "show me ai domains but also maybe healthtech or fintech ones too if they look go"
+        ],
+        "lifecycle_state": [
+          "show ai domains available now",
+          "buy expired domain for seo or brandability and also can it serve both purposes o",
+          "whats the safest way to buy an expired domain without getting burned"
+        ],
+        "minSemrushAScore": [
+          "want strong seo domain under 1500 with decent da and also should be short and br"
+        ],
+        "has_web_traffic_signal": [
+          "hidden gems that are cheap but also look expensive and have some traffic or back",
+          "ending soon traffic",
+          "i would like an aged domain with real backlinks under 1500 for ranking purposes"
+        ],
+        "minMajesticRefDomains": [
+          "browse ai domains but also show me if any have traffic or backlinks because i wa"
+        ],
+        "tldIncludeList": [
+          "how important is .com for local business",
+          "is .io still worth buying",
+          "is .io stil worth buying"
+        ],
+        "lifecycle_disjunction": [
+          "buy expired domain for seo or brandability and also can it serve both purposes o"
+        ],
+        "maxPrice": [
+          "worth spending 1k on domain?",
+          "wort spending 1k on a domain",
+          "govalue 10k plus but selling cheap"
+        ],
+        "minPrice": [
+          "share of active listings over 10k",
+          "starting bid at least 1k",
+          "nothing over 1k"
+        ],
+        "minBids": [
+          "extended ai auction under 2k with bids"
+        ],
+        "maxTraffic": [
+          "under 200 visitors monthly"
+        ],
+        "minSemrushDomainsNum": [
+          "ref domains 50 plus"
+        ],
+        "minSemrushCostPerClick": [
+          "high cpc above 5 bucks"
+        ],
+        "minValuationPrice": [
+          "anything priced below its govalue estimate short premium extension under 2k"
+        ],
+        "minMajesticBackLinks": [
+          "domain with backlinks already built"
+        ]
+      }
+    },
+    "Full_Search_LLM": {
+      "missing_vs_llmj": [
+        {
+          "key": "topic_include",
+          "count": 136
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 32
+        },
+        {
+          "key": "similar_to",
+          "count": 22
+        },
+        {
+          "key": "buy_it_now",
+          "count": 9
+        },
+        {
+          "key": "filterPriceCurrency",
+          "count": 9
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 6
+        },
+        {
+          "key": "lifecycle_disjunction",
+          "count": 6
+        },
+        {
+          "key": "minMajesticTrustFlowScore",
+          "count": 5
+        },
+        {
+          "key": "tldIncludeList",
+          "count": 4
+        },
+        {
+          "key": "maxPrice",
+          "count": 4
+        },
+        {
+          "key": "minMajesticRefDomains",
+          "count": 4
+        },
+        {
+          "key": "topic_exclude",
+          "count": 3
+        },
+        {
+          "key": "excludeHyphens",
+          "count": 3
+        },
+        {
+          "key": "minTraffic",
+          "count": 3
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 3
+        },
+        {
+          "key": "minSemrushLinksTotal",
+          "count": 3
+        },
+        {
+          "key": "minPrice",
+          "count": 3
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 3
+        },
+        {
+          "key": "minValuationPrice",
+          "count": 3
+        },
+        {
+          "key": "minBids",
+          "count": 3
+        },
+        {
+          "key": "has_reserve_price",
+          "count": 3
+        },
+        {
+          "key": "isExtended",
+          "count": 3
+        },
+        {
+          "key": "charPattern",
+          "count": 3
+        },
+        {
+          "key": "minEstibotDomainCountDev",
+          "count": 3
+        },
+        {
+          "key": "minAge",
+          "count": 3
+        }
+      ],
+      "extra_vs_llmj": [
+        {
+          "key": "tldIncludeList",
+          "count": 15
+        },
+        {
+          "key": "has_web_traffic_signal",
+          "count": 5
+        },
+        {
+          "key": "startTimeAfter",
+          "count": 5
+        },
+        {
+          "key": "endTimeBefore",
+          "count": 4
+        },
+        {
+          "key": "tldExcludeList",
+          "count": 2
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 2
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 2
+        },
+        {
+          "key": "maxTraffic",
+          "count": 1
+        },
+        {
+          "key": "minMajesticRefDomains",
+          "count": 1
+        },
+        {
+          "key": "price_below_market",
+          "count": 1
+        },
+        {
+          "key": "maxSldLen",
+          "count": 1
+        },
+        {
+          "key": "buy_it_now",
+          "count": 1
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 1
+        },
+        {
+          "key": "excludeDigits",
+          "count": 1
+        },
+        {
+          "key": "minPrice",
+          "count": 1
+        }
+      ],
+      "examples_miss": {
+        "topic_include": [
+          "ai startup domain under 1500 with some traffic",
+          "premium ai domain with real visitors",
+          "b2b saas startup name good branding"
+        ],
+        "similar_to": [
+          "domains like stripe or plaid",
+          "names with notion kinda vibe",
+          "similar to linear app style naming"
+        ],
+        "topic_exclude": [
+          "domain like figma but not design related",
+          "not healthcare want tech",
+          "saas or cloud but not gaming under 2k"
+        ],
+        "excludeHyphens": [
+          "i want something like stripe or notion or maybe figma not sure what vibe but cle",
+          "instant buy short letters only",
+          "looking for something clean and short for my startup under 500"
+        ],
+        "lifecycle_state": [
+          "active websites traffic 5k+ under 3k",
+          "expired one word .com under 1k",
+          "old expired .com with traffic"
+        ],
+        "minTraffic": [
+          "active websites traffic 5k+ under 3k",
+          "blog domains with steady traffic under 2k",
+          "aged domian 10 yrs trafic above 500 under 2k"
+        ],
+        "endTimeBefore": [
+          "seo value domains expiring now"
+        ],
+        "minSemrushAScore": [
+          "high da domains under 1500",
+          "need domain with good backlinks or high da under 2k but also should sound like r",
+          "does traffic help bid price and also is da or backlinks bigger factor than raw t"
+        ],
+        "buy_it_now": [
+          "buy now expired domains only",
+          "find a healthcare domain that sounds trustworthy and is available to buy right n",
+          "anything interesting today but also specifically ending soon because i want to b"
+        ],
+        "typeIncludeList": [
+          "dropping .com with backlinks cheap",
+          "what dropped today but also show me anything from yesterday that nobody bought y",
+          "standard or partner not backorder not closeout"
+        ],
+        "lifecycle_disjunction": [
+          "expired domain or auction ending soon doesnt matter which just needs traffic or ",
+          "find me expired or dropping domain that has traffic and also sounds like real br",
+          "what dropped today but also show me anything from yesterday that nobody bought y"
+        ],
+        "minSemrushLinksTotal": [
+          "expird .com with backlinks",
+          "low semrush links clean start",
+          "semrush links 500 ref domains 50 under 2k"
+        ],
+        "price_below_market": [
+          "can you find me a domain similar to stripe but cheaper and with no numbers in it"
+        ],
+        "filterPriceCurrency": [
+          "i want something brandable for my saas under 500 dollars that is easy to remembe",
+          "i am looking for domain that works for either ai startup or fintech product and ",
+          "under 200 dollars"
+        ],
+        "startTimeAfter": [
+          "listings from this morning",
+          "whats new since yesterday"
+        ],
+        "isBidAccepted": [
+          "what dropped today but also show me anything from yesterday that nobody bought y",
+          "bid accepted .com or .io under 2k worth jumping in"
+        ],
+        "tldIncludeList": [
+          "i am starting ai startup should i get .com or .io and also does brand name or do",
+          "opening local business should i use city name in domain or not and also .com or ",
+          "should domain match company name and also what if best .com is taken should i go"
+        ],
+        "maxPrice": [
+          "starting b2b saas should i spend 2k on good domain or is that too much for early",
+          "buy it now under 200",
+          "dont want to bid just buy now under 300"
+        ],
+        "minPrice": [
+          "starting b2b saas should i spend 2k on good domain or is that too much for early",
+          "wort spending 1k on a domain",
+          "nothing over 1k"
+        ],
+        "minMajesticBackLinks": [
+          "is expird domian with backlinks bettr than fresh .com for seo purposes",
+          "does traffic help bid price and also is da or backlinks bigger factor than raw t",
+          "barely any backlinks want it clean"
+        ],
+        "traffic_is_unknown": [
+          "zero traffic domains with current bid above 1000"
+        ],
+        "minValuationPrice": [
+          "domains where govalue score is high but current price is low",
+          "govalue premium by category and which one has the best value gaps",
+          "domains where govalue is high but current price is low"
+        ],
+        "minBids": [
+          "single bid auctions ending soon",
+          "starting bid at least 1k",
+          "lots of bidding 20 plus"
+        ],
+        "excludeDigits": [
+          "instant buy short letters only"
+        ],
+        "maxSldLen": [
+          "instant buy short letters only",
+          "tf above 20 short com under 1500"
+        ],
+        "has_reserve_price": [
+          "with reserve price set",
+          "no reserve auctions only",
+          "reserve auction under 2k"
+        ],
+        "gd_transfer": [
+          "gd transfer eligible"
+        ],
+        "isExtended": [
+          "extended auctions right now",
+          "extended ai auction under 2k with bids",
+          "anything priced below its govalue estimate short premium extension under 2k"
+        ],
+        "maxBids": [
+          "one bid or less"
+        ],
+        "startTimeBefore": [
+          "stale over 2 weeks old",
+          "registered before 2010"
+        ],
+        "minSldLen": [
+          "descriptive domains 8 or more chars"
+        ],
+        "word_count_max": [
+          "max 2 words short and clean"
+        ],
+        "word_count_min": [
+          "max 2 words short and clean"
+        ],
+        "charPattern": [
+          "cvcc 5 letter names",
+          "cvc 3 letter names",
+          "cvcv or vcvc brandable under 1500"
+        ],
+        "minUniqueSearches": [
+          "5000 monthly visitors minimum",
+          "unique searches 2000 plus with decent cpc under 2k"
+        ],
+        "maxTraffic": [
+          "low traffic under 100"
+        ],
+        "minMajesticTrustFlowScore": [
+          "tf above 20 short com under 1500",
+          "tf above 20 and cf above 15 under 2k",
+          "expired com with tf above 20 under 1000"
+        ],
+        "minMajesticCitationFlowScore": [
+          "tf above 20 and cf above 15 under 2k"
+        ],
+        "minMajesticRefDomains": [
+          "200 referring domains short com under 2k good for seo",
+          "ref domains 50 plus",
+          "semrush links 500 ref domains 50 under 2k"
+        ],
+        "minSemrushUrlsNum": [
+          "ascore 25 plus with 100 plus indexed pages under 2k"
+        ],
+        "maxEstibotDomainCount": [
+          "low estibot count under 20 emerging"
+        ],
+        "minEstibotDomainCount": [
+          "low estibot count under 20 emerging",
+          "estibot above 100 well established under 1500"
+        ],
+        "minEstibotDomainCountDev": [
+          "dev ext count above 30",
+          "dev ext count high under 1500 developer audience",
+          "dev extension count high"
+        ],
+        "minEstibotExtCountDev": [
+          "dev ext count high under 1500 developer audience"
+        ],
+        "minAge": [
+          "aged domian 10 yrs trafic above 500 under 2k",
+          "find an expired domain at least 10 years old with tf above 20 under 2k",
+          "aged domain 10 years tf above 30 semrush authority above 20 under 3k good for se"
+        ]
+      },
+      "examples_extra": {
+        "maxTraffic": [
+          "something in tech space that has real traffic below 1500 or 2000 if backlinks ar"
+        ],
+        "tldExcludeList": [
+          "openai style name no ai or gpt words",
+          "opening local business should i use city name in domain or not and also .com or "
+        ],
+        "tldIncludeList": [
+          "show ai domains available now",
+          "lookin for cheap ai domain that sounds legit",
+          "availabe ai domains now"
+        ],
+        "has_web_traffic_signal": [
+          "find me domains with flip potential but also should have some traffic or backlin",
+          "hidden gems that are cheap but also look expensive and have some traffic or back",
+          "ending soon traffic"
+        ],
+        "startTimeAfter": [
+          "show me whats trending in ai and fintech domains together this week i want both",
+          "whats trending rn but also any new listings today i want to see fresh and popula",
+          "how many auctions ending this week and also what is total bid volume across all "
+        ],
+        "minMajesticBackLinks": [
+          "new domains added today but also show me if any of them have traffic or backlink",
+          "domain with backlinks already built"
+        ],
+        "endTimeBefore": [
+          "last chance domains but also specifically in ai or fintech categories if possibl",
+          "how many auctions ending this week and also what is total bid volume across all ",
+          "auctions ending weekend vs weekday"
+        ],
+        "minMajesticRefDomains": [
+          "browse ai domains but also show me if any have traffic or backlinks because i wa"
+        ],
+        "price_below_market": [
+          "small business under budget but also should i go for exact match or something mo"
+        ],
+        "typeIncludeList": [
+          "should i backorder or bid in auction and also what is risk difference between tw",
+          "standard or partner not backorder not closeout"
+        ],
+        "maxSldLen": [
+          "short vs descriptive domain name and also how do i know which is better for my s"
+        ],
+        "buy_it_now": [
+          "buynow and closeout listing count"
+        ],
+        "minSemrushAScore": [
+          "high value pending delete domains by domain authority and which registrar has th"
+        ],
+        "excludeDigits": [
+          "do domains with numbers have lower bids and also does hyphen impact bid price si"
+        ],
+        "minPrice": [
+          "nothing over 1k"
+        ],
+        "minBids": [
+          "extended ai auction under 2k with bids"
+        ],
+        "startTimeBefore": [
+          "stale over 2 weeks old"
+        ],
+        "minSemrushDomainsNum": [
+          "ref domains 50 plus"
+        ],
+        "minSemrushCostPerClick": [
+          "high cpc finance or legal niche under 3k"
+        ],
+        "minEstibotExtCount": [
+          "dev ext count above 30"
+        ],
+        "minValuationPrice": [
+          "anything priced below its govalue estimate short premium extension under 2k"
+        ]
+      }
+    },
+    "Regex": {
+      "missing_vs_llmj": [
+        {
+          "key": "minEstibotDomainCountDev",
+          "count": 8
+        },
+        {
+          "key": "minMajesticRefDomains",
+          "count": 6
+        },
+        {
+          "key": "topic_include",
+          "count": 5
+        },
+        {
+          "key": "minValuationPrice",
+          "count": 5
+        },
+        {
+          "key": "maxPrice",
+          "count": 3
+        },
+        {
+          "key": "minPrice",
+          "count": 3
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 3
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 2
+        },
+        {
+          "key": "endTimeBefore",
+          "count": 2
+        },
+        {
+          "key": "typeIncludeList",
+          "count": 2
+        },
+        {
+          "key": "minBids",
+          "count": 2
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 2
+        },
+        {
+          "key": "minUniqueSearches",
+          "count": 2
+        },
+        {
+          "key": "topic_exclude",
+          "count": 1
+        },
+        {
+          "key": "minTraffic",
+          "count": 1
+        },
+        {
+          "key": "minSemrushLinksTotal",
+          "count": 1
+        },
+        {
+          "key": "isBidAccepted",
+          "count": 1
+        },
+        {
+          "key": "startTimeAfter",
+          "count": 1
+        },
+        {
+          "key": "tldIncludeList",
+          "count": 1
+        },
+        {
+          "key": "maxTraffic",
+          "count": 1
+        },
+        {
+          "key": "startTimeBefore",
+          "count": 1
+        },
+        {
+          "key": "maxValuationPrice",
+          "count": 1
+        },
+        {
+          "key": "minSemrushUrlsNum",
+          "count": 1
+        },
+        {
+          "key": "maxEstibotExtCount",
+          "count": 1
+        }
+      ],
+      "extra_vs_llmj": [
+        {
+          "key": "has_web_traffic_signal",
+          "count": 16
+        },
+        {
+          "key": "lifecycle_state",
+          "count": 14
+        },
+        {
+          "key": "topic_include",
+          "count": 11
+        },
+        {
+          "key": "minMajesticBackLinks",
+          "count": 11
+        },
+        {
+          "key": "minBids",
+          "count": 11
+        },
+        {
+          "key": "endTimeBefore",
+          "count": 6
+        },
+        {
+          "key": "minEstibotExtCount",
+          "count": 6
+        },
+        {
+          "key": "maxTraffic",
+          "count": 5
+        },
+        {
+          "key": "similar_to",
+          "count": 5
+        },
+        {
+          "key": "startTimeAfter",
+          "count": 5
+        },
+        {
+          "key": "minSemrushDomainsNum",
+          "count": 5
+        },
+        {
+          "key": "minSemrushAScore",
+          "count": 5
+        },
+        {
+          "key": "minAge",
+          "count": 4
+        },
+        {
+          "key": "minValuationPrice",
+          "count": 4
+        },
+        {
+          "key": "minPrice",
+          "count": 4
+        }
+      ],
+      "examples_miss": {
+        "topic_include": [
+          "ai startup domain under 1500 with some traffic",
+          "travel startup name with real visitors",
+          "logistics saas domain good authority cheap"
+        ],
+        "topic_exclude": [
+          "domain like figma but not design related"
+        ],
+        "minMajesticRefDomains": [
+          "domains with plenty referring domains cheap",
+          "ref domains above 100",
+          "200 referring domains short com under 2k good for seo"
+        ],
+        "minTraffic": [
+          "blog domains with steady traffic under 2k"
+        ],
+        "maxPrice": [
+          "need domain for my startup its like ai meets fintech not sure which way to go bu",
+          "need an expired .com with decent backlinks for seo but i dont want to spend over",
+          "show me one word .io domains that sound premium but are still under a thousand"
+        ],
+        "minSemrushLinksTotal": [
+          "expird .com with backlinks"
+        ],
+        "lifecycle_state": [
+          "shop .store domains available",
+          "newly dropped under 1 year"
+        ],
+        "endTimeBefore": [
+          "auctions ending next few hours",
+          "show me the auctions that are ending in the next few hours please"
+        ],
+        "isBidAccepted": [
+          "what dropped today but also show me anything from yesterday that nobody bought y"
+        ],
+        "typeIncludeList": [
+          "what dropped today but also show me anything from yesterday that nobody bought y",
+          "no reserve auctions only"
+        ],
+        "startTimeAfter": [
+          "i want to see what is trending right now and also if there are any new listings "
+        ],
+        "minPrice": [
+          "starting b2b saas should i spend 2k on good domain or is that too much for early",
+          "wort spending 1k on a domain",
+          "nothing over 1k"
+        ],
+        "tldIncludeList": [
+          "opening local business should i use city name in domain or not and also .com or "
+        ],
+        "minValuationPrice": [
+          "domains where govalue score is high but current price is low",
+          "govalue premium by category and which one has the best value gaps",
+          "domains where govalue is high but current price is low"
+        ],
+        "minBids": [
+          "single bid auctions ending soon",
+          "starting bid at least 1k"
+        ],
+        "minMajesticBackLinks": [
+          "does traffic help bid price and also is da or backlinks bigger factor than raw t",
+          "barely any backlinks want it clean"
+        ],
+        "minSemrushAScore": [
+          "does traffic help bid price and also is da or backlinks bigger factor than raw t",
+          "semrush backlinks over 1000 with decent authority",
+          "something similar to stripe or notion saas topic under 2k with decent authority"
+        ],
+        "minUniqueSearches": [
+          "over 2000 monthly hits",
+          "over 5000 monthly unique searchers"
+        ],
+        "maxTraffic": [
+          "low traffic under 100"
+        ],
+        "startTimeBefore": [
+          "registered before 2010"
+        ],
+        "maxValuationPrice": [
+          "govalue under 500"
+        ],
+        "minSemrushUrlsNum": [
+          "ascore 25 plus with 100 plus indexed pages under 2k"
+        ],
+        "minEstibotDomainCountDev": [
+          "high dev namespace count",
+          "dev ext count above 30",
+          "dev ext count high under 1500 developer audience"
+        ],
+        "maxEstibotExtCount": [
+          "low ext count unique play"
+        ]
+      },
+      "examples_extra": {
+        "topic_include": [
+          "ai startup domain under 1500 with some traffic",
+          "travel startup name with real visitors",
+          "logistics saas domain good authority cheap"
+        ],
+        "maxTraffic": [
+          "something in tech space that has real traffic below 1500 or 2000 if backlinks ar",
+          "blog domains with steady traffic under 2k",
+          "zero traffic domains with current bid above 1000"
+        ],
+        "similar_to": [
+          "cheaper alternative to databricks domain",
+          "just show me anything good under 2k that has traffic or backlinks and sounds lik",
+          "find me somethin like a fintech brand under 2k"
+        ],
+        "lifecycle_state": [
+          "show ai domains available now",
+          "seo value domains expiring now",
+          "recently expired brandable names"
+        ],
+        "startTimeAfter": [
+          "crypto domains available today",
+          "any undervalued domains today",
+          "undervaluedd domains today"
+        ],
+        "has_web_traffic_signal": [
+          "traffic rich domains under 3k",
+          "active websites traffic 5k+ under 3k",
+          "blog domains with steady traffic under 2k"
+        ],
+        "minAge": [
+          "old domains with backlink juice",
+          "brand new brandable names",
+          "old domain with some history"
+        ],
+        "minMajesticBackLinks": [
+          "old domains with backlink juice",
+          "dropping .com with backlinks cheap",
+          "expird .com with backlinks"
+        ],
+        "minValuationPrice": [
+          "seo value domains expiring now",
+          "govalue under 500",
+          "low appraisal under 1k"
+        ],
+        "minSemrushDomainsNum": [
+          "domains with plenty referring domains cheap",
+          "ref domains above 100",
+          "200 referring domains short com under 2k good for seo"
+        ],
+        "minSemrushAScore": [
+          "want strong seo domain under 1500 with decent da and also should be short and br",
+          "high value pending delete domains by domain authority and which registrar has th",
+          "semrush backlinks over 1000 with decent authority"
+        ],
+        "typeIncludeList": [
+          "expiring domains decent traffic cheap",
+          "single dictionary word domain bid premium"
+        ],
+        "word_count_max": [
+          "dictionary word .com under 5k",
+          "single dictionary word domain bid premium"
+        ],
+        "word_count_min": [
+          "dictionary word .com under 5k",
+          "single dictionary word domain bid premium"
+        ],
+        "maxPrice": [
+          "need domain for my startup its like ai meets fintech not sure which way to go bu",
+          "worth spending 1k on domain?",
+          "wort spending 1k on a domain"
+        ],
+        "minPrice": [
+          "need an expired .com with decent backlinks for seo but i dont want to spend over",
+          "share of active listings over 10k",
+          "starting bid at least 1k"
+        ],
+        "endTimeBefore": [
+          "auctions ending next few hours",
+          "last chance domains",
+          "final hours domains"
+        ],
+        "minBids": [
+          "domains getting most bids",
+          "what everyone bidding on",
+          "show me most bid on domains"
+        ],
+        "tldIncludeList": [
+          "how important is .com for local business",
+          "is .io still worth buying",
+          "is .io stil worth buying"
+        ],
+        "tldExcludeList": [
+          "opening local business should i use city name in domain or not and also .com or "
+        ],
+        "lifecycle_disjunction": [
+          "buy expired domain for seo or brandability and also can it serve both purposes o"
+        ],
+        "minEstibotDomainCount": [
+          "grace period domain count currently",
+          "low price domain count under 100",
+          "high da pending delete domain count"
+        ],
+        "maxBids": [
+          "single bid auctions ending soon"
+        ],
+        "has_reserve_price": [
+          "no reserve so i can win at floor"
+        ],
+        "charPattern": [
+          "vcvc under 1k"
+        ],
+        "topic_exclude": [
+          "has fintech but not crypto com under 1500",
+          "stripe or notion vibe under 2k not fintech specifically"
+        ],
+        "minUniqueSearches": [
+          "over 2000 monthly hits",
+          "over 5000 monthly unique searchers"
+        ],
+        "domain_age_is_unknown": [
+          "zero traffic fresh slate"
+        ],
+        "minTraffic": [
+          "zero traffic fresh slate"
+        ],
+        "traffic_is_unknown": [
+          "traffic doesnt matter show me everything"
+        ],
+        "maxAge": [
+          "recently registered under 3 years",
+          "under 2 years old",
+          "newly dropped under 1 year"
+        ],
+        "maxSemrushUrlsNum": [
+          "ascore 25 plus with 100 plus indexed pages under 2k"
+        ],
+        "minSemrushCostPerClick": [
+          "high cpc above 5 bucks",
+          "high cpc finance or legal niche under 3k"
+        ],
+        "maxSemrushCostPerClick": [
+          "cpc under a dollar non commercial"
+        ],
+        "minEstibotExtCount": [
+          "dev ext count above 30",
+          "low ext count unique play",
+          "dev ext count high under 1500 developer audience"
+        ],
+        "minEstibotExtCountDev": [
+          "dev ext above 20 developer niche"
+        ],
+        "minEstibotDomainCountDev": [
+          "dev ext saturation above 15"
+        ],
+        "minMajesticTrustFlowScore": [
+          "domain that google already likes"
+        ]
+      }
+    }
+  }
+}
