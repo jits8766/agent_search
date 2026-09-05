@@ -1,0 +1,108 @@
+# Qdrant Katana deployment manifest
+# Namespace: auctions | App: auc-semsearch-qdrant
+# CI builds a thin TLS image over qdrant/qdrant (docker/qdrant/) that serves
+# HTTPS on 8443 with a self-signed cert, then pushes to ECR.
+# Stack Safeguard requires the container to listen over HTTPS.
+#
+# IMPORTANT: Qdrant requires persistent storage. Without an EFS volume
+# mounted at /qdrant/storage, all vector collections are lost on task restart.
+# Provision an EFS filesystem and mount it before running in production.
+# Contact your infra team to wire the EFS ARN into the ECS task definition.
+#
+# Internal DNS (VPC-only, no public ingress):
+#   Dev-Private: set QDRANT_HOST secret in auc_semantic_search to the
+#   internal ALB hostname Katana assigns to this service after first deploy.
+
+namespace: auctions
+app: auc-semsearch-qdrant
+
+artifact:
+  kind: ecs
+  options:
+    ports:
+      - 8443    # HTTPS REST API + health — required by Stack Safeguard
+    protocol: https
+    healthcheckPath: /healthz
+    healthcheckGracePeriod: 90
+
+environments:
+  dev-private:
+    replicas: 1
+    resources:
+      cpu: 1024
+      memory: 8192
+
+    ingress:
+      enabled: false    # VPC-internal only, no public ALB
+
+    environment:
+      - name: QDRANT__SERVICE__HTTP_PORT
+        value: "8443"
+      - name: QDRANT__SERVICE__GRPC_PORT
+        value: "6334"
+      - name: QDRANT__SERVICE__ENABLE_TLS
+        value: "true"
+      - name: QDRANT__TLS__CERT
+        value: "/qdrant/tls/cert.pem"
+      - name: QDRANT__TLS__KEY
+        value: "/qdrant/tls/key.pem"
+      - name: QDRANT__LOG_LEVEL
+        value: "INFO"
+
+  Test:
+    replicas: 1
+    resources:
+      cpu: 1024
+      memory: 8192
+
+    ingress:
+      enabled: false
+
+    environment:
+      - name: QDRANT__SERVICE__HTTP_PORT
+        value: "8443"
+      - name: QDRANT__SERVICE__GRPC_PORT
+        value: "6334"
+      - name: QDRANT__SERVICE__ENABLE_TLS
+        value: "true"
+      - name: QDRANT__TLS__CERT
+        value: "/qdrant/tls/cert.pem"
+      - name: QDRANT__TLS__KEY
+        value: "/qdrant/tls/key.pem"
+      - name: QDRANT__LOG_LEVEL
+        value: "INFO"
+
+  Prod:
+    replicas: 2
+    resources:
+      cpu: 2048
+      memory: 8192
+
+    ingress:
+      enabled: false
+
+    environment:
+      - name: QDRANT__SERVICE__HTTP_PORT
+        value: "8443"
+      - name: QDRANT__SERVICE__GRPC_PORT
+        value: "6334"
+      - name: QDRANT__SERVICE__ENABLE_TLS
+        value: "true"
+      - name: QDRANT__TLS__CERT
+        value: "/qdrant/tls/cert.pem"
+      - name: QDRANT__TLS__KEY
+        value: "/qdrant/tls/key.pem"
+      - name: QDRANT__LOG_LEVEL
+        value: "INFO"
+
+targetGroup:
+  protocol: HTTPS
+  port: 8443
+  healthCheck:
+    path: /healthz
+    protocol: HTTPS
+    matcher: "200"
+    interval: 60
+    timeout: 10
+    healthyThreshold: 2
+    unhealthyThreshold: 3

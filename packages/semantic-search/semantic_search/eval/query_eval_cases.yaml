@@ -1,0 +1,287 @@
+endpoint: "http://localhost:8085/search"
+top_k: 10
+gliner_model_path: "${LOCAL_PRETRAINED_DIR:-/app/pretrained}/knowledgator/gliner-multitask-large-v0.5"
+embed_model_path: "${LOCAL_PRETRAINED_DIR:-/app/pretrained}/nomic-ai/nomic-embed-text-v1.5"
+semantic_similarity_threshold: 0.35
+min_results_expected: 1
+
+cases:
+  - id: q41
+    query: ".com domains under $300 with no hyphens in the name"
+    category: structured
+    expected_filters:
+      tld: ["com"]
+      price_max: 300
+      has_hyphen: false
+    compliance_checks:
+      - field: tld
+        op: in
+        value: ["com"]
+      - field: price
+        op: lte
+        value: 300
+      - field: has_hyphen
+        op: eq_or_derive
+        value: false
+
+  - id: q42
+    query: "Domains containing digits, priced below $150, buy-now only"
+    category: structured
+    expected_filters:
+      has_number: true
+      price_max: 150
+      auction_type: ["buynow", "20"]
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 150
+      - field: has_number
+        op: eq_or_derive
+        value: true
+      - field: auction_type
+        op: in
+        value: ["20"]
+
+  - id: q43
+    query: "Domains starting with get or go under $1,000"
+    category: structured
+    expected_filters:
+      keyword_starts_with: ["get", "go"]
+      price_max: 1000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 1000
+      - field: sld
+        op: starts_with_any
+        value: ["get", "go"]
+
+  - id: q44
+    query: "Domains ending with ly or ify priced below $2,000"
+    category: structured
+    expected_filters:
+      keyword_ends_with: ["ly", "ify"]
+      price_max: 2000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 2000
+      - field: sld
+        op: ends_with_any
+        value: ["ly", "ify"]
+
+  - id: q45
+    query: "Domains containing crypto with domain age above 5 years"
+    category: structured
+    expected_filters:
+      keyword_contains: ["crypto"]
+      domain_age_min: 5
+    compliance_checks:
+      - field: domain_age_years
+        op: gte_or_null
+        value: 5
+      - field: sld
+        op: contains_any
+        value: ["crypto"]
+
+  - id: q46
+    query: "Domains containing cloud on .io with traffic above 500 monthly visits"
+    category: structured
+    expected_filters:
+      tld: ["io"]
+      traffic_min: 500
+      keyword_contains: ["cloud"]
+    compliance_checks:
+      - field: tld
+        op: in
+        value: ["io"]
+      - field: monthly_traffic
+        op: gte_or_null
+        value: 500
+      - field: sld
+        op: contains_any
+        value: ["cloud"]
+
+  - id: q47
+    query: "Domains containing both pay and fast under $750"
+    category: structured
+    expected_filters:
+      keyword_contains: ["pay", "fast"]
+      keyword_match_mode: "all"
+      price_max: 750
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 750
+      - field: sld
+        op: contains_all
+        value: ["pay", "fast"]
+
+  - id: q48
+    query: "Find domains where the name is exactly nova with any TLD under $5,000"
+    category: structured
+    expected_filters:
+      keyword_phrase: "nova"
+      price_max: 5000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 5000
+      - field: sld
+        op: contains_any
+        value: ["nova"]
+    notes: "Exact SLD match not supported; keyword_phrase fallback is substring match"
+
+  - id: q49
+    query: "Domains containing shop in auction type 16 under $200"
+    category: structured
+    expected_filters:
+      keyword_contains: ["shop"]
+      auction_type: ["16"]
+      price_max: 200
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 200
+      - field: auction_type
+        op: in
+        value: ["16"]
+      - field: sld
+        op: contains_any
+        value: ["shop"]
+
+  - id: q50
+    query: "Domains containing secure with DA above 30 and price below $1,500"
+    category: structured
+    expected_filters:
+      keyword_contains: ["secure"]
+      semrush_authority_min: 30
+      price_max: 1500
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 1500
+      - field: semrush_authority_score
+        op: gte_or_null
+        value: 30
+      - field: sld
+        op: contains_any
+        value: ["secure"]
+
+  - id: q51
+    query: "Domains that sound authoritative and professional for a legal tech startup"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["legal", "tech"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q52
+    query: "Domains suitable for a Gen Z consumer fintech app"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["fintech"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q53
+    query: "Find domains that feel energetic and modern for a fitness brand"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["fitness"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q54
+    query: "Domains with nature or water metaphors suitable for a sustainability startup"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["sustainability", "nature"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q55
+    query: "Short memorable domains suitable for an enterprise B2B SaaS platform"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["saas", "b2b"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q56
+    query: "Premium trust-evoking domains for a digital identity or KYC startup"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["identity", "kyc"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q57
+    query: "Domains that feel comparable to Notion.so or Linear.app in brand quality"
+    category: semantic
+    expected_filters:
+      similar_to: ["notion", "linear"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    notes: "notion.so — .so not in known_tlds; fix strips TLD and uses bare SLD"
+
+  - id: q58
+    query: "Domains following a two-syllable naming pattern like Stripe, Slack, or Zoom"
+    category: semantic
+    expected_filters:
+      similar_to: ["stripe", "slack", "zoom"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    notes: "Syllable count not supported; similar_to seeds extracted after comma-split fix"
+
+  - id: q59
+    query: "Domains with a tech-forward Silicon Valley feel for a developer tools startup"
+    category: semantic
+    expected_query_type: ["explore", "hybrid"]
+    semantic_topic_hints: ["developer", "tools", "tech"]
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: q60
+    query: "Four-letter or fewer .com domains with no numbers no hyphens under $10,000"
+    category: structured
+    expected_filters:
+      tld: ["com"]
+      name_length_max: 4
+      has_number: false
+      has_hyphen: false
+      price_max: 10000
+    compliance_checks:
+      - field: tld
+        op: in
+        value: ["com"]
+      - field: price
+        op: lte
+        value: 10000
+      - field: has_hyphen
+        op: eq_or_derive
+        value: false
+      - field: has_number
+        op: eq_or_derive
+        value: false
+      - field: name_length
+        op: lte
+        value: 4

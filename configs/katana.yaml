@@ -1,0 +1,286 @@
+# auc-semantic-search Katana deployment manifest
+# Namespace: auctions | App: auc-semantic-search | Port: 8085
+# Environments: dev-private (1 replica) → Test (2) → Prod (3)
+#
+# IMPORTANT: the environment/secrets/ingress/targetGroup blocks below are NOT read
+# by the deploy pipeline. katana-get-app (ci-deploy.yml) reads only `namespace` +
+# `app` from this file; ports/protocol/healthcheck/taskRole come from
+# artifact_options_json in the publish step, and env vars + secrets come from the
+# Katana per-app store (gdx katana envvar/secret -> AWS Secrets Manager,
+# region-scoped). The blocks below are retained only as human-readable
+# documentation of intended config.
+#
+# External dependencies (must be provisioned before deploying):
+#   QDRANT_HOST               — Qdrant Cloud or dedicated ECS cluster (Katana Secret)
+#   CLICKHOUSE_HOST           — ClickHouse Cloud or managed instance (Katana Secret)
+#   CLICKHOUSE_PASSWORD       — ClickHouse auth password (Katana Secret)
+#   LOCAL_PRETRAINED_DIR            — /app/pretrained, baked into the image. CI syncs the models
+#                               from S3 (s3://gd-auctions-dev-private-us-west-2/pretrained)
+#                               into ./pretrained before `docker build` (see deploy workflows),
+#                               so runtime needs no S3/EFS. The app validates availability at
+#                               startup and logs status; missing models => degraded mode.
+#
+# In-API near-real-time ingest (Option A) — DISABLED by default in base.yaml
+# (vectorization.delta_refresh / event_ingest / qdrant_enrich). Enable by flipping
+# those flags to true (or Katana env below to "true") and restarting the ECS task.
+# Poll intervals (when enabled): delta 60s, bid 60s, watch 120s.
+# Requires: Athena on task role, clickhouse.enabled (for event path), Qdrant up.
+# Multi-replica (Test/Prod) = N pollers until Option B leader lock.
+#
+# Batch data ingest (Qdrant seed + ClickHouse analytics backfill):
+#   Workflow: .github/workflows/data-ingest.yml (daily cron + manual dispatch).
+#   Fields: vectorization.seed.schedule in base.yaml.
+#   Environment (Katana store or local .env; restart the task to apply):
+#     SEED_SCHEDULE_RUN_ON_DEPLOY   — allow workflow_call trigger=deploy
+#     SEED_SCHEDULE_INTERVAL_HOURS  — minimum hours between scheduled fires
+#     SEED_SCHEDULE_RUN_AT_HOUR_UTC — UTC hour for scheduled fire (0-23)
+#   Effective values: GET /data-build/status → seed.schedule.
+#   Endpoint: POST /data-build/full.
+#
+# Local dev: run `docker compose up -d` (auc-semantic-search/docker-compose.yaml).
+#   QDRANT_HOST and CLICKHOUSE_HOST resolve to container names via compose DNS.
+#   QDRANT_AUTO_START / CLICKHOUSE_AUTO_START not needed (depends_on: service_healthy handles it).
+#   Set ingest and SEED_SCHEDULE_* variables in .env as needed.
+
+namespace: auctions
+app: auc-semantic-search
+
+artifact:
+  kind: ecs
+  options:
+    ports:
+      - 8085
+    protocol: https
+    healthcheckPath: /healthz
+    healthcheckGracePeriod: 120
+    # taskRoleArn is injected per-environment via artifact_options_json in ci-deploy.yml
+
+environments:
+  dev-private:
+    replicas: 1
+    resources:
+      cpu: 1024
+      memory: 2048
+
+    ingress:
+      enabled: true
+      protocol: https
+      port: 8085
+      hosts:
+        - auctions-auc-semantic-search-dev-private.auctions-dev-private.prod.onkatana.net
+      healthcheck:
+        path: /healthz
+        protocol: https
+        interval: 60
+        timeout: 10
+        healthyThreshold: 2
+        unhealthyThreshold: 3
+
+    # Non-secret runtime config — disables Docker auto-start (no daemon in ECS),
+    # points the model loader at the baked-in models, and forces offline HF cache.
+    environment:
+      - name: QDRANT_AUTO_START
+        value: "false"
+      - name: CLICKHOUSE_AUTO_START
+        value: "false"
+      - name: LOCAL_PRETRAINED_DIR
+        value: /app/pretrained
+      - name: HF_HUB_OFFLINE
+        value: "1"
+      - name: CLICKHOUSE_USER
+        value: "default"
+      - name: CLICKHOUSE_PORT
+        value: "443"
+      - name: CLICKHOUSE_SECURE
+        value: "true"
+      - name: QDRANT_PORT
+        value: "443"
+      - name: QDRANT_HTTPS
+        value: "true"
+      - name: QDRANT_PREFER_GRPC
+        value: "false"
+      # Option A ingest — off by default; set "true" + restart when Athena path ready.
+      - name: DELTA_REFRESH_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_BID_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_WATCH_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_QDRANT_ENRICH_ENABLED
+        value: "false"
+      # Batch schedule (documentation). Inject via Katana envvar store / gdx;
+      # this YAML environment block is not applied by the deploy pipeline.
+      # - name: SEED_SCHEDULE_RUN_ON_DEPLOY
+      #   value: "true"
+      # - name: SEED_SCHEDULE_INTERVAL_HOURS
+      #   value: "24"
+      # - name: SEED_SCHEDULE_RUN_AT_HOUR_UTC
+      #   value: "2"
+      # GoCode S2S IAM JWT auth. When set, the service mints an IAM JWT at startup
+      # via gd_auth (reads ECS task role automatically) and refreshes it every ~50 min.
+      # OPENAI_API_KEY / ANTHROPIC_API_KEY secrets are overridden at runtime by the JWT;
+      # LLM_BASE_URL secret must be set to the GoCode S2S endpoint for this environment.
+      - name: GOCODE_ENV
+        value: "dev"
+
+    # See file header: secrets/env are sourced from the Katana store, not this block.
+    secrets:
+      - name: ANTHROPIC_API_KEY
+        valueFrom: ANTHROPIC_API_KEY
+      - name: OPENAI_API_KEY
+        valueFrom: OPENAI_API_KEY
+      - name: LLM_BASE_URL
+        valueFrom: LLM_BASE_URL
+      - name: QDRANT_HOST
+        valueFrom: QDRANT_HOST
+      - name: CLICKHOUSE_HOST
+        valueFrom: CLICKHOUSE_HOST
+      - name: CLICKHOUSE_PASSWORD
+        valueFrom: CLICKHOUSE_PASSWORD
+
+  Test:
+    replicas: 2
+    resources:
+      cpu: 1024
+      memory: 2048
+
+    ingress:
+      enabled: true
+      protocol: https
+      port: 8085
+      hosts:
+        - auctions-auc-semantic-search-test.auctions-test.prod.onkatana.net
+      healthcheck:
+        path: /healthz
+        protocol: https
+        interval: 60
+        timeout: 10
+        healthyThreshold: 2
+        unhealthyThreshold: 3
+
+    environment:
+      - name: QDRANT_AUTO_START
+        value: "false"
+      - name: CLICKHOUSE_AUTO_START
+        value: "false"
+      - name: LOCAL_PRETRAINED_DIR
+        value: /app/pretrained
+      - name: HF_HUB_OFFLINE
+        value: "1"
+      - name: CLICKHOUSE_USER
+        value: "default"
+      - name: CLICKHOUSE_PORT
+        value: "443"
+      - name: CLICKHOUSE_SECURE
+        value: "true"
+      - name: QDRANT_PORT
+        value: "443"
+      - name: QDRANT_HTTPS
+        value: "true"
+      - name: QDRANT_PREFER_GRPC
+        value: "false"
+      # Option A ingest — off by default; set "true" + restart when Athena path ready.
+      - name: DELTA_REFRESH_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_BID_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_WATCH_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_QDRANT_ENRICH_ENABLED
+        value: "false"
+      - name: GOCODE_ENV
+        value: "test"
+
+    secrets:
+      - name: ANTHROPIC_API_KEY
+        valueFrom: ANTHROPIC_API_KEY
+      - name: OPENAI_API_KEY
+        valueFrom: OPENAI_API_KEY
+      - name: LLM_BASE_URL
+        valueFrom: LLM_BASE_URL
+      - name: QDRANT_HOST
+        valueFrom: QDRANT_HOST
+      - name: CLICKHOUSE_HOST
+        valueFrom: CLICKHOUSE_HOST
+      - name: CLICKHOUSE_PASSWORD
+        valueFrom: CLICKHOUSE_PASSWORD
+
+  Prod:
+    replicas: 3
+    resources:
+      cpu: 2048
+      memory: 4096
+
+    ingress:
+      enabled: true
+      protocol: https
+      port: 8085
+      hosts:
+        - auctions-auc-semantic-search-prod.auctions-prod.prod.onkatana.net
+      healthcheck:
+        path: /healthz
+        protocol: https
+        interval: 60
+        timeout: 10
+        healthyThreshold: 2
+        unhealthyThreshold: 3
+
+    environment:
+      - name: QDRANT_AUTO_START
+        value: "false"
+      - name: CLICKHOUSE_AUTO_START
+        value: "false"
+      - name: LOCAL_PRETRAINED_DIR
+        value: /app/pretrained
+      - name: HF_HUB_OFFLINE
+        value: "1"
+      - name: CLICKHOUSE_USER
+        value: "default"
+      - name: CLICKHOUSE_PORT
+        value: "443"
+      - name: CLICKHOUSE_SECURE
+        value: "true"
+      - name: QDRANT_PORT
+        value: "443"
+      - name: QDRANT_HTTPS
+        value: "true"
+      - name: QDRANT_PREFER_GRPC
+        value: "false"
+      # Option A ingest — off by default; set "true" + restart when Athena path ready.
+      - name: DELTA_REFRESH_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_BID_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_WATCH_ENABLED
+        value: "false"
+      - name: EVENT_INGEST_QDRANT_ENRICH_ENABLED
+        value: "false"
+      - name: GOCODE_ENV
+        value: "prod"
+
+    secrets:
+      - name: ANTHROPIC_API_KEY
+        valueFrom: ANTHROPIC_API_KEY
+      - name: OPENAI_API_KEY
+        valueFrom: OPENAI_API_KEY
+      - name: LLM_BASE_URL
+        valueFrom: LLM_BASE_URL
+      - name: QDRANT_HOST
+        valueFrom: QDRANT_HOST
+      - name: CLICKHOUSE_HOST
+        valueFrom: CLICKHOUSE_HOST
+      - name: CLICKHOUSE_PASSWORD
+        valueFrom: CLICKHOUSE_PASSWORD
+
+# Target group — ALB routes /healthz for liveness; all paths forward to port 8085.
+targetGroup:
+  protocol: HTTPS
+  port: 8085
+  healthCheck:
+    path: /healthz
+    protocol: HTTPS
+    matcher: "200"
+    interval: 60
+    timeout: 10
+    healthyThreshold: 2
+    unhealthyThreshold: 3

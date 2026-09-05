@@ -1,0 +1,83 @@
+# agent_search — explicit dependency manifest.
+#
+# The package also depends on the workspace-shared `llm_core` package and the
+# stdlib + the dependencies pulled in transitively by the libraries below
+# (httpx, pyyaml, sqlglot, fastapi, etc.). Those are declared by the sibling
+# packages that own them. This file lists ONLY the dependencies introduced
+# by agent_search itself that are not already declared elsewhere in the
+# workspace.
+
+# boto3 / botocore — AWS Athena + S3 client for the seed pipeline.
+# Versions pinned to match agent_eval workspace parity.
+boto3==1.40.64
+botocore==1.40.76
+
+# httpx — explicit for Layer-4 eRanker HTTP client (FastAPI stack may already pull it transitively).
+httpx==0.28.0
+
+# Load `.env` before config/LLM discovery (same stack as agent_eval / offline_eval).
+python-dotenv==1.2.2
+
+# Native sparse-vector + server-side dense+sparse fusion (FusionQuery) requires
+# qdrant-client >= 1.10 / Qdrant server >= 1.10. Installed: 1.17.1.
+qdrant-client==1.17.1
+
+# FastEmbed — production text encoder runtime (domain-name vectorization).
+# Backs Snowflake `arctic-embed-m-v2.0` (Apache-2.0, Matryoshka 768/256/128)
+# served on FastEmbed (ONNX Runtime, CPU-first, ~280 qps/CPU at 128-dim).
+# The model artefact (~430 MB) is downloaded on first use into
+# `qi.encoder.cache_dir` (or the FastEmbed default `~/.cache/fastembed` when
+# empty). The selection is config-gated via `qi.encoder.backend = fastembed |
+# hashing`; the test suite runs against `hashing` to keep the boot
+# deterministic and offline.
+fastembed==0.8.0
+
+# Optional shared cache tier (Redis/Dragonfly) for cross-replica cache lines.
+redis==5.2.1
+
+# SymSpell — frequency-dictionary-backed Tier-0 spell corrector.
+# Ships bundled English frequency dictionaries (82K terms, 243K bigrams) used
+# via config frequency_dict_path = "symspellpy:<filename>".
+symspellpy>=6.7.7
+
+# scikit-learn + joblib — REQUIRED AT RUNTIME by the production `api` image to
+# load the QI learned head (qi.semantic.learned_head.kind = ensemble).
+# EnsembleHead.load deserialises the SVM + GradientBoosting sub-models via
+# joblib; without these the router raises on load and silently degrades to the
+# centroid scorer (the baked semantic_head_v1.npz goes unused). Pinned to the
+# versions that trained the artefact so joblib unpickle stays compatible.
+# The Dockerfile `trainer` stage also needs sklearn; declaring it here covers both.
+scikit-learn==1.8.0
+joblib==1.5.3
+
+# sqlglot — SQL parse/transpile used by nl_to_sql pipeline (ClickHouse dialect).
+sqlglot==30.11.0
+
+# The api image installs from this file, NOT pyproject/uv.lock, so runtime deps
+# declared in pyproject must be mirrored here or the container crashes at import.
+# These were missing (python-multipart → FastAPI form endpoints; transformers →
+# encoder stack; starlette → ASGI core; the rest → auth/TLS/parsing in the
+# request path). Pinned to the lockfile.
+python-multipart==0.0.32
+transformers==5.5.0
+# CVE-2026-59890 — MANIFEST.in Unicode exclude bypass; Dockerfile also pins this.
+setuptools>=83.0.0
+starlette==1.3.1
+pydantic-settings==2.14.2
+cryptography>=50.0.0
+authlib==1.7.2
+lxml==6.1.1
+tornado==6.5.7
+
+# spaCy — NER-based location context stripping in residual_extractor.
+# en_core_web_sm model installed as a wheel (no separate download step).
+# Install with: uv pip install ".[rag]"
+spacy>=3.8.0,<4.0
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+
+# torch — DO NOT pin here. PyPI torch on Linux pulls nvidia-*/cudnn/nccl/triton.
+# Dockerfile installs CPU-only first:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch==2.13.0
+# Workspace uv.lock resolves the same via [[tool.uv.index]] pytorch-cpu.
+# accelerate/evaluate/datasets are training-only (unused by API runtime) and
+# were removed so `pip install -r` cannot re-resolve CUDA torch from PyPI.

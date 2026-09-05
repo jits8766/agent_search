@@ -1,0 +1,1172 @@
+endpoint: "http://localhost:8085/search"
+top_k: 10
+gliner_model_path: "${LOCAL_PRETRAINED_DIR:-/app/.pretrained}/knowledgator/gliner-multitask-large-v0.5"
+embed_model_path: "${LOCAL_PRETRAINED_DIR:-/app/.pretrained}/nomic-ai/nomic-embed-text-v1.5"
+semantic_similarity_threshold: 0.35
+min_results_expected: 1
+concurrency: 20
+
+cases:
+
+  # ── Semantic + Filters ──────────────────────────────────────────────────────
+
+  - id: h01
+    query: "ai startup domain under 1500 with some traffic"
+    category: semantic
+    expected_filters:
+      price_max: 1500
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 1500
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [ai, startup]
+
+  - id: h02
+    query: "premium ai domain with real visitors"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [ai, premium]
+
+  - id: h03
+    query: "b2b saas startup name good branding"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [saas, b2b, startup, brand]
+
+  - id: h04
+    query: "fintech startup domain under 2k no crypto vibe"
+    category: semantic
+    expected_filters:
+      price_max: 2000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 2000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [fintech, startup]
+
+  - id: h05
+    query: "healthcare startup name trustworthy"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [healthcare, trust, startup]
+
+  - id: h06
+    query: "cybersecurity startup domain under 1k"
+    category: semantic
+    expected_filters:
+      price_max: 1000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 1000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [cybersecurity, security, startup]
+
+  - id: h07
+    query: "climate tech domains added recently"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [climate, tech, sustainability]
+
+  - id: h08
+    query: "ecommerce domains with existing traffic"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [ecommerce, retail, shop]
+
+  - id: h09
+    query: "devtools startup domain ending soon"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [devtools, developer, startup]
+
+  - id: h10
+    query: "cloud platform domain traffic 1000+"
+    category: semantic
+    expected_filters:
+      traffic_min: 1000
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [cloud, platform, infrastructure]
+
+  # ── Similarity Search ───────────────────────────────────────────────────────
+
+  - id: h11
+    query: "domains like stripe or plaid"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [fintech, payments, brand]
+
+  - id: h12
+    query: "names with notion kinday vibe"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [productivity, saas, minimal]
+
+  - id: h13
+    query: "similar to linear app style naming"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [productivity, developer, minimal]
+
+  - id: h14
+    query: "domain like figma but not design related"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [brand, creative, startup]
+
+  - id: h15
+    query: "cheaper alternative to databricks domain"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [data, analytics, platform]
+
+  - id: h16
+    query: "openai style name no ai or gpt words"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [ai, technology, brand]
+
+  - id: h17
+    query: "startup names like slack stripe zoom"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [startup, brand, saas]
+
+  - id: h18
+    query: "yc startup type domain"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [startup, brand, yc]
+
+  # ── Brandability ────────────────────────────────────────────────────────────
+
+  - id: h19
+    query: "short catchy .io names below 500"
+    category: structured
+    expected_filters:
+      tld: [io]
+      price_max: 500
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [io]
+      - field: price
+        op: lte
+        value: 500
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h20
+    query: "premium sounding one word domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [premium, brand, one-word]
+
+  - id: h21
+    query: "memorable enterprise saas domain"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [enterprise, saas, brand]
+
+  - id: h22
+    query: "startup sounding domain under 500"
+    category: semantic
+    expected_filters:
+      price_max: 500
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 500
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [startup, brand]
+
+  - id: h23
+    query: "trust evoking startup names"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [trust, startup, brand]
+
+  - id: h24
+    query: "one word brandable domain under 3k"
+    category: semantic
+    expected_filters:
+      price_max: 3000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 3000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [brandable, one-word]
+
+  - id: h25
+    query: "luxury sounding brand under budget"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [luxury, premium, brand]
+
+  - id: h26
+    query: "strong brand no traffic data needed"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [brand, premium]
+
+  # ── SEO + Authority ─────────────────────────────────────────────────────────
+
+  - id: h27
+    query: "domains with strong backlinks under 2k"
+    category: semantic
+    expected_filters:
+      price_max: 2000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 2000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [seo, backlinks, authority]
+
+  - id: h28
+    query: "good seo domains cheap"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [seo, authority]
+
+  - id: h29
+    query: "traffic rich domains under 3k"
+    category: semantic
+    expected_filters:
+      price_max: 3000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 3000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, seo]
+
+  - id: h30
+    query: "strong authority domains for investing"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [authority, seo, investment]
+
+  - id: h31
+    query: "old domains with backlink juice"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [seo, backlinks, aged]
+
+  - id: h32
+    query: "active websites traffic 5k+ under 3k"
+    category: semantic
+    expected_filters:
+      traffic_min: 5000
+      price_max: 3000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 3000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, active]
+
+  - id: h33
+    query: "undervalued domains with authority"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [authority, undervalued, seo]
+
+  - id: h34
+    query: "seo value domains expiring now"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [seo, expiring, authority]
+
+  # ── Expired + Auctions ──────────────────────────────────────────────────────
+
+  - id: h35
+    query: "expired one word .com under 1k"
+    category: structured
+    expected_filters:
+      tld: [com]
+      price_max: 1000
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [com]
+      - field: price
+        op: lte
+        value: 1000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h36
+    query: "expiring domains decent traffic cheap"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [expiring, traffic]
+
+  - id: h37
+    query: "domains ending next 24 hrs"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h38
+    query: "pending delete domains worth grabbing"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h39
+    query: "backorder worthy domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h40
+    query: "old expired .com with traffic"
+    category: structured
+    expected_filters:
+      tld: [com]
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [com]
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, expired]
+
+  - id: h41
+    query: "startup sounding domains ending soon"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [startup, brand]
+
+  - id: h42
+    query: "buy now expired domains only"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  # ── Structured Filters ──────────────────────────────────────────────────────
+
+  - id: h43
+    query: ".net domains under 100"
+    category: structured
+    expected_filters:
+      tld: [net]
+      price_max: 100
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [net]
+      - field: price
+        op: lte
+        value: 100
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h44
+    query: ".org domains under 200"
+    category: structured
+    expected_filters:
+      tld: [org]
+      price_max: 200
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [org]
+      - field: price
+        op: lte
+        value: 200
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h45
+    query: "short .com less than 8 chars"
+    category: structured
+    expected_filters:
+      tld: [com]
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [com]
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h46
+    query: "four letter .com no numbers"
+    category: structured
+    expected_filters:
+      tld: [com]
+      has_number: false
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [com]
+      - field: has_number
+        op: eq_or_derive
+        value: false
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h47
+    query: "one word domain any extension"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h48
+    query: "cloud keyword .io domains"
+    category: structured
+    expected_filters:
+      tld: [io]
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [io]
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [cloud]
+
+  - id: h49
+    query: "no hyphen .com domains under 300"
+    category: structured
+    expected_filters:
+      tld: [com]
+      has_hyphen: false
+      price_max: 300
+    compliance_checks:
+      - field: tld
+        op: in
+        value: [com]
+      - field: has_hyphen
+        op: eq_or_derive
+        value: false
+      - field: price
+        op: lte
+        value: 300
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h50
+    query: "domains underpriced compared to similar sales"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, investment]
+
+  # ── Investor Semantic ───────────────────────────────────────────────────────
+
+  - id: h51
+    query: "domains with good flip potential"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, flip, resale]
+
+  - id: h52
+    query: "what domains investors buying lately"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  - id: h53
+    query: "domains likely worth more in future"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, appreciation]
+
+  - id: h54
+    query: "domains with strong resale value"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [resale, premium, investment]
+
+  - id: h55
+    query: "hidden gem domains investors might buy"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, investment]
+
+  - id: h56
+    query: "undervalued names with upside"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, investment]
+
+  - id: h57
+    query: "good long term hold domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, long-term]
+
+  - id: h58
+    query: "investor grade domains under 5k"
+    category: semantic
+    expected_filters:
+      price_max: 5000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 5000
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  - id: h59
+    query: "domains with high liquidity potential"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, liquidity]
+
+  - id: h60
+    query: "strong portfolio addition names"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [portfolio, investment, brand]
+
+  # ── Ambiguous / Open-Ended Hybrid ───────────────────────────────────────────
+
+  - id: h61
+    query: "what would you buy if investing today"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  - id: h62
+    query: "show me sleeper domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, hidden]
+
+  - id: h63
+    query: "domains flying under radar"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, hidden]
+
+  - id: h64
+    query: "any overlooked premium names"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [premium, undervalued]
+
+  - id: h65
+    query: "good value compared to market"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [value, market]
+
+  - id: h66
+    query: "bargain domains with upside"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [bargain, investment]
+
+  - id: h67
+    query: "future category winners"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, trending]
+
+  - id: h68
+    query: "domains in growing sectors"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [growth, sector, investment]
+
+  - id: h69
+    query: "opportunities nobody noticed yet"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, opportunity]
+
+  - id: h70
+    query: "best value premium domains right now"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [premium, value]
+
+  # ── Messy Real User Queries ─────────────────────────────────────────────────
+
+  - id: h71
+    query: "good domain for flipping"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [flip, investment, resale]
+
+  - id: h72
+    query: "what investor buying now"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  - id: h73
+    query: "any undervalued domains today"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, bargain]
+
+  - id: h74
+    query: "show me hidden gems for resale"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [hidden, resale, investment]
+
+  - id: h75
+    query: "domains worth investing in rn"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  - id: h76
+    query: "what names can sell later higher"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [resale, appreciation]
+
+  - id: h77
+    query: "cheap premium domains maybe"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [premium, value]
+
+  - id: h78
+    query: "any sleeper picks"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [hidden, undervalued]
+
+  - id: h79
+    query: "domains below market value"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, market]
+
+  - id: h80
+    query: "what would domain pro buy"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  # ── SEO / Traffic Discovery ─────────────────────────────────────────────────
+
+  - id: h81
+    query: "domains with good traffic"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, seo]
+
+  - id: h82
+    query: "strong backlink domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [backlinks, authority, seo]
+
+  - id: h83
+    query: "seo friendly domains available"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [seo, authority]
+
+  - id: h84
+    query: "active websites for sale"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, active]
+
+  - id: h85
+    query: "traffic spike domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, growth]
+
+  - id: h86
+    query: "domains with existing audience"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, audience]
+
+  # ── Expired / Drops Discovery ───────────────────────────────────────────────
+
+  - id: h87
+    query: "good expired domains today"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [expired]
+
+  - id: h88
+    query: "recent drops worth grabbing"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [expired, drops]
+
+  - id: h89
+    query: "pending delete domains now"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h90
+    query: "domains dropping this week"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h91
+    query: "backorder opportunities"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: []
+
+  - id: h92
+    query: "expiring domains with traffic"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [traffic, expiring]
+
+  # ── Investor Semantic Discovery ─────────────────────────────────────────────
+
+  - id: h93
+    query: "domains with resale potential"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [resale, investment]
+
+  - id: h94
+    query: "what investors buying lately"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, premium]
+
+  - id: h95
+    query: "domains likely to appreciate"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [appreciation, investment]
+
+  - id: h96
+    query: "good flips right now"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [flip, resale, investment]
+
+  - id: h97
+    query: "premium domains under market value"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [premium, undervalued]
+
+  - id: h98
+    query: "strong long term hold domains"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [investment, long-term]
+
+  # ── Filter-Bearing Browse Queries ───────────────────────────────────────────
+
+  - id: h99
+    query: "recent arrivals under 1000"
+    category: structured
+    expected_filters:
+      price_max: 1000
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 1000
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h100
+    query: "closing tonight under 500"
+    category: structured
+    expected_filters:
+      price_max: 500
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 500
+      - field: result_count
+        op: gte
+        value: 1
+
+  - id: h101
+    query: "underrated domains under 300"
+    category: semantic
+    expected_filters:
+      price_max: 300
+    compliance_checks:
+      - field: price
+        op: lte
+        value: 300
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued]
+
+  - id: h102
+    query: "good expired domains now"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [expired]
+
+  - id: h103
+    query: "any underpriced domains today"
+    category: semantic
+    expected_filters: {}
+    compliance_checks:
+      - field: result_count
+        op: gte
+        value: 1
+    semantic_topic_hints: [undervalued, bargain]

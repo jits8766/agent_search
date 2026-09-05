@@ -1,0 +1,2526 @@
+{
+  "grounding_model": "gpt-5.4-mini",
+  "grounding_endpoint": "http://localhost:8085/internal/l0_ground",
+  "pairs": [
+    {
+      "pair": "LLMJ=QIE_Only_LLM",
+      "arm_a": "LLMJ",
+      "arm_a_label": "offline LLM extract + API-grounded",
+      "arm_b": "QIE_Only_LLM",
+      "arm_b_label": "qie_only LLM (live)",
+      "prod_exact": 937,
+      "n": 1001,
+      "prod_exact_pct": "93.6%",
+      "exact_plus_grounded_dropped": 937,
+      "exact_plus_grounded_dropped_pct": "93.6%",
+      "exact_plus_gnd_pipeline": 937,
+      "exact_plus_gnd_pipeline_pct": "93.6%",
+      "exact_plus_gnd_pipeline_soft": 937,
+      "exact_plus_gnd_pipeline_soft_pct": "93.6%",
+      "mismatches": 64,
+      "grounding_explained": 0,
+      "pipeline_explained": 0,
+      "soft_explained": 0,
+      "unexplained": 64
+    },
+    {
+      "pair": "LLMJ=Full_Search_LLM",
+      "arm_a": "LLMJ",
+      "arm_a_label": "offline LLM extract + API-grounded",
+      "arm_b": "Full_Search_LLM",
+      "arm_b_label": "full-search LLM (live)",
+      "prod_exact": 718,
+      "n": 1001,
+      "prod_exact_pct": "71.7%",
+      "exact_plus_grounded_dropped": 724,
+      "exact_plus_grounded_dropped_pct": "72.3%",
+      "exact_plus_gnd_pipeline": 746,
+      "exact_plus_gnd_pipeline_pct": "74.5%",
+      "exact_plus_gnd_pipeline_soft": 904,
+      "exact_plus_gnd_pipeline_soft_pct": "90.3%",
+      "mismatches": 283,
+      "grounding_explained": 6,
+      "pipeline_explained": 22,
+      "soft_explained": 158,
+      "unexplained": 97
+    },
+    {
+      "pair": "LLMJ=Regex",
+      "arm_a": "LLMJ",
+      "arm_a_label": "offline LLM extract + API-grounded",
+      "arm_b": "Regex",
+      "arm_b_label": "offline regex fallback + API-grounded",
+      "prod_exact": 853,
+      "n": 1001,
+      "prod_exact_pct": "85.2%",
+      "exact_plus_grounded_dropped": 853,
+      "exact_plus_grounded_dropped_pct": "85.2%",
+      "exact_plus_gnd_pipeline": 853,
+      "exact_plus_gnd_pipeline_pct": "85.2%",
+      "exact_plus_gnd_pipeline_soft": 853,
+      "exact_plus_gnd_pipeline_soft_pct": "85.2%",
+      "mismatches": 148,
+      "grounding_explained": 0,
+      "pipeline_explained": 0,
+      "soft_explained": 0,
+      "unexplained": 148
+    },
+    {
+      "pair": "QIE_Only_LLM=Full_Search_LLM",
+      "arm_a": "QIE_Only_LLM",
+      "arm_a_label": "qie_only LLM (live)",
+      "arm_b": "Full_Search_LLM",
+      "arm_b_label": "full-search LLM (live)",
+      "prod_exact": 726,
+      "n": 1001,
+      "prod_exact_pct": "72.5%",
+      "exact_plus_grounded_dropped": 734,
+      "exact_plus_grounded_dropped_pct": "73.3%",
+      "exact_plus_gnd_pipeline": 759,
+      "exact_plus_gnd_pipeline_pct": "75.8%",
+      "exact_plus_gnd_pipeline_soft": 925,
+      "exact_plus_gnd_pipeline_soft_pct": "92.4%",
+      "mismatches": 275,
+      "grounding_explained": 8,
+      "pipeline_explained": 25,
+      "soft_explained": 166,
+      "unexplained": 76
+    },
+    {
+      "pair": "QIE_Only_LLM=Regex",
+      "arm_a": "QIE_Only_LLM",
+      "arm_a_label": "qie_only LLM (live)",
+      "arm_b": "Regex",
+      "arm_b_label": "offline regex fallback + API-grounded",
+      "prod_exact": 858,
+      "n": 1001,
+      "prod_exact_pct": "85.7%",
+      "exact_plus_grounded_dropped": 858,
+      "exact_plus_grounded_dropped_pct": "85.7%",
+      "exact_plus_gnd_pipeline": 858,
+      "exact_plus_gnd_pipeline_pct": "85.7%",
+      "exact_plus_gnd_pipeline_soft": 858,
+      "exact_plus_gnd_pipeline_soft_pct": "85.7%",
+      "mismatches": 143,
+      "grounding_explained": 0,
+      "pipeline_explained": 0,
+      "soft_explained": 0,
+      "unexplained": 143
+    },
+    {
+      "pair": "Full_Search_LLM=Regex",
+      "arm_a": "Full_Search_LLM",
+      "arm_a_label": "full-search LLM (live)",
+      "arm_b": "Regex",
+      "arm_b_label": "offline regex fallback + API-grounded",
+      "prod_exact": 647,
+      "n": 1001,
+      "prod_exact_pct": "64.6%",
+      "exact_plus_grounded_dropped": 655,
+      "exact_plus_grounded_dropped_pct": "65.4%",
+      "exact_plus_gnd_pipeline": 676,
+      "exact_plus_gnd_pipeline_pct": "67.5%",
+      "exact_plus_gnd_pipeline_soft": 826,
+      "exact_plus_gnd_pipeline_soft_pct": "82.5%",
+      "mismatches": 354,
+      "grounding_explained": 8,
+      "pipeline_explained": 21,
+      "soft_explained": 150,
+      "unexplained": 175
+    }
+  ],
+  "aggregate": {
+    "unit": "query",
+    "prod_exact": 4739,
+    "n": 6006,
+    "prod_exact_pct": 78.9,
+    "exact_plus_grounded_dropped": 4761,
+    "exact_plus_grounded_dropped_pct": 79.3,
+    "exact_plus_gnd_pipeline": 4829,
+    "exact_plus_gnd_pipeline_pct": 80.4,
+    "exact_plus_gnd_pipeline_soft": 5303,
+    "exact_plus_gnd_pipeline_soft_pct": 88.3,
+    "mismatches": 1267,
+    "grounding_explained": 22,
+    "pipeline_explained": 68,
+    "soft_explained": 474,
+    "unexplained": 703
+  },
+  "keywords": {
+    "unit": "query",
+    "arms": [
+      "LLMJ",
+      "QIE_Only_LLM",
+      "Full_Search_LLM"
+    ],
+    "notes": "Term-set exact match (casefold); probabilities on *_keywords_detail only. Threshold already applied in L0 extractor.",
+    "pairs": [
+      {
+        "pair": "LLMJ=QIE_Only_LLM",
+        "arm_a": "LLMJ",
+        "arm_a_label": "offline LLM extract + API-grounded",
+        "arm_b": "QIE_Only_LLM",
+        "arm_b_label": "qie_only LLM (live)",
+        "exact": 937,
+        "n": 1001,
+        "exact_pct": "93.6%",
+        "diff": 64,
+        "diff_pct": "6.4%",
+        "jaccard_mean": 0.9425
+      },
+      {
+        "pair": "LLMJ=Full_Search_LLM",
+        "arm_a": "LLMJ",
+        "arm_a_label": "offline LLM extract + API-grounded",
+        "arm_b": "Full_Search_LLM",
+        "arm_b_label": "full-search LLM (live)",
+        "exact": 948,
+        "n": 1001,
+        "exact_pct": "94.7%",
+        "diff": 53,
+        "diff_pct": "5.3%",
+        "jaccard_mean": 0.9558
+      },
+      {
+        "pair": "QIE_Only_LLM=Full_Search_LLM",
+        "arm_a": "QIE_Only_LLM",
+        "arm_a_label": "qie_only LLM (live)",
+        "arm_b": "Full_Search_LLM",
+        "arm_b_label": "full-search LLM (live)",
+        "exact": 965,
+        "n": 1001,
+        "exact_pct": "96.4%",
+        "diff": 36,
+        "diff_pct": "3.6%",
+        "jaccard_mean": 0.9671
+      }
+    ],
+    "three_arm_exact": 927,
+    "three_arm_n": 1001,
+    "three_arm_exact_pct": 92.6,
+    "three_arm_diff": 74,
+    "miss_extra_vs_llmj": {
+      "QIE_Only_LLM": {
+        "missing": [
+          {
+            "key": "seo",
+            "count": 4
+          },
+          {
+            "key": "ai",
+            "count": 3
+          },
+          {
+            "key": "fintech",
+            "count": 3
+          },
+          {
+            "key": "startup",
+            "count": 2
+          },
+          {
+            "key": "devtools",
+            "count": 2
+          },
+          {
+            "key": "climate",
+            "count": 1
+          },
+          {
+            "key": "tech",
+            "count": 1
+          },
+          {
+            "key": "legal tech",
+            "count": 1
+          },
+          {
+            "key": "keyword",
+            "count": 1
+          },
+          {
+            "key": "portfolio",
+            "count": 1
+          },
+          {
+            "key": "marketing",
+            "count": 1
+          },
+          {
+            "key": "product",
+            "count": 1
+          },
+          {
+            "key": "buyers",
+            "count": 1
+          },
+          {
+            "key": "healthcare",
+            "count": 1
+          },
+          {
+            "key": "gaming",
+            "count": 1
+          },
+          {
+            "key": "tool",
+            "count": 1
+          }
+        ],
+        "extra": [
+          {
+            "key": "brand",
+            "count": 4
+          },
+          {
+            "key": "startup",
+            "count": 3
+          },
+          {
+            "key": "legal",
+            "count": 2
+          },
+          {
+            "key": "tech",
+            "count": 2
+          },
+          {
+            "key": "ai",
+            "count": 2
+          },
+          {
+            "key": "seo",
+            "count": 2
+          },
+          {
+            "key": "notion",
+            "count": 2
+          },
+          {
+            "key": "business",
+            "count": 2
+          },
+          {
+            "key": "professional",
+            "count": 2
+          },
+          {
+            "key": "use",
+            "count": 2
+          },
+          {
+            "key": "starting",
+            "count": 2
+          },
+          {
+            "key": "worth",
+            "count": 2
+          },
+          {
+            "key": "spending",
+            "count": 2
+          },
+          {
+            "key": "fintech",
+            "count": 1
+          },
+          {
+            "key": "climate tech",
+            "count": 1
+          }
+        ]
+      },
+      "Full_Search_LLM": {
+        "missing": [
+          {
+            "key": "seo",
+            "count": 5
+          },
+          {
+            "key": "ai",
+            "count": 4
+          },
+          {
+            "key": "tech",
+            "count": 2
+          },
+          {
+            "key": "fintech",
+            "count": 2
+          },
+          {
+            "key": "startup",
+            "count": 2
+          },
+          {
+            "key": "climate",
+            "count": 1
+          },
+          {
+            "key": "legal tech",
+            "count": 1
+          },
+          {
+            "key": "company",
+            "count": 1
+          },
+          {
+            "key": "keyword",
+            "count": 1
+          },
+          {
+            "key": "devtools",
+            "count": 1
+          },
+          {
+            "key": "healthcare",
+            "count": 1
+          },
+          {
+            "key": "portfolio",
+            "count": 1
+          },
+          {
+            "key": "marketing",
+            "count": 1
+          },
+          {
+            "key": "product",
+            "count": 1
+          },
+          {
+            "key": "wort",
+            "count": 1
+          },
+          {
+            "key": "buyers",
+            "count": 1
+          },
+          {
+            "key": "finance",
+            "count": 1
+          },
+          {
+            "key": "gaming",
+            "count": 1
+          }
+        ],
+        "extra": [
+          {
+            "key": "startup",
+            "count": 3
+          },
+          {
+            "key": "legal",
+            "count": 2
+          },
+          {
+            "key": "tech",
+            "count": 2
+          },
+          {
+            "key": "seo",
+            "count": 2
+          },
+          {
+            "key": "notion",
+            "count": 2
+          },
+          {
+            "key": "fintech",
+            "count": 1
+          },
+          {
+            "key": "climate tech",
+            "count": 1
+          },
+          {
+            "key": "devtools",
+            "count": 1
+          },
+          {
+            "key": "openai",
+            "count": 1
+          },
+          {
+            "key": "lyft",
+            "count": 1
+          },
+          {
+            "key": "uber",
+            "count": 1
+          },
+          {
+            "key": "demo",
+            "count": 1
+          },
+          {
+            "key": "day",
+            "count": 1
+          },
+          {
+            "key": "yc",
+            "count": 1
+          },
+          {
+            "key": "brands",
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "latency": {
+    "unit": "ms",
+    "notes": "work_ms = extract_ms + http_ms (excludes http_sem queue). OK/DIFF rows only. QIE/Full extract_ms=0 (extract inside /search). Fair: QIE work vs Full work; LLMJ extract vs Regex extract; LLMJ http vs Regex http (both /internal/l0_ground).",
+    "arms": {
+      "LLMJ": {
+        "n": 1001,
+        "work_ms_mean": 1743.2,
+        "work_ms_p50": 1420.9,
+        "work_ms_p95": 3894.4,
+        "extract_ms_mean": 1740.3,
+        "http_ms_mean": 3.0,
+        "queue_ms_mean": 2759.4,
+        "http_queue_ms_mean": 2762.4,
+        "http_queue_ms_p50": 2159.1,
+        "http_queue_ms_p95": 7400.7
+      },
+      "QIE_Only_LLM": {
+        "n": 1001,
+        "work_ms_mean": 1648.8,
+        "work_ms_p50": 1361.7,
+        "work_ms_p95": 3894.0,
+        "extract_ms_mean": 0.0,
+        "http_ms_mean": 1648.8,
+        "queue_ms_mean": 0.0,
+        "http_queue_ms_mean": 1648.8,
+        "http_queue_ms_p50": 1361.7,
+        "http_queue_ms_p95": 3894.0
+      },
+      "Full_Search_LLM": {
+        "n": 1001,
+        "work_ms_mean": 2741.2,
+        "work_ms_p50": 2111.0,
+        "work_ms_p95": 6931.7,
+        "extract_ms_mean": 0.0,
+        "http_ms_mean": 2741.2,
+        "queue_ms_mean": 1650.3,
+        "http_queue_ms_mean": 4391.5,
+        "http_queue_ms_p50": 3645.4,
+        "http_queue_ms_p95": 8976.9
+      },
+      "Regex": {
+        "n": 1001,
+        "work_ms_mean": 5.2,
+        "work_ms_p50": 4.3,
+        "work_ms_p95": 6.5,
+        "extract_ms_mean": 0.6,
+        "http_ms_mean": 4.5,
+        "queue_ms_mean": 4391.1,
+        "http_queue_ms_mean": 4395.6,
+        "http_queue_ms_p50": 3648.9,
+        "http_queue_ms_p95": 8979.7
+      }
+    }
+  },
+  "cost": {
+    "unit": "usd",
+    "notes": "Per-arm LLM spend on OK/DIFF only. LLMJ=offline extract usage; QIE/Full=decision_cost_usd from /search; Regex=0. total_cost_usd = sum of arm costs per query.",
+    "arms": {
+      "LLMJ": {
+        "n": 1001,
+        "sum_usd": 5.488954,
+        "mean_usd": 0.005483,
+        "p50_usd": 0.005444
+      },
+      "QIE_Only_LLM": {
+        "n": 1001,
+        "sum_usd": 5.5701,
+        "mean_usd": 0.005565,
+        "p50_usd": 0.0054
+      },
+      "Full_Search_LLM": {
+        "n": 1001,
+        "sum_usd": 9.25433,
+        "mean_usd": 0.009245,
+        "p50_usd": 0.005614
+      },
+      "Regex": {
+        "n": 1001,
+        "sum_usd": 0.0,
+        "mean_usd": 0.0,
+        "p50_usd": 0.0
+      }
+    },
+    "query_total": {
+      "n": 1001,
+      "sum_usd": 20.313384,
+      "mean_usd": 0.020293
+    },
+    "by_suite_section": [
+      {
+        "suite": "SEARCH",
+        "section": "Messy Real User Queries",
+        "n": 31,
+        "total_usd": 0.570783,
+        "mean_total_usd": 0.018412,
+        "LLMJ": 0.168983,
+        "QIE_Only_LLM": 0.158,
+        "Full_Search_LLM": 0.2438,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Semantic + Filters",
+        "n": 20,
+        "total_usd": 0.357591,
+        "mean_total_usd": 0.01788,
+        "LLMJ": 0.111391,
+        "QIE_Only_LLM": 0.1004,
+        "Full_Search_LLM": 0.1458,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Long Natural Guidance",
+        "n": 14,
+        "total_usd": 0.348326,
+        "mean_total_usd": 0.02488,
+        "LLMJ": 0.078326,
+        "QIE_Only_LLM": 0.0946,
+        "Full_Search_LLM": 0.1754,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Messy Real User Analytics Queries",
+        "n": 15,
+        "total_usd": 0.34496,
+        "mean_total_usd": 0.022997,
+        "LLMJ": 0.08136,
+        "QIE_Only_LLM": 0.0868,
+        "Full_Search_LLM": 0.1768,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Similarity Search",
+        "n": 16,
+        "total_usd": 0.331027,
+        "mean_total_usd": 0.020689,
+        "LLMJ": 0.088427,
+        "QIE_Only_LLM": 0.0941,
+        "Full_Search_LLM": 0.1485,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Misspelled Analytics",
+        "n": 14,
+        "total_usd": 0.330658,
+        "mean_total_usd": 0.023618,
+        "LLMJ": 0.075958,
+        "QIE_Only_LLM": 0.076,
+        "Full_Search_LLM": 0.1787,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Misspelled / Typo Queries",
+        "n": 16,
+        "total_usd": 0.320413,
+        "mean_total_usd": 0.020026,
+        "LLMJ": 0.087913,
+        "QIE_Only_LLM": 0.0884,
+        "Full_Search_LLM": 0.1441,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Long Natural Analytics",
+        "n": 10,
+        "total_usd": 0.319298,
+        "mean_total_usd": 0.03193,
+        "LLMJ": 0.055798,
+        "QIE_Only_LLM": 0.0776,
+        "Full_Search_LLM": 0.1859,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Ambiguous / Open-Ended Hybrid",
+        "n": 14,
+        "total_usd": 0.305708,
+        "mean_total_usd": 0.021836,
+        "LLMJ": 0.076308,
+        "QIE_Only_LLM": 0.0817,
+        "Full_Search_LLM": 0.1477,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Long Natural Sentences",
+        "n": 16,
+        "total_usd": 0.304955,
+        "mean_total_usd": 0.01906,
+        "LLMJ": 0.091257,
+        "QIE_Only_LLM": 0.0917,
+        "Full_Search_LLM": 0.121998,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "SEO + Authority",
+        "n": 14,
+        "total_usd": 0.301286,
+        "mean_total_usd": 0.02152,
+        "LLMJ": 0.076786,
+        "QIE_Only_LLM": 0.0768,
+        "Full_Search_LLM": 0.1477,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Brandability",
+        "n": 14,
+        "total_usd": 0.297626,
+        "mean_total_usd": 0.021259,
+        "LLMJ": 0.076426,
+        "QIE_Only_LLM": 0.082,
+        "Full_Search_LLM": 0.1392,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Misspelled Guidance",
+        "n": 14,
+        "total_usd": 0.293653,
+        "mean_total_usd": 0.020975,
+        "LLMJ": 0.076153,
+        "QIE_Only_LLM": 0.0708,
+        "Full_Search_LLM": 0.1467,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Time / Trend Analytics",
+        "n": 10,
+        "total_usd": 0.284249,
+        "mean_total_usd": 0.028425,
+        "LLMJ": 0.054249,
+        "QIE_Only_LLM": 0.0652,
+        "Full_Search_LLM": 0.1648,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Structured Filters",
+        "n": 16,
+        "total_usd": 0.281077,
+        "mean_total_usd": 0.017567,
+        "LLMJ": 0.088877,
+        "QIE_Only_LLM": 0.0834,
+        "Full_Search_LLM": 0.1088,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Professional Category Analytics",
+        "n": 8,
+        "total_usd": 0.278454,
+        "mean_total_usd": 0.034807,
+        "LLMJ": 0.044154,
+        "QIE_Only_LLM": 0.0606,
+        "Full_Search_LLM": 0.1737,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Misspelled Explore",
+        "n": 16,
+        "total_usd": 0.277036,
+        "mean_total_usd": 0.017315,
+        "LLMJ": 0.086936,
+        "QIE_Only_LLM": 0.076,
+        "Full_Search_LLM": 0.1141,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Price-Range Specific",
+        "n": 16,
+        "total_usd": 0.275566,
+        "mean_total_usd": 0.017223,
+        "LLMJ": 0.088166,
+        "QIE_Only_LLM": 0.0937,
+        "Full_Search_LLM": 0.0937,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Popular / Social Proof",
+        "n": 14,
+        "total_usd": 0.271881,
+        "mean_total_usd": 0.01942,
+        "LLMJ": 0.075881,
+        "QIE_Only_LLM": 0.0761,
+        "Full_Search_LLM": 0.1199,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Investor Semantic",
+        "n": 13,
+        "total_usd": 0.267417,
+        "mean_total_usd": 0.020571,
+        "LLMJ": 0.070717,
+        "QIE_Only_LLM": 0.076,
+        "Full_Search_LLM": 0.1207,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Expired + Auctions",
+        "n": 12,
+        "total_usd": 0.259998,
+        "mean_total_usd": 0.021666,
+        "LLMJ": 0.066501,
+        "QIE_Only_LLM": 0.0664,
+        "Full_Search_LLM": 0.127097,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Ending Soon",
+        "n": 14,
+        "total_usd": 0.258909,
+        "mean_total_usd": 0.018493,
+        "LLMJ": 0.076509,
+        "QIE_Only_LLM": 0.0708,
+        "Full_Search_LLM": 0.1116,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "New Categories / Niches Browse",
+        "n": 14,
+        "total_usd": 0.255702,
+        "mean_total_usd": 0.018264,
+        "LLMJ": 0.077102,
+        "QIE_Only_LLM": 0.0772,
+        "Full_Search_LLM": 0.1014,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Trending / What's Hot",
+        "n": 14,
+        "total_usd": 0.253041,
+        "mean_total_usd": 0.018074,
+        "LLMJ": 0.076241,
+        "QIE_Only_LLM": 0.0764,
+        "Full_Search_LLM": 0.1004,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Length / Keyword Analytics",
+        "n": 10,
+        "total_usd": 0.252243,
+        "mean_total_usd": 0.025224,
+        "LLMJ": 0.054443,
+        "QIE_Only_LLM": 0.0545,
+        "Full_Search_LLM": 0.1433,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Fresh Listings",
+        "n": 14,
+        "total_usd": 0.243484,
+        "mean_total_usd": 0.017392,
+        "LLMJ": 0.076384,
+        "QIE_Only_LLM": 0.0763,
+        "Full_Search_LLM": 0.0908,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Price / Distribution Analytics",
+        "n": 10,
+        "total_usd": 0.236743,
+        "mean_total_usd": 0.023674,
+        "LLMJ": 0.054443,
+        "QIE_Only_LLM": 0.0491,
+        "Full_Search_LLM": 0.1332,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Long Natural Explore",
+        "n": 12,
+        "total_usd": 0.236429,
+        "mean_total_usd": 0.019702,
+        "LLMJ": 0.066929,
+        "QIE_Only_LLM": 0.0722,
+        "Full_Search_LLM": 0.0973,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Incomplete / Fragment Queries",
+        "n": 14,
+        "total_usd": 0.233872,
+        "mean_total_usd": 0.016705,
+        "LLMJ": 0.076472,
+        "QIE_Only_LLM": 0.0763,
+        "Full_Search_LLM": 0.0811,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "High Value Domain Analytics",
+        "n": 8,
+        "total_usd": 0.230714,
+        "mean_total_usd": 0.028839,
+        "LLMJ": 0.044114,
+        "QIE_Only_LLM": 0.0547,
+        "Full_Search_LLM": 0.1319,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Category Analytics",
+        "n": 8,
+        "total_usd": 0.230276,
+        "mean_total_usd": 0.028784,
+        "LLMJ": 0.043676,
+        "QIE_Only_LLM": 0.049,
+        "Full_Search_LLM": 0.1376,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Watchlist / Activity",
+        "n": 12,
+        "total_usd": 0.229543,
+        "mean_total_usd": 0.019129,
+        "LLMJ": 0.065043,
+        "QIE_Only_LLM": 0.0652,
+        "Full_Search_LLM": 0.0993,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Messy Real User Explore",
+        "n": 14,
+        "total_usd": 0.22781,
+        "mean_total_usd": 0.016272,
+        "LLMJ": 0.07581,
+        "QIE_Only_LLM": 0.076,
+        "Full_Search_LLM": 0.076,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "TLD Analytics",
+        "n": 8,
+        "total_usd": 0.226385,
+        "mean_total_usd": 0.028298,
+        "LLMJ": 0.043985,
+        "QIE_Only_LLM": 0.0492,
+        "Full_Search_LLM": 0.1332,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Category Filter Search",
+        "n": 12,
+        "total_usd": 0.216969,
+        "mean_total_usd": 0.018081,
+        "LLMJ": 0.066169,
+        "QIE_Only_LLM": 0.0606,
+        "Full_Search_LLM": 0.0902,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Auction Analytics",
+        "n": 8,
+        "total_usd": 0.216503,
+        "mean_total_usd": 0.027063,
+        "LLMJ": 0.043503,
+        "QIE_Only_LLM": 0.0544,
+        "Full_Search_LLM": 0.1186,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Portfolio / Advanced",
+        "n": 8,
+        "total_usd": 0.216474,
+        "mean_total_usd": 0.027059,
+        "LLMJ": 0.043574,
+        "QIE_Only_LLM": 0.0489,
+        "Full_Search_LLM": 0.124,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "SEO",
+        "n": 10,
+        "total_usd": 0.215432,
+        "mean_total_usd": 0.021543,
+        "LLMJ": 0.054732,
+        "QIE_Only_LLM": 0.06,
+        "Full_Search_LLM": 0.1007,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Value / Hidden Gems",
+        "n": 10,
+        "total_usd": 0.215039,
+        "mean_total_usd": 0.021504,
+        "LLMJ": 0.054539,
+        "QIE_Only_LLM": 0.06,
+        "Full_Search_LLM": 0.1005,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Investor Analytics",
+        "n": 8,
+        "total_usd": 0.211398,
+        "mean_total_usd": 0.026425,
+        "LLMJ": 0.043798,
+        "QIE_Only_LLM": 0.0547,
+        "Full_Search_LLM": 0.1129,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Buynow / Entry Analytics",
+        "n": 8,
+        "total_usd": 0.207826,
+        "mean_total_usd": 0.025978,
+        "LLMJ": 0.043626,
+        "QIE_Only_LLM": 0.0544,
+        "Full_Search_LLM": 0.1098,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "TLD + Niche Combos",
+        "n": 12,
+        "total_usd": 0.20459,
+        "mean_total_usd": 0.017049,
+        "LLMJ": 0.06689,
+        "QIE_Only_LLM": 0.0612,
+        "Full_Search_LLM": 0.0765,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Pricing / Negotiation",
+        "n": 10,
+        "total_usd": 0.195246,
+        "mean_total_usd": 0.019525,
+        "LLMJ": 0.054846,
+        "QIE_Only_LLM": 0.0656,
+        "Full_Search_LLM": 0.0748,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "SEO Analytics",
+        "n": 8,
+        "total_usd": 0.195166,
+        "mean_total_usd": 0.024396,
+        "LLMJ": 0.043666,
+        "QIE_Only_LLM": 0.0543,
+        "Full_Search_LLM": 0.0972,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Time-Based Browse",
+        "n": 12,
+        "total_usd": 0.194755,
+        "mean_total_usd": 0.01623,
+        "LLMJ": 0.065655,
+        "QIE_Only_LLM": 0.0547,
+        "Full_Search_LLM": 0.0744,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Expiry Analytics",
+        "n": 8,
+        "total_usd": 0.191201,
+        "mean_total_usd": 0.0239,
+        "LLMJ": 0.043801,
+        "QIE_Only_LLM": 0.0494,
+        "Full_Search_LLM": 0.098,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Naming / Brand Strategy",
+        "n": 8,
+        "total_usd": 0.188817,
+        "mean_total_usd": 0.023602,
+        "LLMJ": 0.043517,
+        "QIE_Only_LLM": 0.049,
+        "Full_Search_LLM": 0.0963,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Rankings / Leaderboards",
+        "n": 8,
+        "total_usd": 0.184928,
+        "mean_total_usd": 0.023116,
+        "LLMJ": 0.043428,
+        "QIE_Only_LLM": 0.0435,
+        "Full_Search_LLM": 0.098,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Brand / Style Discovery",
+        "n": 9,
+        "total_usd": 0.184078,
+        "mean_total_usd": 0.020453,
+        "LLMJ": 0.049778,
+        "QIE_Only_LLM": 0.0444,
+        "Full_Search_LLM": 0.0899,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Marketplace Analytics",
+        "n": 8,
+        "total_usd": 0.176308,
+        "mean_total_usd": 0.022039,
+        "LLMJ": 0.043608,
+        "QIE_Only_LLM": 0.0491,
+        "Full_Search_LLM": 0.0836,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Expired Domains",
+        "n": 8,
+        "total_usd": 0.165411,
+        "mean_total_usd": 0.020676,
+        "LLMJ": 0.043511,
+        "QIE_Only_LLM": 0.0381,
+        "Full_Search_LLM": 0.0838,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Legal / Transfer / Safety",
+        "n": 10,
+        "total_usd": 0.163045,
+        "mean_total_usd": 0.016304,
+        "LLMJ": 0.054445,
+        "QIE_Only_LLM": 0.0543,
+        "Full_Search_LLM": 0.0543,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Comparison / Decision Support",
+        "n": 8,
+        "total_usd": 0.16196,
+        "mean_total_usd": 0.020245,
+        "LLMJ": 0.04346,
+        "QIE_Only_LLM": 0.049,
+        "Full_Search_LLM": 0.0695,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Professional / Personal Brand",
+        "n": 8,
+        "total_usd": 0.16064,
+        "mean_total_usd": 0.02008,
+        "LLMJ": 0.04384,
+        "QIE_Only_LLM": 0.0329,
+        "Full_Search_LLM": 0.0839,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Beginner",
+        "n": 8,
+        "total_usd": 0.16004,
+        "mean_total_usd": 0.020005,
+        "LLMJ": 0.043467,
+        "QIE_Only_LLM": 0.0328,
+        "Full_Search_LLM": 0.083773,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Investor",
+        "n": 8,
+        "total_usd": 0.157025,
+        "mean_total_usd": 0.019628,
+        "LLMJ": 0.043725,
+        "QIE_Only_LLM": 0.0438,
+        "Full_Search_LLM": 0.0695,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Incomplete Explore",
+        "n": 10,
+        "total_usd": 0.156062,
+        "mean_total_usd": 0.015606,
+        "LLMJ": 0.053962,
+        "QIE_Only_LLM": 0.0432,
+        "Full_Search_LLM": 0.0589,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Small Business",
+        "n": 8,
+        "total_usd": 0.145338,
+        "mean_total_usd": 0.018167,
+        "LLMJ": 0.043838,
+        "QIE_Only_LLM": 0.0385,
+        "Full_Search_LLM": 0.063,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Startup / Founder",
+        "n": 8,
+        "total_usd": 0.14427,
+        "mean_total_usd": 0.018034,
+        "LLMJ": 0.04407,
+        "QIE_Only_LLM": 0.0389,
+        "Full_Search_LLM": 0.0613,
+        "Regex": 0.0
+      },
+      {
+        "suite": "SEARCH",
+        "section": "Creator / Content",
+        "n": 8,
+        "total_usd": 0.14243,
+        "mean_total_usd": 0.017804,
+        "LLMJ": 0.04383,
+        "QIE_Only_LLM": 0.0383,
+        "Full_Search_LLM": 0.0603,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Similar To",
+        "n": 6,
+        "total_usd": 0.141317,
+        "mean_total_usd": 0.023553,
+        "LLMJ": 0.033217,
+        "QIE_Only_LLM": 0.0389,
+        "Full_Search_LLM": 0.0692,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Mixed Real User Queries (multi-filter combos)",
+        "n": 6,
+        "total_usd": 0.137764,
+        "mean_total_usd": 0.022961,
+        "LLMJ": 0.034564,
+        "QIE_Only_LLM": 0.0516,
+        "Full_Search_LLM": 0.0516,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Max Traffic + Traffic Unknown",
+        "n": 6,
+        "total_usd": 0.134503,
+        "mean_total_usd": 0.022417,
+        "LLMJ": 0.032703,
+        "QIE_Only_LLM": 0.0382,
+        "Full_Search_LLM": 0.0636,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Extended + Bid Accepted",
+        "n": 6,
+        "total_usd": 0.132358,
+        "mean_total_usd": 0.02206,
+        "LLMJ": 0.033058,
+        "QIE_Only_LLM": 0.0386,
+        "Full_Search_LLM": 0.0607,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Lifecycle / Status",
+        "n": 6,
+        "total_usd": 0.132284,
+        "mean_total_usd": 0.022047,
+        "LLMJ": 0.032684,
+        "QIE_Only_LLM": 0.0326,
+        "Full_Search_LLM": 0.067,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Max Bids",
+        "n": 6,
+        "total_usd": 0.129865,
+        "mean_total_usd": 0.021644,
+        "LLMJ": 0.032865,
+        "QIE_Only_LLM": 0.0329,
+        "Full_Search_LLM": 0.0641,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Novice Auction Buyer",
+        "n": 6,
+        "total_usd": 0.127157,
+        "mean_total_usd": 0.021193,
+        "LLMJ": 0.032693,
+        "QIE_Only_LLM": 0.0382,
+        "Full_Search_LLM": 0.056264,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Long Natural Filter Queries",
+        "n": 6,
+        "total_usd": 0.126742,
+        "mean_total_usd": 0.021124,
+        "LLMJ": 0.034742,
+        "QIE_Only_LLM": 0.046,
+        "Full_Search_LLM": 0.046,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Topic Include + Exclude",
+        "n": 6,
+        "total_usd": 0.124662,
+        "mean_total_usd": 0.020777,
+        "LLMJ": 0.033262,
+        "QIE_Only_LLM": 0.0331,
+        "Full_Search_LLM": 0.0583,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Min Name Length",
+        "n": 6,
+        "total_usd": 0.123673,
+        "mean_total_usd": 0.020612,
+        "LLMJ": 0.032773,
+        "QIE_Only_LLM": 0.0326,
+        "Full_Search_LLM": 0.0583,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Owner / Member",
+        "n": 6,
+        "total_usd": 0.123118,
+        "mean_total_usd": 0.02052,
+        "LLMJ": 0.032318,
+        "QIE_Only_LLM": 0.0324,
+        "Full_Search_LLM": 0.0584,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Auction Type Include / Exclude",
+        "n": 6,
+        "total_usd": 0.123035,
+        "mean_total_usd": 0.020506,
+        "LLMJ": 0.032735,
+        "QIE_Only_LLM": 0.0326,
+        "Full_Search_LLM": 0.0577,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "TLD Exclude",
+        "n": 6,
+        "total_usd": 0.122705,
+        "mean_total_usd": 0.020451,
+        "LLMJ": 0.032705,
+        "QIE_Only_LLM": 0.0329,
+        "Full_Search_LLM": 0.0571,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Start Time + Days Listed",
+        "n": 6,
+        "total_usd": 0.121222,
+        "mean_total_usd": 0.020204,
+        "LLMJ": 0.033022,
+        "QIE_Only_LLM": 0.0385,
+        "Full_Search_LLM": 0.0497,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Estibot Domain Count",
+        "n": 6,
+        "total_usd": 0.120469,
+        "mean_total_usd": 0.020078,
+        "LLMJ": 0.032569,
+        "QIE_Only_LLM": 0.0328,
+        "Full_Search_LLM": 0.0551,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Keyword Starts / Ends",
+        "n": 6,
+        "total_usd": 0.118408,
+        "mean_total_usd": 0.019735,
+        "LLMJ": 0.033008,
+        "QIE_Only_LLM": 0.0331,
+        "Full_Search_LLM": 0.0523,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Word Count",
+        "n": 6,
+        "total_usd": 0.11828,
+        "mean_total_usd": 0.019713,
+        "LLMJ": 0.03288,
+        "QIE_Only_LLM": 0.0327,
+        "Full_Search_LLM": 0.0527,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Keyword Phrase + Mode + Exclude",
+        "n": 6,
+        "total_usd": 0.118152,
+        "mean_total_usd": 0.019692,
+        "LLMJ": 0.033152,
+        "QIE_Only_LLM": 0.0277,
+        "Full_Search_LLM": 0.0573,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Char Pattern",
+        "n": 6,
+        "total_usd": 0.118134,
+        "mean_total_usd": 0.019689,
+        "LLMJ": 0.032834,
+        "QIE_Only_LLM": 0.0327,
+        "Full_Search_LLM": 0.0526,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Max Name Length",
+        "n": 6,
+        "total_usd": 0.118098,
+        "mean_total_usd": 0.019683,
+        "LLMJ": 0.032798,
+        "QIE_Only_LLM": 0.0326,
+        "Full_Search_LLM": 0.0527,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Reserve + Transfer",
+        "n": 6,
+        "total_usd": 0.117685,
+        "mean_total_usd": 0.019614,
+        "LLMJ": 0.032806,
+        "QIE_Only_LLM": 0.0328,
+        "Full_Search_LLM": 0.052079,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Domain Age Max + Unknown",
+        "n": 6,
+        "total_usd": 0.117424,
+        "mean_total_usd": 0.019571,
+        "LLMJ": 0.032524,
+        "QIE_Only_LLM": 0.0324,
+        "Full_Search_LLM": 0.0525,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Min Digits + Min Letters + IDN",
+        "n": 6,
+        "total_usd": 0.117295,
+        "mean_total_usd": 0.019549,
+        "LLMJ": 0.032595,
+        "QIE_Only_LLM": 0.027,
+        "Full_Search_LLM": 0.0577,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Min Bids",
+        "n": 6,
+        "total_usd": 0.117175,
+        "mean_total_usd": 0.019529,
+        "LLMJ": 0.032675,
+        "QIE_Only_LLM": 0.0271,
+        "Full_Search_LLM": 0.0574,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Entrepreneur / Startup Founder",
+        "n": 6,
+        "total_usd": 0.115871,
+        "mean_total_usd": 0.019312,
+        "LLMJ": 0.033371,
+        "QIE_Only_LLM": 0.0388,
+        "Full_Search_LLM": 0.0437,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Estibot Dev Ext Count",
+        "n": 6,
+        "total_usd": 0.11545,
+        "mean_total_usd": 0.019242,
+        "LLMJ": 0.03305,
+        "QIE_Only_LLM": 0.0276,
+        "Full_Search_LLM": 0.0548,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "No Hyphens + No Digits",
+        "n": 6,
+        "total_usd": 0.115165,
+        "mean_total_usd": 0.019194,
+        "LLMJ": 0.033165,
+        "QIE_Only_LLM": 0.0386,
+        "Full_Search_LLM": 0.0434,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Min Valuation",
+        "n": 6,
+        "total_usd": 0.114949,
+        "mean_total_usd": 0.019158,
+        "LLMJ": 0.033049,
+        "QIE_Only_LLM": 0.0385,
+        "Full_Search_LLM": 0.0434,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Majestic Backlinks + Ref Domains",
+        "n": 6,
+        "total_usd": 0.114529,
+        "mean_total_usd": 0.019088,
+        "LLMJ": 0.033029,
+        "QIE_Only_LLM": 0.0332,
+        "Full_Search_LLM": 0.0483,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Keyword Contains",
+        "n": 6,
+        "total_usd": 0.113772,
+        "mean_total_usd": 0.018962,
+        "LLMJ": 0.033172,
+        "QIE_Only_LLM": 0.0331,
+        "Full_Search_LLM": 0.0475,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Investor / Flipper Novice",
+        "n": 6,
+        "total_usd": 0.112997,
+        "mean_total_usd": 0.018833,
+        "LLMJ": 0.032697,
+        "QIE_Only_LLM": 0.0326,
+        "Full_Search_LLM": 0.0477,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Misspelled Filter Queries",
+        "n": 6,
+        "total_usd": 0.109661,
+        "mean_total_usd": 0.018277,
+        "LLMJ": 0.033161,
+        "QIE_Only_LLM": 0.033,
+        "Full_Search_LLM": 0.0435,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Estibot Dev Count + Ext Count",
+        "n": 6,
+        "total_usd": 0.109342,
+        "mean_total_usd": 0.018224,
+        "LLMJ": 0.032742,
+        "QIE_Only_LLM": 0.0272,
+        "Full_Search_LLM": 0.0494,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Max Valuation + Price Below Market",
+        "n": 6,
+        "total_usd": 0.107945,
+        "mean_total_usd": 0.017991,
+        "LLMJ": 0.032845,
+        "QIE_Only_LLM": 0.0327,
+        "Full_Search_LLM": 0.0424,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Novice SEO / Traffic Seeker",
+        "n": 6,
+        "total_usd": 0.107291,
+        "mean_total_usd": 0.017882,
+        "LLMJ": 0.032591,
+        "QIE_Only_LLM": 0.0325,
+        "Full_Search_LLM": 0.0422,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Novice / First-Time Buyer",
+        "n": 6,
+        "total_usd": 0.107221,
+        "mean_total_usd": 0.01787,
+        "LLMJ": 0.032721,
+        "QIE_Only_LLM": 0.0272,
+        "Full_Search_LLM": 0.0473,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Semrush Authority + Pages",
+        "n": 6,
+        "total_usd": 0.103198,
+        "mean_total_usd": 0.0172,
+        "LLMJ": 0.032898,
+        "QIE_Only_LLM": 0.0327,
+        "Full_Search_LLM": 0.0376,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Semrush Backlinks + Ref Domains",
+        "n": 6,
+        "total_usd": 0.103186,
+        "mean_total_usd": 0.017198,
+        "LLMJ": 0.032786,
+        "QIE_Only_LLM": 0.0328,
+        "Full_Search_LLM": 0.0376,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Min Price",
+        "n": 6,
+        "total_usd": 0.103106,
+        "mean_total_usd": 0.017184,
+        "LLMJ": 0.032806,
+        "QIE_Only_LLM": 0.0273,
+        "Full_Search_LLM": 0.043,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Gem Domains",
+        "n": 6,
+        "total_usd": 0.103059,
+        "mean_total_usd": 0.017177,
+        "LLMJ": 0.032759,
+        "QIE_Only_LLM": 0.0327,
+        "Full_Search_LLM": 0.0376,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Majestic TF",
+        "n": 6,
+        "total_usd": 0.103043,
+        "mean_total_usd": 0.017174,
+        "LLMJ": 0.032843,
+        "QIE_Only_LLM": 0.0327,
+        "Full_Search_LLM": 0.0375,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Majestic CF",
+        "n": 6,
+        "total_usd": 0.102868,
+        "mean_total_usd": 0.017145,
+        "LLMJ": 0.032968,
+        "QIE_Only_LLM": 0.0274,
+        "Full_Search_LLM": 0.0425,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Unique Searches",
+        "n": 6,
+        "total_usd": 0.102521,
+        "mean_total_usd": 0.017087,
+        "LLMJ": 0.032821,
+        "QIE_Only_LLM": 0.0273,
+        "Full_Search_LLM": 0.0424,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Price Currency",
+        "n": 6,
+        "total_usd": 0.098712,
+        "mean_total_usd": 0.016452,
+        "LLMJ": 0.032912,
+        "QIE_Only_LLM": 0.0329,
+        "Full_Search_LLM": 0.0329,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Max Price",
+        "n": 6,
+        "total_usd": 0.098459,
+        "mean_total_usd": 0.01641,
+        "LLMJ": 0.032859,
+        "QIE_Only_LLM": 0.0328,
+        "Full_Search_LLM": 0.0328,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "End Time",
+        "n": 6,
+        "total_usd": 0.097769,
+        "mean_total_usd": 0.016295,
+        "LLMJ": 0.032769,
+        "QIE_Only_LLM": 0.0325,
+        "Full_Search_LLM": 0.0325,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "TLD Include",
+        "n": 6,
+        "total_usd": 0.09381,
+        "mean_total_usd": 0.015635,
+        "LLMJ": 0.03311,
+        "QIE_Only_LLM": 0.0276,
+        "Full_Search_LLM": 0.0331,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Semrush Search Volume + CPC",
+        "n": 6,
+        "total_usd": 0.093127,
+        "mean_total_usd": 0.015521,
+        "LLMJ": 0.032727,
+        "QIE_Only_LLM": 0.0275,
+        "Full_Search_LLM": 0.0329,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Domain Age Min",
+        "n": 6,
+        "total_usd": 0.092602,
+        "mean_total_usd": 0.015434,
+        "LLMJ": 0.032802,
+        "QIE_Only_LLM": 0.0272,
+        "Full_Search_LLM": 0.0326,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Buy Now + Closeout",
+        "n": 5,
+        "total_usd": 0.092115,
+        "mean_total_usd": 0.018423,
+        "LLMJ": 0.027496,
+        "QIE_Only_LLM": 0.0275,
+        "Full_Search_LLM": 0.037119,
+        "Regex": 0.0
+      },
+      {
+        "suite": "FILTER",
+        "section": "Min Traffic",
+        "n": 6,
+        "total_usd": 0.092027,
+        "mean_total_usd": 0.015338,
+        "LLMJ": 0.032627,
+        "QIE_Only_LLM": 0.027,
+        "Full_Search_LLM": 0.0324,
+        "Regex": 0.0
+      }
+    ]
+  },
+  "holdout": {
+    "seed": 42,
+    "frac": 0.2,
+    "method": "md5(seed|suite|query) < frac; stratified by suite",
+    "unit": "query",
+    "metric": "pairwise filter-set exact-match (arm agreement; not gold-label accuracy)",
+    "n_all": 1002,
+    "n_train": 794,
+    "n_test": 208,
+    "by_suite": {
+      "SEARCH": {
+        "n": 696,
+        "train": 549,
+        "test": 147
+      },
+      "FILTER": {
+        "n": 306,
+        "train": 245,
+        "test": 61
+      }
+    },
+    "all": {
+      "pairs": [
+        {
+          "pair": "LLMJ=QIE_Only_LLM",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "QIE_Only_LLM",
+          "arm_b_label": "qie_only LLM (live)",
+          "prod_exact": 937,
+          "n": 1001,
+          "prod_exact_pct": "93.6%",
+          "exact_plus_grounded_dropped": 937,
+          "exact_plus_grounded_dropped_pct": "93.6%",
+          "exact_plus_gnd_pipeline": 937,
+          "exact_plus_gnd_pipeline_pct": "93.6%",
+          "exact_plus_gnd_pipeline_soft": 937,
+          "exact_plus_gnd_pipeline_soft_pct": "93.6%",
+          "mismatches": 64,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 64
+        },
+        {
+          "pair": "LLMJ=Full_Search_LLM",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "Full_Search_LLM",
+          "arm_b_label": "full-search LLM (live)",
+          "prod_exact": 718,
+          "n": 1001,
+          "prod_exact_pct": "71.7%",
+          "exact_plus_grounded_dropped": 724,
+          "exact_plus_grounded_dropped_pct": "72.3%",
+          "exact_plus_gnd_pipeline": 746,
+          "exact_plus_gnd_pipeline_pct": "74.5%",
+          "exact_plus_gnd_pipeline_soft": 904,
+          "exact_plus_gnd_pipeline_soft_pct": "90.3%",
+          "mismatches": 283,
+          "grounding_explained": 6,
+          "pipeline_explained": 22,
+          "soft_explained": 158,
+          "unexplained": 97
+        },
+        {
+          "pair": "LLMJ=Regex",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 853,
+          "n": 1001,
+          "prod_exact_pct": "85.2%",
+          "exact_plus_grounded_dropped": 853,
+          "exact_plus_grounded_dropped_pct": "85.2%",
+          "exact_plus_gnd_pipeline": 853,
+          "exact_plus_gnd_pipeline_pct": "85.2%",
+          "exact_plus_gnd_pipeline_soft": 853,
+          "exact_plus_gnd_pipeline_soft_pct": "85.2%",
+          "mismatches": 148,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 148
+        },
+        {
+          "pair": "QIE_Only_LLM=Full_Search_LLM",
+          "arm_a": "QIE_Only_LLM",
+          "arm_a_label": "qie_only LLM (live)",
+          "arm_b": "Full_Search_LLM",
+          "arm_b_label": "full-search LLM (live)",
+          "prod_exact": 726,
+          "n": 1001,
+          "prod_exact_pct": "72.5%",
+          "exact_plus_grounded_dropped": 734,
+          "exact_plus_grounded_dropped_pct": "73.3%",
+          "exact_plus_gnd_pipeline": 759,
+          "exact_plus_gnd_pipeline_pct": "75.8%",
+          "exact_plus_gnd_pipeline_soft": 925,
+          "exact_plus_gnd_pipeline_soft_pct": "92.4%",
+          "mismatches": 275,
+          "grounding_explained": 8,
+          "pipeline_explained": 25,
+          "soft_explained": 166,
+          "unexplained": 76
+        },
+        {
+          "pair": "QIE_Only_LLM=Regex",
+          "arm_a": "QIE_Only_LLM",
+          "arm_a_label": "qie_only LLM (live)",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 858,
+          "n": 1001,
+          "prod_exact_pct": "85.7%",
+          "exact_plus_grounded_dropped": 858,
+          "exact_plus_grounded_dropped_pct": "85.7%",
+          "exact_plus_gnd_pipeline": 858,
+          "exact_plus_gnd_pipeline_pct": "85.7%",
+          "exact_plus_gnd_pipeline_soft": 858,
+          "exact_plus_gnd_pipeline_soft_pct": "85.7%",
+          "mismatches": 143,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 143
+        },
+        {
+          "pair": "Full_Search_LLM=Regex",
+          "arm_a": "Full_Search_LLM",
+          "arm_a_label": "full-search LLM (live)",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 647,
+          "n": 1001,
+          "prod_exact_pct": "64.6%",
+          "exact_plus_grounded_dropped": 655,
+          "exact_plus_grounded_dropped_pct": "65.4%",
+          "exact_plus_gnd_pipeline": 676,
+          "exact_plus_gnd_pipeline_pct": "67.5%",
+          "exact_plus_gnd_pipeline_soft": 826,
+          "exact_plus_gnd_pipeline_soft_pct": "82.5%",
+          "mismatches": 354,
+          "grounding_explained": 8,
+          "pipeline_explained": 21,
+          "soft_explained": 150,
+          "unexplained": 175
+        }
+      ],
+      "aggregate": {
+        "unit": "query",
+        "prod_exact": 4739,
+        "n": 6006,
+        "prod_exact_pct": 78.9,
+        "exact_plus_grounded_dropped": 4761,
+        "exact_plus_grounded_dropped_pct": 79.3,
+        "exact_plus_gnd_pipeline": 4829,
+        "exact_plus_gnd_pipeline_pct": 80.4,
+        "exact_plus_gnd_pipeline_soft": 5303,
+        "exact_plus_gnd_pipeline_soft_pct": 88.3,
+        "mismatches": 1267,
+        "grounding_explained": 22,
+        "pipeline_explained": 68,
+        "soft_explained": 474,
+        "unexplained": 703
+      },
+      "keywords": {
+        "unit": "query",
+        "arms": [
+          "LLMJ",
+          "QIE_Only_LLM",
+          "Full_Search_LLM"
+        ],
+        "notes": "Term-set exact match (casefold); probabilities on *_keywords_detail only. Threshold already applied in L0 extractor.",
+        "pairs": [
+          {
+            "pair": "LLMJ=QIE_Only_LLM",
+            "arm_a": "LLMJ",
+            "arm_a_label": "offline LLM extract + API-grounded",
+            "arm_b": "QIE_Only_LLM",
+            "arm_b_label": "qie_only LLM (live)",
+            "exact": 937,
+            "n": 1001,
+            "exact_pct": "93.6%",
+            "diff": 64,
+            "diff_pct": "6.4%",
+            "jaccard_mean": 0.9425
+          },
+          {
+            "pair": "LLMJ=Full_Search_LLM",
+            "arm_a": "LLMJ",
+            "arm_a_label": "offline LLM extract + API-grounded",
+            "arm_b": "Full_Search_LLM",
+            "arm_b_label": "full-search LLM (live)",
+            "exact": 948,
+            "n": 1001,
+            "exact_pct": "94.7%",
+            "diff": 53,
+            "diff_pct": "5.3%",
+            "jaccard_mean": 0.9558
+          },
+          {
+            "pair": "QIE_Only_LLM=Full_Search_LLM",
+            "arm_a": "QIE_Only_LLM",
+            "arm_a_label": "qie_only LLM (live)",
+            "arm_b": "Full_Search_LLM",
+            "arm_b_label": "full-search LLM (live)",
+            "exact": 965,
+            "n": 1001,
+            "exact_pct": "96.4%",
+            "diff": 36,
+            "diff_pct": "3.6%",
+            "jaccard_mean": 0.9671
+          }
+        ],
+        "three_arm_exact": 927,
+        "three_arm_n": 1001,
+        "three_arm_exact_pct": 92.6,
+        "three_arm_diff": 74
+      }
+    },
+    "train": {
+      "pairs": [
+        {
+          "pair": "LLMJ=QIE_Only_LLM",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "QIE_Only_LLM",
+          "arm_b_label": "qie_only LLM (live)",
+          "prod_exact": 742,
+          "n": 793,
+          "prod_exact_pct": "93.6%",
+          "exact_plus_grounded_dropped": 742,
+          "exact_plus_grounded_dropped_pct": "93.6%",
+          "exact_plus_gnd_pipeline": 742,
+          "exact_plus_gnd_pipeline_pct": "93.6%",
+          "exact_plus_gnd_pipeline_soft": 742,
+          "exact_plus_gnd_pipeline_soft_pct": "93.6%",
+          "mismatches": 51,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 51
+        },
+        {
+          "pair": "LLMJ=Full_Search_LLM",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "Full_Search_LLM",
+          "arm_b_label": "full-search LLM (live)",
+          "prod_exact": 573,
+          "n": 793,
+          "prod_exact_pct": "72.3%",
+          "exact_plus_grounded_dropped": 576,
+          "exact_plus_grounded_dropped_pct": "72.6%",
+          "exact_plus_gnd_pipeline": 594,
+          "exact_plus_gnd_pipeline_pct": "74.9%",
+          "exact_plus_gnd_pipeline_soft": 718,
+          "exact_plus_gnd_pipeline_soft_pct": "90.5%",
+          "mismatches": 220,
+          "grounding_explained": 3,
+          "pipeline_explained": 18,
+          "soft_explained": 124,
+          "unexplained": 75
+        },
+        {
+          "pair": "LLMJ=Regex",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 671,
+          "n": 793,
+          "prod_exact_pct": "84.6%",
+          "exact_plus_grounded_dropped": 671,
+          "exact_plus_grounded_dropped_pct": "84.6%",
+          "exact_plus_gnd_pipeline": 671,
+          "exact_plus_gnd_pipeline_pct": "84.6%",
+          "exact_plus_gnd_pipeline_soft": 671,
+          "exact_plus_gnd_pipeline_soft_pct": "84.6%",
+          "mismatches": 122,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 122
+        },
+        {
+          "pair": "QIE_Only_LLM=Full_Search_LLM",
+          "arm_a": "QIE_Only_LLM",
+          "arm_a_label": "qie_only LLM (live)",
+          "arm_b": "Full_Search_LLM",
+          "arm_b_label": "full-search LLM (live)",
+          "prod_exact": 576,
+          "n": 793,
+          "prod_exact_pct": "72.6%",
+          "exact_plus_grounded_dropped": 581,
+          "exact_plus_grounded_dropped_pct": "73.3%",
+          "exact_plus_gnd_pipeline": 601,
+          "exact_plus_gnd_pipeline_pct": "75.8%",
+          "exact_plus_gnd_pipeline_soft": 728,
+          "exact_plus_gnd_pipeline_soft_pct": "91.8%",
+          "mismatches": 217,
+          "grounding_explained": 5,
+          "pipeline_explained": 20,
+          "soft_explained": 127,
+          "unexplained": 65
+        },
+        {
+          "pair": "QIE_Only_LLM=Regex",
+          "arm_a": "QIE_Only_LLM",
+          "arm_a_label": "qie_only LLM (live)",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 672,
+          "n": 793,
+          "prod_exact_pct": "84.7%",
+          "exact_plus_grounded_dropped": 672,
+          "exact_plus_grounded_dropped_pct": "84.7%",
+          "exact_plus_gnd_pipeline": 672,
+          "exact_plus_gnd_pipeline_pct": "84.7%",
+          "exact_plus_gnd_pipeline_soft": 672,
+          "exact_plus_gnd_pipeline_soft_pct": "84.7%",
+          "mismatches": 121,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 121
+        },
+        {
+          "pair": "Full_Search_LLM=Regex",
+          "arm_a": "Full_Search_LLM",
+          "arm_a_label": "full-search LLM (live)",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 513,
+          "n": 793,
+          "prod_exact_pct": "64.7%",
+          "exact_plus_grounded_dropped": 518,
+          "exact_plus_grounded_dropped_pct": "65.3%",
+          "exact_plus_gnd_pipeline": 534,
+          "exact_plus_gnd_pipeline_pct": "67.3%",
+          "exact_plus_gnd_pipeline_soft": 649,
+          "exact_plus_gnd_pipeline_soft_pct": "81.8%",
+          "mismatches": 280,
+          "grounding_explained": 5,
+          "pipeline_explained": 16,
+          "soft_explained": 115,
+          "unexplained": 144
+        }
+      ],
+      "aggregate": {
+        "unit": "query",
+        "prod_exact": 3747,
+        "n": 4758,
+        "prod_exact_pct": 78.8,
+        "exact_plus_grounded_dropped": 3760,
+        "exact_plus_grounded_dropped_pct": 79.0,
+        "exact_plus_gnd_pipeline": 3814,
+        "exact_plus_gnd_pipeline_pct": 80.2,
+        "exact_plus_gnd_pipeline_soft": 4180,
+        "exact_plus_gnd_pipeline_soft_pct": 87.9,
+        "mismatches": 1011,
+        "grounding_explained": 13,
+        "pipeline_explained": 54,
+        "soft_explained": 366,
+        "unexplained": 578
+      },
+      "keywords": {
+        "unit": "query",
+        "arms": [
+          "LLMJ",
+          "QIE_Only_LLM",
+          "Full_Search_LLM"
+        ],
+        "notes": "Term-set exact match (casefold); probabilities on *_keywords_detail only. Threshold already applied in L0 extractor.",
+        "pairs": [
+          {
+            "pair": "LLMJ=QIE_Only_LLM",
+            "arm_a": "LLMJ",
+            "arm_a_label": "offline LLM extract + API-grounded",
+            "arm_b": "QIE_Only_LLM",
+            "arm_b_label": "qie_only LLM (live)",
+            "exact": 744,
+            "n": 793,
+            "exact_pct": "93.8%",
+            "diff": 49,
+            "diff_pct": "6.2%",
+            "jaccard_mean": 0.9431
+          },
+          {
+            "pair": "LLMJ=Full_Search_LLM",
+            "arm_a": "LLMJ",
+            "arm_a_label": "offline LLM extract + API-grounded",
+            "arm_b": "Full_Search_LLM",
+            "arm_b_label": "full-search LLM (live)",
+            "exact": 752,
+            "n": 793,
+            "exact_pct": "94.8%",
+            "diff": 41,
+            "diff_pct": "5.2%",
+            "jaccard_mean": 0.9562
+          },
+          {
+            "pair": "QIE_Only_LLM=Full_Search_LLM",
+            "arm_a": "QIE_Only_LLM",
+            "arm_a_label": "qie_only LLM (live)",
+            "arm_b": "Full_Search_LLM",
+            "arm_b_label": "full-search LLM (live)",
+            "exact": 762,
+            "n": 793,
+            "exact_pct": "96.1%",
+            "diff": 31,
+            "diff_pct": "3.9%",
+            "jaccard_mean": 0.9648
+          }
+        ],
+        "three_arm_exact": 735,
+        "three_arm_n": 793,
+        "three_arm_exact_pct": 92.7,
+        "three_arm_diff": 58
+      }
+    },
+    "test": {
+      "pairs": [
+        {
+          "pair": "LLMJ=QIE_Only_LLM",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "QIE_Only_LLM",
+          "arm_b_label": "qie_only LLM (live)",
+          "prod_exact": 195,
+          "n": 208,
+          "prod_exact_pct": "93.8%",
+          "exact_plus_grounded_dropped": 195,
+          "exact_plus_grounded_dropped_pct": "93.8%",
+          "exact_plus_gnd_pipeline": 195,
+          "exact_plus_gnd_pipeline_pct": "93.8%",
+          "exact_plus_gnd_pipeline_soft": 195,
+          "exact_plus_gnd_pipeline_soft_pct": "93.8%",
+          "mismatches": 13,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 13
+        },
+        {
+          "pair": "LLMJ=Full_Search_LLM",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "Full_Search_LLM",
+          "arm_b_label": "full-search LLM (live)",
+          "prod_exact": 145,
+          "n": 208,
+          "prod_exact_pct": "69.7%",
+          "exact_plus_grounded_dropped": 148,
+          "exact_plus_grounded_dropped_pct": "71.2%",
+          "exact_plus_gnd_pipeline": 152,
+          "exact_plus_gnd_pipeline_pct": "73.1%",
+          "exact_plus_gnd_pipeline_soft": 186,
+          "exact_plus_gnd_pipeline_soft_pct": "89.4%",
+          "mismatches": 63,
+          "grounding_explained": 3,
+          "pipeline_explained": 4,
+          "soft_explained": 34,
+          "unexplained": 22
+        },
+        {
+          "pair": "LLMJ=Regex",
+          "arm_a": "LLMJ",
+          "arm_a_label": "offline LLM extract + API-grounded",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 182,
+          "n": 208,
+          "prod_exact_pct": "87.5%",
+          "exact_plus_grounded_dropped": 182,
+          "exact_plus_grounded_dropped_pct": "87.5%",
+          "exact_plus_gnd_pipeline": 182,
+          "exact_plus_gnd_pipeline_pct": "87.5%",
+          "exact_plus_gnd_pipeline_soft": 182,
+          "exact_plus_gnd_pipeline_soft_pct": "87.5%",
+          "mismatches": 26,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 26
+        },
+        {
+          "pair": "QIE_Only_LLM=Full_Search_LLM",
+          "arm_a": "QIE_Only_LLM",
+          "arm_a_label": "qie_only LLM (live)",
+          "arm_b": "Full_Search_LLM",
+          "arm_b_label": "full-search LLM (live)",
+          "prod_exact": 150,
+          "n": 208,
+          "prod_exact_pct": "72.1%",
+          "exact_plus_grounded_dropped": 153,
+          "exact_plus_grounded_dropped_pct": "73.6%",
+          "exact_plus_gnd_pipeline": 158,
+          "exact_plus_gnd_pipeline_pct": "76.0%",
+          "exact_plus_gnd_pipeline_soft": 197,
+          "exact_plus_gnd_pipeline_soft_pct": "94.7%",
+          "mismatches": 58,
+          "grounding_explained": 3,
+          "pipeline_explained": 5,
+          "soft_explained": 39,
+          "unexplained": 11
+        },
+        {
+          "pair": "QIE_Only_LLM=Regex",
+          "arm_a": "QIE_Only_LLM",
+          "arm_a_label": "qie_only LLM (live)",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 186,
+          "n": 208,
+          "prod_exact_pct": "89.4%",
+          "exact_plus_grounded_dropped": 186,
+          "exact_plus_grounded_dropped_pct": "89.4%",
+          "exact_plus_gnd_pipeline": 186,
+          "exact_plus_gnd_pipeline_pct": "89.4%",
+          "exact_plus_gnd_pipeline_soft": 186,
+          "exact_plus_gnd_pipeline_soft_pct": "89.4%",
+          "mismatches": 22,
+          "grounding_explained": 0,
+          "pipeline_explained": 0,
+          "soft_explained": 0,
+          "unexplained": 22
+        },
+        {
+          "pair": "Full_Search_LLM=Regex",
+          "arm_a": "Full_Search_LLM",
+          "arm_a_label": "full-search LLM (live)",
+          "arm_b": "Regex",
+          "arm_b_label": "offline regex fallback + API-grounded",
+          "prod_exact": 134,
+          "n": 208,
+          "prod_exact_pct": "64.4%",
+          "exact_plus_grounded_dropped": 137,
+          "exact_plus_grounded_dropped_pct": "65.9%",
+          "exact_plus_gnd_pipeline": 142,
+          "exact_plus_gnd_pipeline_pct": "68.3%",
+          "exact_plus_gnd_pipeline_soft": 177,
+          "exact_plus_gnd_pipeline_soft_pct": "85.1%",
+          "mismatches": 74,
+          "grounding_explained": 3,
+          "pipeline_explained": 5,
+          "soft_explained": 35,
+          "unexplained": 31
+        }
+      ],
+      "aggregate": {
+        "unit": "query",
+        "prod_exact": 992,
+        "n": 1248,
+        "prod_exact_pct": 79.5,
+        "exact_plus_grounded_dropped": 1001,
+        "exact_plus_grounded_dropped_pct": 80.2,
+        "exact_plus_gnd_pipeline": 1015,
+        "exact_plus_gnd_pipeline_pct": 81.3,
+        "exact_plus_gnd_pipeline_soft": 1123,
+        "exact_plus_gnd_pipeline_soft_pct": 90.0,
+        "mismatches": 256,
+        "grounding_explained": 9,
+        "pipeline_explained": 14,
+        "soft_explained": 108,
+        "unexplained": 125
+      },
+      "keywords": {
+        "unit": "query",
+        "arms": [
+          "LLMJ",
+          "QIE_Only_LLM",
+          "Full_Search_LLM"
+        ],
+        "notes": "Term-set exact match (casefold); probabilities on *_keywords_detail only. Threshold already applied in L0 extractor.",
+        "pairs": [
+          {
+            "pair": "LLMJ=QIE_Only_LLM",
+            "arm_a": "LLMJ",
+            "arm_a_label": "offline LLM extract + API-grounded",
+            "arm_b": "QIE_Only_LLM",
+            "arm_b_label": "qie_only LLM (live)",
+            "exact": 193,
+            "n": 208,
+            "exact_pct": "92.8%",
+            "diff": 15,
+            "diff_pct": "7.2%",
+            "jaccard_mean": 0.9399
+          },
+          {
+            "pair": "LLMJ=Full_Search_LLM",
+            "arm_a": "LLMJ",
+            "arm_a_label": "offline LLM extract + API-grounded",
+            "arm_b": "Full_Search_LLM",
+            "arm_b_label": "full-search LLM (live)",
+            "exact": 196,
+            "n": 208,
+            "exact_pct": "94.2%",
+            "diff": 12,
+            "diff_pct": "5.8%",
+            "jaccard_mean": 0.9543
+          },
+          {
+            "pair": "QIE_Only_LLM=Full_Search_LLM",
+            "arm_a": "QIE_Only_LLM",
+            "arm_a_label": "qie_only LLM (live)",
+            "arm_b": "Full_Search_LLM",
+            "arm_b_label": "full-search LLM (live)",
+            "exact": 203,
+            "n": 208,
+            "exact_pct": "97.6%",
+            "diff": 5,
+            "diff_pct": "2.4%",
+            "jaccard_mean": 0.976
+          }
+        ],
+        "three_arm_exact": 192,
+        "three_arm_n": 208,
+        "three_arm_exact_pct": 92.3,
+        "three_arm_diff": 16
+      }
+    },
+    "focus": [
+      {
+        "split": "train",
+        "pair": "QIE_Only_LLM=Regex",
+        "prod_exact": 672,
+        "n": 793,
+        "prod_exact_pct": "84.7%",
+        "exact_plus_grounded_dropped": 672,
+        "exact_plus_grounded_dropped_pct": "84.7%",
+        "exact_plus_gnd_pipeline": 672,
+        "exact_plus_gnd_pipeline_pct": "84.7%",
+        "exact_plus_gnd_pipeline_soft": 672,
+        "exact_plus_gnd_pipeline_soft_pct": "84.7%",
+        "mismatches": 121,
+        "grounding_explained": 0,
+        "pipeline_explained": 0,
+        "soft_explained": 0,
+        "unexplained": 121,
+        "headline_metric": "prod_exact"
+      },
+      {
+        "split": "test",
+        "pair": "QIE_Only_LLM=Regex",
+        "prod_exact": 186,
+        "n": 208,
+        "prod_exact_pct": "89.4%",
+        "exact_plus_grounded_dropped": 186,
+        "exact_plus_grounded_dropped_pct": "89.4%",
+        "exact_plus_gnd_pipeline": 186,
+        "exact_plus_gnd_pipeline_pct": "89.4%",
+        "exact_plus_gnd_pipeline_soft": 186,
+        "exact_plus_gnd_pipeline_soft_pct": "89.4%",
+        "mismatches": 22,
+        "grounding_explained": 0,
+        "pipeline_explained": 0,
+        "soft_explained": 0,
+        "unexplained": 22,
+        "headline_metric": "prod_exact"
+      },
+      {
+        "split": "all",
+        "pair": "QIE_Only_LLM=Regex",
+        "prod_exact": 858,
+        "n": 1001,
+        "prod_exact_pct": "85.7%",
+        "exact_plus_grounded_dropped": 858,
+        "exact_plus_grounded_dropped_pct": "85.7%",
+        "exact_plus_gnd_pipeline": 858,
+        "exact_plus_gnd_pipeline_pct": "85.7%",
+        "exact_plus_gnd_pipeline_soft": 858,
+        "exact_plus_gnd_pipeline_soft_pct": "85.7%",
+        "mismatches": 143,
+        "grounding_explained": 0,
+        "pipeline_explained": 0,
+        "soft_explained": 0,
+        "unexplained": 143,
+        "headline_metric": "prod_exact"
+      },
+      {
+        "split": "train",
+        "pair": "Full_Search_LLM=Regex",
+        "prod_exact": 513,
+        "n": 793,
+        "prod_exact_pct": "64.7%",
+        "exact_plus_grounded_dropped": 518,
+        "exact_plus_grounded_dropped_pct": "65.3%",
+        "exact_plus_gnd_pipeline": 534,
+        "exact_plus_gnd_pipeline_pct": "67.3%",
+        "exact_plus_gnd_pipeline_soft": 649,
+        "exact_plus_gnd_pipeline_soft_pct": "81.8%",
+        "mismatches": 280,
+        "grounding_explained": 5,
+        "pipeline_explained": 16,
+        "soft_explained": 115,
+        "unexplained": 144,
+        "headline_metric": "exact_plus_gnd_pipeline_soft"
+      },
+      {
+        "split": "test",
+        "pair": "Full_Search_LLM=Regex",
+        "prod_exact": 134,
+        "n": 208,
+        "prod_exact_pct": "64.4%",
+        "exact_plus_grounded_dropped": 137,
+        "exact_plus_grounded_dropped_pct": "65.9%",
+        "exact_plus_gnd_pipeline": 142,
+        "exact_plus_gnd_pipeline_pct": "68.3%",
+        "exact_plus_gnd_pipeline_soft": 177,
+        "exact_plus_gnd_pipeline_soft_pct": "85.1%",
+        "mismatches": 74,
+        "grounding_explained": 3,
+        "pipeline_explained": 5,
+        "soft_explained": 35,
+        "unexplained": 31,
+        "headline_metric": "exact_plus_gnd_pipeline_soft"
+      },
+      {
+        "split": "all",
+        "pair": "Full_Search_LLM=Regex",
+        "prod_exact": 647,
+        "n": 1001,
+        "prod_exact_pct": "64.6%",
+        "exact_plus_grounded_dropped": 655,
+        "exact_plus_grounded_dropped_pct": "65.4%",
+        "exact_plus_gnd_pipeline": 676,
+        "exact_plus_gnd_pipeline_pct": "67.5%",
+        "exact_plus_gnd_pipeline_soft": 826,
+        "exact_plus_gnd_pipeline_soft_pct": "82.5%",
+        "mismatches": 354,
+        "grounding_explained": 8,
+        "pipeline_explained": 21,
+        "soft_explained": 150,
+        "unexplained": 175,
+        "headline_metric": "exact_plus_gnd_pipeline_soft"
+      }
+    ]
+  }
+}

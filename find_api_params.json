@@ -1,0 +1,659 @@
+[
+  {
+    "name": "query",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "fqdn or sld or keyword or prefix or suffix",
+    "example": null
+  },
+  {
+    "name": "paginationStart",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "offset of the first result returned, default is 0",
+    "example": 0
+  },
+  {
+    "name": "paginationSize",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "number of domains to return, default is 20, max 1000",
+    "example": 20
+  },
+  {
+    "name": "minSldLen",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "minimum number of chars in SLD of the domain",
+    "example": null
+  },
+  {
+    "name": "maxSldLen",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "maximum number of chars in SLD of the domain",
+    "example": null
+  },
+  {
+    "name": "tldIncludeList",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "comma separated list of tlds to include",
+    "example": null
+  },
+  {
+    "name": "tldExcludeList",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "comma separated list of tlds to exclude",
+    "example": null
+  },
+  {
+    "name": "excludeHyphens",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "true for excluding names with hyphens, false or empty otherwise",
+    "example": null
+  },
+  {
+    "name": "excludeDigits",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "true for excluding names with digits, false or empty otherwise",
+    "example": null
+  },
+  {
+    "name": "excludeLetters",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "true for excluding names with letters, false or empty otherwise",
+    "example": null
+  },
+  {
+    "name": "minDigits",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "minimum number of digits in SLD of the domain",
+    "example": null
+  },
+  {
+    "name": "minLetters",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "minimum number of letter in SLD of the domain",
+    "example": null
+  },
+  {
+    "name": "charPattern",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "Character pattern in SLD, pattern can be made of Consonant-Vowel-Numbers, \"vccnn\" could return abc12, etz34 etc",
+    "example": null
+  },
+  {
+    "name": "typeIncludeList",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "comma separated list of auction types to include",
+    "example": null
+  },
+  {
+    "name": "typeExcludeList",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "comma separated list of auction types to exclude",
+    "example": null
+  },
+  {
+    "name": "minPrice",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "minimum auction price",
+    "example": null
+  },
+  {
+    "name": "maxPrice",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "maximum auction price",
+    "example": null
+  },
+  {
+    "name": "isExtended",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "is Extended auction",
+    "example": null
+  },
+  {
+    "name": "isBidAccepted",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "has bid been accepted",
+    "example": null
+  },
+  {
+    "name": "endTimeAfter",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "end time after this time, ISO 8601, in UTC, 2006-01-02T15:04:05Z",
+    "example": null
+  },
+  {
+    "name": "endTimeBefore",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "end time before this time, ISO 8601, in UTC, 2006-01-02T15:04:05Z",
+    "example": null
+  },
+  {
+    "name": "startTimeBefore",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "auction start time before this time, ISO 8601, in UTC, 2006-01-02T15:04:05Z",
+    "example": null
+  },
+  {
+    "name": "startTimeAfter",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "auction start time after this time, ISO 8601, in UTC, 2006-01-02T15:04:05Z",
+    "example": null
+  },
+  {
+    "name": "minBids",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Min number of bids",
+    "example": null
+  },
+  {
+    "name": "maxBids",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Max number of bids",
+    "example": null
+  },
+  {
+    "name": "minValuationPrice",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Valuation minimum price",
+    "example": null
+  },
+  {
+    "name": "maxValuationPrice",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Valuation max price",
+    "example": null
+  },
+  {
+    "name": "minTraffic",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Minimum traffic count",
+    "example": null
+  },
+  {
+    "name": "maxTraffic",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Maximum traffic count",
+    "example": null
+  },
+  {
+    "name": "minAge",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Minimum age in years",
+    "example": null
+  },
+  {
+    "name": "maxAge",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Maximum age in years",
+    "example": null
+  },
+  {
+    "name": "ownerMemberIncludeList",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "comma separated list of auction members to include",
+    "example": null
+  },
+  {
+    "name": "ownerMemberExcludeList",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "comma separated list of auction members to exclude",
+    "example": null
+  },
+  {
+    "name": "minMajesticBackLinks",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min number of back link domains",
+    "example": null
+  },
+  {
+    "name": "maxMajesticBackLinks",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max number of back link domains",
+    "example": null
+  },
+  {
+    "name": "minMajesticRefDomains",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min number of reference domains",
+    "example": null
+  },
+  {
+    "name": "maxMajesticRefDomains",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max number of reference domains",
+    "example": null
+  },
+  {
+    "name": "minMajesticCitationFlowScore",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min citation flow score",
+    "example": null
+  },
+  {
+    "name": "maxMajesticCitationFlowScore",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max citation flow score",
+    "example": null
+  },
+  {
+    "name": "minMajesticTrustFlowScore",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min trust flow score",
+    "example": null
+  },
+  {
+    "name": "maxMajesticTrustFlowScore",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max trust flow score",
+    "example": null
+  },
+  {
+    "name": "minUniqueSearches",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min unique search count",
+    "example": null
+  },
+  {
+    "name": "maxUniqueSearches",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max unique search count",
+    "example": null
+  },
+  {
+    "name": "minEstibotDomainCount",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min estibot domain count",
+    "example": null
+  },
+  {
+    "name": "maxEstibotDomainCount",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max estibot domain count",
+    "example": null
+  },
+  {
+    "name": "minEstibotDomainCountDev",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min estibot domain count dev",
+    "example": null
+  },
+  {
+    "name": "maxEstibotDomainCountDev",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max estibot domain count dev",
+    "example": null
+  },
+  {
+    "name": "minEstibotExtCount",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min estibot ext count",
+    "example": null
+  },
+  {
+    "name": "maxEstibotExtCount",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max estibot ext count",
+    "example": null
+  },
+  {
+    "name": "minEstibotExtCountDev",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min estibot ext count dev",
+    "example": null
+  },
+  {
+    "name": "maxEstibotExtCountDev",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max estibot ext count dev",
+    "example": null
+  },
+  {
+    "name": "minSemrushAScore",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min semrush a score",
+    "example": null
+  },
+  {
+    "name": "maxSemrushAScore",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max semrush a score",
+    "example": null
+  },
+  {
+    "name": "minSemrushLinksTotal",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min semrush links total",
+    "example": null
+  },
+  {
+    "name": "maxSemrushLinksTotal",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max semrush links total",
+    "example": null
+  },
+  {
+    "name": "minSemrushDomainsNum",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min semrush domains num",
+    "example": null
+  },
+  {
+    "name": "maxSemrushDomainsNum",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max semrush domains num",
+    "example": null
+  },
+  {
+    "name": "minSemrushUrlsNum",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min semrush urls num",
+    "example": null
+  },
+  {
+    "name": "maxSemrushUrlsNum",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max semrush urls num",
+    "example": null
+  },
+  {
+    "name": "minSemrushSearchVolume",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Min semrush search volume",
+    "example": null
+  },
+  {
+    "name": "maxSemrushSearchVolume",
+    "type": "integer",
+    "format": "int64",
+    "in": "query",
+    "required": false,
+    "description": "Max semrush search volume",
+    "example": null
+  },
+  {
+    "name": "minSemrushCostPerClick",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Min semrush cost per click",
+    "example": null
+  },
+  {
+    "name": "maxSemrushCostPerClick",
+    "type": "number",
+    "format": "double",
+    "in": "query",
+    "required": false,
+    "description": "Max semrush cost per click",
+    "example": null
+  },
+  {
+    "name": "isGemDomain",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "include domains that are gems: true or empty",
+    "example": null
+  },
+  {
+    "name": "exportCSV",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "whether to return results as csv",
+    "example": null
+  },
+  {
+    "name": "useExtRanker",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "Determines if we should call external ranker, for ranking",
+    "example": null
+  },
+  {
+    "name": "sortBy",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "sorts the result. Supported fields: auctionStartTime,auctionEndTime,auctionPrice,sld,auctionBids,auctionValuationPrice,auctionTraffic,auctionDomainCreateDate,majesticBackLinks,majesticRefDomains,majesticCitationFlowScore,majesticTrustFlowScore,uniqueDomainSearchCount,estibotDomainCount,estibotDomainCountDev,estibotExtCount,estibotExtCountDev Ex: auctionEndTime:asc,auctionPrice:desc",
+    "example": null
+  },
+  {
+    "name": "restrictToQueryTokens",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "restricts results to contain query tokens",
+    "example": null
+  },
+  {
+    "name": "useSemanticSearch",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "if use semantic search results, via calling aftermarket-embeddings",
+    "example": null
+  },
+  {
+    "name": "isIdn",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "is the domain idn: true or false or empty",
+    "example": null
+  },
+  {
+    "name": "filterPriceCurrency",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "currency for min max price filter",
+    "example": null
+  },
+  {
+    "name": "includeExactWithoutFilter",
+    "type": "boolean",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "include exact match ignoring filters",
+    "example": null
+  },
+  {
+    "name": "experimentInfo",
+    "type": "string",
+    "format": null,
+    "in": "query",
+    "required": false,
+    "description": "AB test experiment info, experiment_id:bucket or label:bucket (Find)",
+    "example": null
+  }
+]

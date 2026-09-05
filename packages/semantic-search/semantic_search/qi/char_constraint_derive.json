@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "description": "When a char-constraint payload field is missing, derive from SLD/domain_name using the named strategy. Slots omitted here fail closed (exclude item) when the field is absent. Strategies: contains_hyphen, contains_digit."
+  },
+  "derive_when_missing": {
+    "has_hyphen": "contains_hyphen",
+    "has_number": "contains_digit"
+  }
+}

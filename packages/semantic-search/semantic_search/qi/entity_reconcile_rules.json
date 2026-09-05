@@ -1,0 +1,443 @@
+{
+  "meta": {
+    "description": "Deterministic post-extract reconcile rules. metric_lexicon + shared bound grammar \u2014 extend lexicon aliases/slots; do not add query-specific patterns."
+  },
+  "keyword_match_mode_standalone_values": [
+    "exact"
+  ],
+  "keyword_match_mode_exact_patterns": [
+    "\\bkeyword\\s+match\\s+exact\\b",
+    "\\bexact\\s+keyword\\s+match(?:\\s+mode)?\\b",
+    "\\bexact\\s+match(?:\\s+mode)?\\b",
+    "\\bphrase\\s+only\\b",
+    "\\bphrase\\s+match\\b",
+    "\\bno\\s+partial\\b"
+  ],
+  "lifecycle_disjunction_patterns": [
+    "\\b(?:both|either)\\b.{0,60}\\b(?:and|or)\\b",
+    "\\b(?:active|pending\\s+delete|pending\\s+deletion|expiring(?:\\s+soon)?|dropping|recently\\s+expired)\\b.{0,40}\\b(?:and|or)\\b.{0,40}\\b(?:active|pending\\s+delete|pending\\s+deletion|expiring(?:\\s+soon)?|dropping|recently\\s+expired)\\b",
+    "\\bexpired(?:\\s+domains?)?\\b.{0,40}\\b(?:or|and)\\b.{0,40}\\b(?:dropping|pending\\s+delete|pending\\s+deletion)\\b",
+    "\\b(?:dropping|pending\\s+delete|pending\\s+deletion)\\b.{0,40}\\b(?:or|and)\\b.{0,40}\\bexpired(?:\\s+domains?)?\\b",
+    "\\bexpired\\s+domains?\\b.{0,40}\\b(?:or|and)\\b.{0,40}\\bauction\\b",
+    "\\bauction\\b.{0,40}\\b(?:or|and)\\b.{0,40}\\bexpired\\s+domains?\\b",
+    "\\bactive\\b.{0,40}\\bpending\\s+delete\\b",
+    "\\bpending\\s+delete\\b.{0,40}\\bactive\\b",
+    "\\bstatus(?:es)?\\s+together\\b",
+    "\\bshow\\s+both\\b"
+  ],
+  "stale_listing_patterns": [
+    {
+      "pattern": "\\b(?:listed|listing)\\s+(?:more\\s+than|over)\\s+(?P<num>\\d+)\\s+(?P<unit>days?|weeks?)\\s+ago\\b",
+      "days_from": "unit"
+    },
+    {
+      "pattern": "\\bstale\\s+(?:over|more\\s+than)\\s+(?P<num>\\d+)\\s+(?P<unit>days?|weeks?)\\b",
+      "days_from": "unit"
+    },
+    {
+      "pattern": "\\b(?:listed|listing)\\s+before\\s+(?:last\\s+)?(?P<num>\\d+)\\s+(?P<unit>days?|weeks?|years?)\\b",
+      "days_from": "unit"
+    },
+    {
+      "pattern": "\\bold\\s+listings?\\s+listed\\s+long\\s+ago\\b",
+      "days_fixed": 365
+    }
+  ],
+  "metric_family_overrides": [
+    {
+      "query_cue": "\\bmajestic\\b",
+      "remap": {
+        "semrush_ref_domains_min": "majestic_ref_domains_min",
+        "semrush_ref_domains_max": "majestic_ref_domains_max",
+        "semrush_backlinks_min": "majestic_backlinks_min",
+        "semrush_backlinks_max": "majestic_backlinks_max"
+      }
+    }
+  ],
+  "metric_bound_inject": [
+    {
+      "query_cue": "\\bmajestic\\b",
+      "pattern": "\\b(?:ref(?:erring)?\\s+domains?)\\s+(?:under|below|at\\s+most|max(?:imum)?)\\s+(?P<num>\\d+)\\b",
+      "slot": "majestic_ref_domains_max"
+    },
+    {
+      "query_cue": "\\bmajestic\\b",
+      "pattern": "\\b(?:ref(?:erring)?\\s+domains?)\\s+(?:over|above|at\\s+least|min(?:imum)?)\\s+(?P<num>\\d+)\\b",
+      "slot": "majestic_ref_domains_min"
+    },
+    {
+      "query_cue": "\\bmajestic\\b",
+      "pattern": "\\b(?:backlinks?|links?)\\s+(?:under|below|at\\s+most|max(?:imum)?)\\s+(?P<num>\\d+)\\b",
+      "slot": "majestic_backlinks_max"
+    },
+    {
+      "query_cue": "\\bmajestic\\b",
+      "pattern": "\\bmajestic\\s+(?:ref(?:erring)?\\s+domains?)\\s+(?:under|below|at\\s+most|max(?:imum)?)\\s+(?P<num>\\d+)\\b",
+      "slot": "majestic_ref_domains_max"
+    }
+  ],
+  "metric_lexicon": [
+    {
+      "id": "trust_flow",
+      "aliases": [
+        "tf",
+        "trust\\s+flow"
+      ],
+      "min_slot": "majestic_tf_min",
+      "max_slot": "majestic_tf_max",
+      "misattr_drop": [
+        "bids_min",
+        "bids_max",
+        "traffic_min",
+        "traffic_max"
+      ],
+      "soft_max": 10
+    },
+    {
+      "id": "citation_flow",
+      "aliases": [
+        "cf",
+        "citation\\s+flow"
+      ],
+      "min_slot": "majestic_cf_min",
+      "max_slot": "majestic_cf_max",
+      "misattr_drop": [
+        "bids_min",
+        "bids_max",
+        "traffic_min",
+        "traffic_max"
+      ],
+      "soft_max": 10
+    },
+    {
+      "id": "backlinks",
+      "aliases": [
+        "back\\s*links?",
+        "inbound\\s+links?"
+      ],
+      "min_slot": "semrush_backlinks_min",
+      "max_slot": "semrush_backlinks_max",
+      "majestic_min_slot": "majestic_backlinks_min",
+      "majestic_max_slot": "majestic_backlinks_max",
+      "family_cue": "majestic"
+    },
+    {
+      "id": "ref_domains",
+      "aliases": [
+        "ref(?:erring)?\\s+domains?"
+      ],
+      "min_slot": "semrush_ref_domains_min",
+      "max_slot": "semrush_ref_domains_max",
+      "majestic_min_slot": "majestic_ref_domains_min",
+      "majestic_max_slot": "majestic_ref_domains_max",
+      "family_cue": "majestic"
+    },
+    {
+      "id": "estibot_ext_dev",
+      "aliases": [
+        "estibot\\s+dev\\s+ext(?:ension)?(?:\\s+count)?",
+        "estibot\\s+ext(?:ension)?\\s+count\\s+dev",
+        "developed\\s+ext(?:ension)?\\s+count",
+        "ext(?:ension)?\\s+count\\s+developed",
+        "dev\\s+ext(?:ension)?\\s+count",
+        "dev\\s+ext\\s+saturation"
+      ],
+      "min_slot": "minEstibotExtCountDev",
+      "max_slot": "maxEstibotExtCountDev",
+      "misattr_drop": [
+        "bids_min",
+        "bids_max",
+        "minUniqueSearches",
+        "maxUniqueSearches"
+      ],
+      "misattr_slot_values": {
+        "tld": [
+          "dev"
+        ],
+        "price_min": [
+          "21",
+          "20",
+          "16",
+          "15",
+          "25",
+          "26"
+        ],
+        "price_max": [
+          "5",
+          "21",
+          "20",
+          "16",
+          "15",
+          "25",
+          "26"
+        ]
+      },
+      "soft_max": 0,
+      "soft_min": 1
+    },
+    {
+      "id": "estibot_ext",
+      "aliases": [
+        "estibot\\s+ext(?:ension)?\\s+count",
+        "ext(?:ension)?\\s+count",
+        "extension\\s+saturation",
+        "ext\\s+saturation",
+        "lots\\s+of\\s+extensions?",
+        "extensions?\\s+already\\s+registered"
+      ],
+      "min_slot": "minEstibotExtCount",
+      "max_slot": "maxEstibotExtCount",
+      "misattr_drop": [
+        "bids_min",
+        "bids_max",
+        "minUniqueSearches",
+        "maxUniqueSearches"
+      ],
+      "soft_max": 0,
+      "soft_min": 1
+    },
+    {
+      "id": "estibot_domain",
+      "aliases": [
+        "estibot\\s+domain\\s+count",
+        "estibot\\s+count",
+        "estibot",
+        "dev\\s+namespace\\s+count",
+        "namespace\\s+count"
+      ],
+      "min_slot": "minEstibotDomainCount",
+      "max_slot": "maxEstibotDomainCount",
+      "misattr_drop": [
+        "govalue_min",
+        "govalue_max",
+        "bids_min",
+        "bids_max"
+      ],
+      "misattr_slot_values": {
+        "price_min": [
+          "101",
+          "100",
+          "1"
+        ]
+      },
+      "soft_low_min": 0,
+      "soft_min": 1
+    },
+    {
+      "id": "semrush_authority",
+      "aliases": [
+        "da",
+        "domain\\s+authority",
+        "authority\\s+score",
+        "semrush\\s+authority",
+        "semrush\\s+score",
+        "semrush\\s+ascore",
+        "as\\s+score",
+        "ascore"
+      ],
+      "min_slot": "semrush_authority_min",
+      "max_slot": "semrush_authority_max",
+      "misattr_drop": [
+        "bids_min",
+        "bids_max",
+        "traffic_min",
+        "traffic_max",
+        "name_length_min",
+        "name_length_max"
+      ],
+      "soft_max": 50,
+      "soft_min": 1
+    },
+    {
+      "id": "semrush_links",
+      "aliases": [
+        "semrush\\s+links?",
+        "semrush\\s+backlinks?"
+      ],
+      "min_slot": "minSemrushLinksTotal",
+      "max_slot": "maxSemrushLinksTotal",
+      "soft_low_min": 1
+    },
+    {
+      "id": "unique_searches",
+      "aliases": [
+        "unique\\s+searches?",
+        "unique\\s+searchers?"
+      ],
+      "min_slot": "minUniqueSearches",
+      "max_slot": "maxUniqueSearches",
+      "soft_low_min": 0
+    }
+  ],
+  "qualitative_floor_scrub": [
+    {
+      "id": "trust_flow_qual",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\b(?:strong|good|high|solid|decent|clean|real|quality|powerful)\\s+backlinks?\\b",
+        "\\bbacklinks?\\s+(?:profile|equity|juice)\\b",
+        "\\bbacklink\\s+juice\\b",
+        "\\blink\\s+(?:juice|equity|profile|power)\\b",
+        "\\b(?:with|have|has)\\s+(?:clean|real|strong|good)\\s+backlinks?\\b"
+      ],
+      "numeric_cues": [
+        "\\b(?:tf|trust\\s*flow|citation\\s*flow)\\b.{0,16}\\d",
+        "\\d.{0,16}\\b(?:tf|trust\\s*flow|citation\\s*flow)\\b",
+        "\\b\\d[\\d,]*(?:\\s*k)?\\s+backlinks?\\b",
+        "\\bbacklinks?\\s*(?:of\\s+|at\\s+least\\s+|over\\s+|above\\s+|>=?\\s*)?\\d"
+      ],
+      "drop_slots": [
+        "majestic_tf_min",
+        "minMajesticTrustFlowScore",
+        "majestic_cf_min",
+        "minMajesticCitationFlowScore"
+      ]
+    },
+    {
+      "id": "authority_qual",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\b(?:high|strong|good|solid|great)\\s+(?:domain\\s+)?authority\\b",
+        "\\b(?:with|have|has)\\s+authority\\b",
+        "\\bseo\\s+authority\\b",
+        "\\b(?:seo\\s+)?authority\\s+score\\b",
+        "\\bda\\s+score\\b",
+        "\\bundervalued\\b.{0,40}\\bauthority\\b",
+        "\\bauthority\\b.{0,40}\\bundervalued\\b"
+      ],
+      "numeric_cues": [
+        "\\bda\\s*(?:score\\s*)?(?:of\\s+|over\\s+|above\\s+|at\\s+least\\s+|>=?\\s*|:\\s*)?\\d",
+        "\\b\\d+\\s*(?:\\+\\s*)?da\\b",
+        "\\bauthority\\s+score\\s*(?:of\\s+|over\\s+|above\\s+|at\\s+least\\s+|>=?\\s*|:\\s*)?\\d",
+        "\\b(?:semrush\\s*)?(?:a\\s*score|ascore)\\s*(?:of\\s+|over\\s+|above\\s+|at\\s+least\\s+|>=?\\s*|:\\s*)?\\d",
+        "\\b(?:domain\\s+)?authority\\s*(?:of\\s+|over\\s+|above\\s+|at\\s+least\\s+|>=?\\s*|:\\s+)\\d"
+      ],
+      "drop_slots": [
+        "semrush_authority_min",
+        "minSemrushAScore"
+      ]
+    },
+    {
+      "id": "age_qual",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\b(?:mature|aged|established|well[- ]?aged)\\s+(?:domain|domains|name|names)\\b",
+        "\\baged\\s+domain\\b",
+        "\\b(?:an\\s+)?aged\\s+domain\\b",
+        "\\bolder\\s+(?:domain|domains|name|names)\\b"
+      ],
+      "numeric_cues": [
+        "\\b\\d+\\s*\\+?\\s*(?:year|yr)s?\\b",
+        "\\b(?:over|above|at\\s+least|min(?:imum)?)\\s+\\d+\\s*(?:year|yr)s?\\b"
+      ],
+      "drop_slots": [
+        "domain_age_min",
+        "minAge",
+        "min_domain_age"
+      ]
+    },
+    {
+      "id": "traffic_qual",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\b(?:decent|reasonable|moderate|some|significant|strong|high|good|heavy|solid)\\s+traffic\\b"
+      ],
+      "numeric_cues": [
+        "\\b\\d[\\d,]*(?:\\s*k)?\\s*(?:\\+\\s*)?traffic\\b",
+        "\\btraffic\\s*(?:of\\s+|at\\s+least\\s+|over\\s+|above\\s+|>=?\\s*|:\\s*)?\\d"
+      ],
+      "drop_slots": [
+        "traffic_min",
+        "minTraffic"
+      ]
+    },
+    {
+      "id": "currency_ungrounded",
+      "mode": "ungrounded",
+      "cues": [
+        "(?:\\$|\u20ac|\u00a3)",
+        "\\b(?:usd|eur|gbp|aud|cad|dollar|dollars|euro|euros|pound|pounds)\\b"
+      ],
+      "drop_slots": [
+        "filterPriceCurrency",
+        "price_currency"
+      ]
+    },
+    {
+      "id": "word_count_qual_phrase",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\b(?:one|two|three)\\s*-?\\s*word(?:s)?\\b",
+        "\\b(?:one|two|three)\\s*-?\\s*syllable\\b",
+        "\\bpunchy\\s+(?:two|one)\\s*-?\\s*syllable\\b",
+        "\\bsingle[- ]word\\b"
+      ],
+      "numeric_cues": [
+        "\\b\\d+\\s+words?\\b",
+        "\\b(?:max|min|at\\s+most|at\\s+least)\\s+\\d+\\s+words?\\b",
+        "\\bword\\s*count\\s*[:=]?\\s*\\d+"
+      ],
+      "drop_slots": [
+        "word_count_min",
+        "word_count_max",
+        "minWords",
+        "maxWords"
+      ]
+    },
+    {
+      "id": "backlinks_presence_qual",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\b(?:clean|real|quality|strong|good|solid|decent|powerful)\\s+backlinks?\\b",
+        "\\b(?:with|have|has)\\s+(?:clean|real|strong|good)\\s+backlinks?\\b",
+        "\\bbacklinks?\\s+profile\\b"
+      ],
+      "numeric_cues": [
+        "\\b\\d[\\d,]*(?:\\s*k)?\\s+backlinks?\\b",
+        "\\bbacklinks?\\s*(?:of\\s+|at\\s+least\\s+|over\\s+|above\\s+|>=?\\s*|:\\s*)?\\d",
+        "\\b(?:tf|trust\\s*flow)\\b.{0,16}\\d",
+        "\\d.{0,16}\\b(?:tf|trust\\s*flow)\\b"
+      ],
+      "drop_slots": [
+        "majestic_backlinks_min",
+        "minMajesticBackLinks",
+        "majestic_backlinks_max",
+        "maxMajesticBackLinks",
+        "semrush_backlinks_min",
+        "minSemrushBackLinks",
+        "majestic_ref_domains_min",
+        "minMajesticRefDomains"
+      ]
+    },
+    {
+      "id": "clean_not_hyphen_ungrounded",
+      "mode": "qual_without_numeric",
+      "qual_cues": [
+        "\\bclean\\s+backlinks?\\b",
+        "\\bclean\\s+(?:history|record)\\b"
+      ],
+      "numeric_cues": [
+        "\\b(?:no|without|exclude)\\s+hyphens?\\b",
+        "\\bhyphen[- ]?free\\b"
+      ],
+      "drop_slots": [
+        "excludeHyphens",
+        "has_hyphen"
+      ]
+    }
+  ],
+  "calendar_window_guard": {
+    "skip_bare_window_if_any": [
+      "\\bhot\\b",
+      "\\btrending\\b",
+      "\\bmost\\s+(?:viewed|clicked|popular)\\b",
+      "\\bwhats?\\s+trending\\b",
+      "\\bpopular\\s+(?:this|last|past)\\s+(?:week|month)\\b"
+    ],
+    "except_if_any": [
+      "\\badded\\b",
+      "\\blisted\\b",
+      "\\bnew\\s+listings?\\b"
+    ]
+  }
+}

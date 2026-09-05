@@ -1,0 +1,570 @@
+{
+  "meta": {
+    "target_api": "GET /v4/aftermarket/find/auction/recommend",
+    "transform_legend": {
+      "direct": "Pass value as-is",
+      "list_to_csv": "Join list with comma \u2192 string param",
+      "invert_bool": "Negate: slot=false \u2192 param=true (has_hyphen=false \u2192 excludeHyphens=true)",
+      "bool_to_str": "true/false \u2192 string 'true'/'false' or empty",
+      "seconds_to_iso": "Compute datetime.utcnow() + timedelta(seconds=value) \u2192 ISO 8601 UTC",
+      "pass_through": "Slot value becomes query string",
+      "prefix_query": "Prepend value to query string for starts-with semantics",
+      "suffix_query": "Append value to query string for ends-with semantics",
+      "no_api_param": "No matching param in auction/recommend; slot used internally only"
+    }
+  },
+  "mappings": [
+    {
+      "entity_slot": "keyword_contains",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Applied as local SLD substring filter; no distinct FIND API param (raw NL query is the query param)"
+    },
+    {
+      "entity_slot": "keyword_starts_with",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Applied as local SLD prefix filter; no distinct FIND API param"
+    },
+    {
+      "entity_slot": "keyword_ends_with",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Applied as local SLD suffix filter; no distinct FIND API param"
+    },
+    {
+      "entity_slot": "time_remaining_max",
+      "api_param": "endTimeBefore",
+      "transform": "seconds_to_iso",
+      "type": "string (ISO 8601 UTC)"
+    },
+    {
+      "entity_slot": "days_listed_max",
+      "api_param": "startTimeAfter",
+      "transform": "days_ago_to_iso",
+      "type": "string (ISO 8601 UTC)",
+      "notes": "added/listed within last N days \u2192 listing start-time lower bound"
+    },
+    {
+      "entity_slot": "days_listed_min",
+      "api_param": "startTimeBefore",
+      "transform": "days_ago_to_iso",
+      "type": "string (ISO 8601 UTC)",
+      "notes": "listed more than N days ago / stale over N \u2192 listing start-time upper bound"
+    },
+    {
+      "entity_slot": "endTimeAfter",
+      "api_param": "endTimeAfter",
+      "transform": "direct",
+      "type": "string (ISO 8601 UTC)"
+    },
+    {
+      "entity_slot": "endTimeBefore",
+      "api_param": "endTimeBefore",
+      "transform": "direct",
+      "type": "string (ISO 8601 UTC)"
+    },
+    {
+      "entity_slot": "startTimeAfter",
+      "api_param": "startTimeAfter",
+      "transform": "direct",
+      "type": "string (ISO 8601 UTC)"
+    },
+    {
+      "entity_slot": "startTimeBefore",
+      "api_param": "startTimeBefore",
+      "transform": "direct",
+      "type": "string (ISO 8601 UTC)"
+    },
+    {
+      "entity_slot": "auction_type",
+      "api_param": "typeIncludeList",
+      "transform": "list_to_csv",
+      "type": "string"
+    },
+    {
+      "entity_slot": "typeExcludeList",
+      "api_param": "typeExcludeList",
+      "transform": "list_to_csv",
+      "type": "string"
+    },
+    {
+      "entity_slot": "isExtended",
+      "api_param": "isExtended",
+      "transform": "bool_to_str",
+      "type": "string"
+    },
+    {
+      "entity_slot": "isBidAccepted",
+      "api_param": "isBidAccepted",
+      "transform": "bool_to_str",
+      "type": "string"
+    },
+    {
+      "entity_slot": "price_min",
+      "api_param": "minPrice",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "price_max",
+      "api_param": "maxPrice",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "filterPriceCurrency",
+      "api_param": "filterPriceCurrency",
+      "transform": "direct",
+      "type": "string"
+    },
+    {
+      "entity_slot": "bids_min",
+      "api_param": "minBids",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "bids_max",
+      "api_param": "maxBids",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "tld",
+      "api_param": "tldIncludeList",
+      "transform": "list_to_csv",
+      "type": "string"
+    },
+    {
+      "entity_slot": "tldExcludeList",
+      "api_param": "tldExcludeList",
+      "transform": "list_to_csv",
+      "type": "string"
+    },
+    {
+      "entity_slot": "has_hyphen",
+      "api_param": "excludeHyphens",
+      "transform": "invert_bool",
+      "type": "boolean"
+    },
+    {
+      "entity_slot": "has_number",
+      "api_param": "excludeDigits",
+      "transform": "invert_bool",
+      "type": "boolean"
+    },
+    {
+      "entity_slot": "is_idn",
+      "api_param": "isIdn",
+      "transform": "bool_to_str",
+      "type": "string"
+    },
+    {
+      "entity_slot": "name_length_min",
+      "api_param": "minSldLen",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "name_length_max",
+      "api_param": "maxSldLen",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "word_count_min",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": "integer (int64)",
+      "notes": "Local SLD word-count floor via structured retriever segmenter; no distinct FIND API param"
+    },
+    {
+      "entity_slot": "word_count_max",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": "integer (int64)",
+      "notes": "Local SLD word-count ceiling via structured retriever segmenter; no distinct FIND API param"
+    },
+    {
+      "entity_slot": "excludeLetters",
+      "api_param": "excludeLetters",
+      "transform": "direct",
+      "type": "boolean"
+    },
+    {
+      "entity_slot": "minDigits",
+      "api_param": "minDigits",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "minLetters",
+      "api_param": "minLetters",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "charPattern",
+      "api_param": "charPattern",
+      "transform": "direct",
+      "type": "string"
+    },
+    {
+      "entity_slot": "isGemDomain",
+      "api_param": "isGemDomain",
+      "transform": "bool_to_str",
+      "type": "string"
+    },
+    {
+      "entity_slot": "domain_age_min",
+      "api_param": "minAge",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "domain_age_max",
+      "api_param": "maxAge",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "traffic_min",
+      "api_param": "minTraffic",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "traffic_max",
+      "api_param": "maxTraffic",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "govalue_min",
+      "api_param": "minValuationPrice",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "govalue_max",
+      "api_param": "maxValuationPrice",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "ownerMemberIncludeList",
+      "api_param": "ownerMemberIncludeList",
+      "transform": "direct",
+      "type": "string"
+    },
+    {
+      "entity_slot": "ownerMemberExcludeList",
+      "api_param": "ownerMemberExcludeList",
+      "transform": "direct",
+      "type": "string"
+    },
+    {
+      "entity_slot": "minUniqueSearches",
+      "api_param": "minUniqueSearches",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "maxUniqueSearches",
+      "api_param": "maxUniqueSearches",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_tf_min",
+      "api_param": "minMajesticTrustFlowScore",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_tf_max",
+      "api_param": "maxMajesticTrustFlowScore",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_cf_min",
+      "api_param": "minMajesticCitationFlowScore",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_cf_max",
+      "api_param": "maxMajesticCitationFlowScore",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_backlinks_min",
+      "api_param": "minMajesticBackLinks",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_backlinks_max",
+      "api_param": "maxMajesticBackLinks",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_ref_domains_min",
+      "api_param": "minMajesticRefDomains",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "majestic_ref_domains_max",
+      "api_param": "maxMajesticRefDomains",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "tlf_exact_match",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "TLF not in auction/recommend"
+    },
+    {
+      "entity_slot": "tlf_keyword_regs_min",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "TLF not in auction/recommend"
+    },
+    {
+      "entity_slot": "tlf_developed",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "TLF not in auction/recommend"
+    },
+    {
+      "entity_slot": "has_web_traffic_signal",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local boolean filter: item must have at least one non-null traffic field; no FIND API param"
+    },
+    {
+      "entity_slot": "lifecycle_state",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local lifecycle state filter (active/expiring_soon/dropping/recently_expired/pending_delete); no FIND API param"
+    },
+    {
+      "entity_slot": "lifecycle_disjunction",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "OR-mode flag for lifecycle_state + time_remaining_max; local filter only"
+    },
+    {
+      "entity_slot": "keyword_match_mode",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Multi-term keyword match mode (any/all); applied by local keyword filter"
+    },
+    {
+      "entity_slot": "keyword_contains_exclude",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Keyword exclusion substring from SLD; local filter"
+    },
+    {
+      "entity_slot": "keyword_phrase",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Exact phrase match on SLD; local filter"
+    },
+    {
+      "entity_slot": "has_reserve_price",
+      "api_param": "has_reserve_price",
+      "transform": "bool_to_str",
+      "type": "boolean",
+      "notes": "Local boolean on has_reserve_price payload; False=no-reserve is an active filter"
+    },
+    {
+      "entity_slot": "gd_transfer",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local boolean filter on gd_transfer payload field; no FIND API param"
+    },
+    {
+      "entity_slot": "traffic_is_unknown",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local IsNull filter on monthly_traffic; no FIND API param"
+    },
+    {
+      "entity_slot": "domain_age_is_unknown",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local IsNull filter on domain_age_years; no FIND API param"
+    },
+    {
+      "entity_slot": "price_below_market",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local post-filter via item_below_market(); no FIND API param"
+    },
+    {
+      "entity_slot": "buy_it_now",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local boolean filter on buy_it_now payload field; no FIND API param"
+    },
+    {
+      "entity_slot": "buy_it_now_min",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local buy_it_now_price range min; no FIND API param"
+    },
+    {
+      "entity_slot": "buy_it_now_max",
+      "api_param": null,
+      "transform": "no_api_param",
+      "type": null,
+      "notes": "Local buy_it_now_price range max; no FIND API param"
+    },
+    {
+      "entity_slot": "minEstibotDomainCount",
+      "api_param": "minEstibotDomainCount",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "maxEstibotDomainCount",
+      "api_param": "maxEstibotDomainCount",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "minEstibotDomainCountDev",
+      "api_param": "minEstibotDomainCountDev",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "maxEstibotDomainCountDev",
+      "api_param": "maxEstibotDomainCountDev",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "minEstibotExtCount",
+      "api_param": "minEstibotExtCount",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "maxEstibotExtCount",
+      "api_param": "maxEstibotExtCount",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "minEstibotExtCountDev",
+      "api_param": "minEstibotExtCountDev",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "maxEstibotExtCountDev",
+      "api_param": "maxEstibotExtCountDev",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_backlinks_min",
+      "api_param": "minSemrushLinksTotal",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_backlinks_max",
+      "api_param": "maxSemrushLinksTotal",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_indexed_pages_min",
+      "api_param": "minSemrushUrlsNum",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_indexed_pages_max",
+      "api_param": "maxSemrushUrlsNum",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_ref_domains_min",
+      "api_param": "minSemrushDomainsNum",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_ref_domains_max",
+      "api_param": "maxSemrushDomainsNum",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_authority_min",
+      "api_param": "minSemrushAScore",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_authority_max",
+      "api_param": "maxSemrushAScore",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_search_volume_min",
+      "api_param": "minSemrushSearchVolume",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_search_volume_max",
+      "api_param": "maxSemrushSearchVolume",
+      "transform": "direct",
+      "type": "integer (int64)"
+    },
+    {
+      "entity_slot": "semrush_cpc_min",
+      "api_param": "minSemrushCostPerClick",
+      "transform": "direct",
+      "type": "number (double)"
+    },
+    {
+      "entity_slot": "semrush_cpc_max",
+      "api_param": "maxSemrushCostPerClick",
+      "transform": "direct",
+      "type": "number (double)"
+    }
+  ]
+}

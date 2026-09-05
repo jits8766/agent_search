@@ -1,0 +1,11 @@
+<clickhouse>
+    <!-- Types 16+38 active: ~772K Qdrant records. ClickHouse 90-day: ~5.6M rows.
+         Container mem_limit=8g in docker-compose. Leave 1 GiB headroom. -->
+    <max_server_memory_usage>7516192768</max_server_memory_usage>  <!-- 7 GiB -->
+
+    <!-- Per-query cap: analytics aggregations over 5.6M rows fit in 4 GiB. -->
+    <max_memory_usage>4294967296</max_memory_usage>  <!-- 4 GiB -->
+
+    <!-- Ratio guard: never exceed 0.9 of available OS memory. -->
+    <max_server_memory_usage_to_ram_ratio>0.9</max_server_memory_usage_to_ram_ratio>
+</clickhouse>

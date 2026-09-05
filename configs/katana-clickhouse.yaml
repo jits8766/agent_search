@@ -1,0 +1,96 @@
+# ClickHouse Katana deployment manifest
+# Namespace: auctions | App: auc-semsearch-clickhouse
+# CI builds a thin TLS image over clickhouse/clickhouse-server (docker/clickhouse/)
+# that serves HTTPS on 8443 with a self-signed cert, then pushes to ECR.
+# Stack Safeguard requires the container to listen over HTTPS.
+#
+# IMPORTANT: ClickHouse requires persistent storage. Without an EFS volume
+# mounted at /var/lib/clickhouse, all data is lost on task restart.
+# Provision an EFS filesystem and mount it before running in production.
+# Contact your infra team to wire the EFS ARN into the ECS task definition.
+#
+# Internal DNS (VPC-only, no public ingress):
+#   Dev-Private: set CLICKHOUSE_HOST secret in auc_semantic_search to the
+#   internal ALB hostname Katana assigns to this service after first deploy.
+
+namespace: auctions
+app: auc-semsearch-clickhouse
+
+artifact:
+  kind: ecs
+  options:
+    ports:
+      - 8443    # HTTPS interface (queries, health) — required by Stack Safeguard
+    protocol: https
+    healthcheckPath: /ping
+    healthcheckGracePeriod: 3600
+
+environments:
+  dev-private:
+    replicas: 1
+    resources:
+      cpu: 1024
+      memory: 4096
+
+    ingress:
+      enabled: false    # VPC-internal only, no public ALB
+
+    environment:
+      - name: CLICKHOUSE_DB
+        value: "default"
+      - name: CLICKHOUSE_USER
+        value: "default"
+      - name: CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT
+        value: "1"
+      - name: CLICKHOUSE_ALLOW_EMPTY_PASSWORD
+        value: "1"
+
+  Test:
+    replicas: 1
+    resources:
+      cpu: 1024
+      memory: 4096
+
+    ingress:
+      enabled: false
+
+    environment:
+      - name: CLICKHOUSE_DB
+        value: "default"
+      - name: CLICKHOUSE_USER
+        value: "default"
+      - name: CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT
+        value: "1"
+      - name: CLICKHOUSE_ALLOW_EMPTY_PASSWORD
+        value: "1"
+
+  Prod:
+    replicas: 1
+    resources:
+      cpu: 2048
+      memory: 8192
+
+    ingress:
+      enabled: false
+
+    environment:
+      - name: CLICKHOUSE_DB
+        value: "default"
+      - name: CLICKHOUSE_USER
+        value: "default"
+      - name: CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT
+        value: "1"
+      - name: CLICKHOUSE_ALLOW_EMPTY_PASSWORD
+        value: "1"
+
+targetGroup:
+  protocol: HTTPS
+  port: 8443
+  healthCheck:
+    path: /ping
+    protocol: HTTPS
+    matcher: "200"
+    interval: 60
+    timeout: 10
+    healthyThreshold: 2
+    unhealthyThreshold: 3
